@@ -8,7 +8,7 @@
   - Governance
 
 # ICON network
-  - Testnet
+  - [Testnet](/docs/ICON_testnet.html)
   - Mainnet
   - Devnet
 
@@ -16,17 +16,17 @@
 
 # Client SDK
   - CLI (T-Bears)
-  - [Java SDK](https://icon-project.github.io/icon-sdk-java/quickstart/)
-  - [Python SDK](https://icon-project.github.io/icon-sdk-python/)
-  - [JSON-RPC API v3](https://icon-project.github.io/icon-rpc-server/docs/icon-json-rpc-v3.html)
+  - [Java SDK](https://github.com/icon-project/icon-sdk-java/blob/master/quickstart/README.md)
+  - [Python SDK](https://github.com/icon-project/icon-sdk-python/blob/master/README.md)
+  - [JSON-RPC API v3](https://github.com/icon-project/icon-rpc-server/blob/master/docs/icon-json-rpc-v3.md)
 
 # SCORE
-  - [T-Bears development suite](https://icon-project.github.io/t-bears/)
-  - [SCORE development](https://icon-project.github.io/icon-service/docs/dapp_guide.html)
+  - [T-Bears Development Suite](https://github.com/icon-project/t-bears/blob/master/README.md)
+  - [SCORE Development](https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md)
 
-# [Mainnet Audit](https://icon-project.github.io/icon-service/docs/SCORE_audit.html)
-  - [Audit Checklist](https://icon-project.github.io/docs/HowToWrite_SCORE_v0.4-ko.html)
-  - [Deploy guideline](https://icon-project.github.io/docs/SCOREDeployGuide_v0.3-ko.html)
+# [Mainnet Audit](/docs/SCORE_audit.html)
+  - [Audit Checklist](/docs/HowToWrite_SCORE_v0.4-ko.html)
+  - [Deploy Guideline](/docs/SCOREDeployGuide_v0.3-ko.html)
 
 # Tutorials
-  - Quickstart guide
+  - Quickstart Guide

@@ -1,0 +1,45 @@
+---
+---
+
+@import "jekyll-theme-slate";
+
+#menu {
+  position: absolute;
+  width: 210px;
+  z-index: 10;
+  bottom: -40px;
+  right: 0;
+  height: 70px;
+  background: url('../images/icon_download.png') no-repeat 0% 90%;
+}
+
+.home_link {
+  display: block;
+  float: right;
+  width: 90px;
+  height:70px;
+  text-indent: -5000px;
+  overflow: hidden;
+  background: url(../images/menu.png) no-repeat bottom right;
+}
+
+.issues_link {
+  display: block;
+  float: right;
+  width: 90px;
+  height:70px;
+  text-indent: -5000px;
+  overflow: hidden;
+  background: url(../images/menu.png) no-repeat bottom left;
+  margin-left: 10px;
+}
+
+.home_link:hover {
+  background: url(../images/menu.png) no-repeat top right;
+}
+
+.issues_link:hover {
+  background: url(../images/menu.png) no-repeat top left;
+}
+
+

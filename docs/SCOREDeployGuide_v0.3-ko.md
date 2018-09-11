@@ -14,16 +14,16 @@ ICON 네트워크의 auditor(s)은 DAPP 개발자가 deploy한 SCORE 위험성 �
 ## Preparation
 DAPP 개발자가 SCORE를 deploy하기 위해서는 수수료를 지불할만큼의 잔액이 있는 지갑을 소유해야 한다.
 
-### tbears
-[ICON SCORE development suite (tbears) TUTORIAL](https://icondev.io/gettingStart01.do)을 참조하여 설치한다.
+### T-Bears
+[ICON SCORE development suite (T-Bears) TUTORIAL](https://github.com/icon-project/t-bears/blob/master/README.md)을 참조하여 설치한다.
 
 ### Wallet
 Deploy할 때 사용하는 지갑은 ICONex에서 만들수 있다.
 ICONex는 [https://icon.foundation/](https://icon.foundation/)의 wallet 메뉴로 진입하여 chrome extension 형식으로 설치한다. 지갑을 생성하고, deploy 때 수수료로 사용할 일정 금액을 예치하여 둔다.
-ICONex의 Backup wallet 메뉴로 백업한 keystore 파일은 tbears에서 deploy할 때 사용한다.
+ICONex의 Backup wallet 메뉴로 백업한 keystore 파일은 T-Bbears에서 deploy할 때 사용한다.
 ![](./images/wallet_backup.png)
 
-지갑은 tbears에서 직접 생성할 수도 있는데, 이 경우 ICONex에  등록할 수 있다.
+지갑은 T-Bears에서 직접 생성할 수도 있는데, 이 경우 ICONex에  등록할 수 있다.
 
 ```bash
 (work) $ tbears keystore key_DAPPDEV.txt
@@ -35,14 +35,14 @@ Made keystore file successfully
 ```
 ![](./images/wallet_load.png)
 
-### tracker
+### Tracker
 ICON 네트워크는 블록과 transaction의 상태를 조회할 수 있는 시스템인 tracker(https://tracker.icon.foundation/)를 제공한다. tracker를 사용하여 DAPP 개발자는 SCORE의 상태를 조회 할 수 있다.
 ![](./images/tracker.png)
 
-##deploy
+## Deploy
 
 ### tbears deploy install
-tbears config 파일(tbears_cli_config.json)의 uri와 keyStore, contentType, mode를 확인한다.
+T-Bears config 파일(tbears_cli_config.json)의 uri와 keyStore, contentType, mode를 확인한다.
 uri에는 MainNet의 uri를 keyStore에는 deploy 개발자의 keystore 파일을 설정한다.
 
 ```text
@@ -80,7 +80,7 @@ tracker에서 transaction hash(위의 명령어의 결과) 값으로 SCORE가 de
 
 ![](./images/deploy_2.png)
 
-tbears 에서 해당 transaction hash값으로 transaction의 결과를 조회할 수 있는데, deploy되었다는 것만 확인 가능하다.
+T-Bears 에서 해당 transaction hash값으로 transaction의 결과를 조회할 수 있는데, deploy되었다는 것만 확인 가능하다.
 ```bash
  (work) $ tbears txbyhash 0x469fce37cf1e7fb9892e1333a15d4e20f86e8f010b56fe0708bd89246dedcfbf
  Transaction: {
@@ -110,7 +110,7 @@ tbears 에서 해당 transaction hash값으로 transaction의 결과를 조회�
 }
 ```
 
-tbears에서 SCORE address값으로 score api를 확인할 수 있는데, 해당 SCORE가 active가 아닌 경우(Pending or Rejected) 에는 아래와 같이 결과가 에러이다.
+T-Bears에서 SCORE address값으로 score api를 확인할 수 있는데, 해당 SCORE가 active가 아닌 경우(Pending or Rejected) 에는 아래와 같이 결과가 에러이다.
 
 ```bash
 (work) $ tbears scoreapi cx6177643ef0da653ce2f1c62c6220033e2d25e5cf
@@ -155,7 +155,7 @@ Active 상태의 SCORE는 ICON 네트워크에서 동작하게 된다.
 ### tbears deploy update
 Active 상태의 SCORE에 대해서 동일한 지갑을 가지고 update를 할 수 있다.
 
-tbears config 파일(tbears_cli_config.json)에서 deploy mode를 update로 설정하거나 명령어에서 지정한다.
+T-Bears config 파일(tbears_cli_config.json)에서 deploy mode를 update로 설정하거나 명령어에서 지정한다.
 
 ```text
 "deploy": {
@@ -180,7 +180,7 @@ tracker 수정 후 화면 캡쳐 추가 예정
 ![](./images/deploy_update_contract.png)
 
 ## Audit Rejected
-Audtor에 의해 SCORE가 reject 되면, SCORE 조회 화면에서 다음과 같이 확인할 수 있다.
+Auditor에 의해 SCORE가 reject 되면, SCORE 조회 화면에서 다음과 같이 확인할 수 있다.
 
 ![](./images/rejected_1.png)
 Reject 상세 이유는는 reject transaction에서 사유를 확인할 수 있다.
@@ -188,7 +188,7 @@ Reject 상세 이유는는 reject transaction에서 사유를 확인할 수 있�
 ![](./images/rejected_2.png)
 tbears scoreapi는 최종 activte된 SCORE를 반환한다. 
 
-## TroubleShooting
+## Troubleshooting
 1. 수수료를 지불할 수 없는 경우
 
 ```bash
