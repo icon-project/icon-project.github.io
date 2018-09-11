@@ -22,3 +22,6 @@ Guide succint pour votre test rapide:
 - Appel de fonction de SCORE : 
 
 Pour plus d'information, merci de regarder [Frais de transaction](/).
+
+---
+[Document de référence](https://github.com/icon-project/icon-project.github.io/blob/eb4c63ed3a14a592ff51412e9d6aca3350f2c1a0/docs/ICON_testnet.md)

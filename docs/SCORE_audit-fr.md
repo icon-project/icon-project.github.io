@@ -28,3 +28,6 @@ Pour passer un audit d'ICON, nous vous recommandons de procéder à la liste sui
 ## Notes
 
 Ce processus d'audit devrait être temporaire puisque le réseau d'ICON courant n'en est encore qu'à ses balbutiements en tant que réseau public. Nous confirmons que nous n'avons pas l'intention d'avoir un contrôle sur les DApps. Notre première priorité est de maintenir le réseau d'ICON aussi stable que possible, et de minimiser tout impact négatif, s'il y en a, de nos partenaires qui se servent d'ICON.
+
+---
+[Document de référence](https://github.com/icon-project/icon-project.github.io/blob/eb4c63ed3a14a592ff51412e9d6aca3350f2c1a0/docs/SCORE_audit.md)
