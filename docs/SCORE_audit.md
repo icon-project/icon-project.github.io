@@ -17,7 +17,7 @@ To pass an ICON audit, we recommend you do the following.
 
 ## Audit Process
 
-- You request to “deploy” your SCORE to the ICON mainnet from the tbrears CLI.
+- You request to “deploy” your SCORE to the ICON mainnet from the T-Bears CLI.
 - Your SCORE becomes in “pending” state, if the deploy transaction succeeded.
 - You can query your SCORE’s state by sending an API call to a special address using SDKs (Java, Python) or on the ICONex.
   - Address : cx0000000000000000000000000000000000000001

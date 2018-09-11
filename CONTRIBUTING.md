@@ -7,7 +7,7 @@ Thank you for your interest in contributing to ICON documentation project. You a
 - Fork the repository on GitHub.
 - For any non-trivial, significant work, please consider creating a feature branch. 
 - Check for unnecessary whitespace with `git diff --check` before committing.
-- Push your changes to the remote.
+- Push your changes to the remote branch.
 - Make a pull request.
 
 ## Types of documentation contribution
