@@ -8,7 +8,7 @@
   - Gouvernance
 
 # Réseau d'ICON
-  - [Réseau de test](https://icon-project.github.io/docs/ICON_testnet.html) (Testnet)
+  - [Réseau de test](https://icon-project.github.io/docs/ICON_testnet-fr.html) (Testnet)
   - Réseau principal (Mainnet)
   - Réseau de développement (Devnet)
 
@@ -24,7 +24,7 @@
   - [Suite de Développement T-Bears](https://github.com/icon-project/t-bears/blob/master/README.md)
   - [Développement du SCORE](https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md)
 
-# [Audit du Mainnet](https://icon-project.github.io/docs/SCORE_audit.html)
+# [Audit du Mainnet](https://icon-project.github.io/docs/SCORE_audit-fr.html)
   - [Liste de choses à vérifier](https://icon-project.github.io/docs/HowToWrite_SCORE_v0.4-ko.html)
   - [Guide de bonne conduite pour le déploiement](https://icon-project.github.io/docs/SCOREDeployGuide_v0.3-ko.html)
 
