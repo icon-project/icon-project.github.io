@@ -6,14 +6,14 @@
 | Identifiant du réseau  | TBA |
 | Tracker                | TBA |
 
-Étapes activées sur le testnet.
+*Steps* activées sur le testnet.
 Pour recevoir des ICX sur le testnet, merci d'envoyer un email à `testicx@icon.foundation` avec les informations suivantes.
 - URL du nœud testnet
 - Addresse de réception des ICX de testnet. Il s'agit d'une chaîne de caractères débutant par `hx`.
 
-### Étape 
-- étape max = 0x78000000
-- étape min = 0xf4240
+### *Step*
+- *Step* max = 0x78000000
+- *Step* min = 0xf4240
 
 Guide succint pour votre test rapide:
 - Installation de déploiement de SCORE : 
