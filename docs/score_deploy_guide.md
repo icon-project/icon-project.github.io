@@ -83,7 +83,7 @@ If you choose "Contract Created" in the screen above, you can check the status o
 
 ![](./images/deploy_2.png)
 
-On T-Bears, you can also get the transaction results by transaction hash. In the result, you can get the SCORE address, `scoreAddress` in the below sample. Note that SCORE address is assigned before passing the audit. You can not check the audit status from T-Bears CLI. 
+On T-Bears, you can also get the transaction results using the transaction hash. In the result, you can get the SCORE address in the `scoreAddress` field as shown below. Note that the SCORE address is assigned before passing the audit, it doesn't mean it has been accepted yet.
 
 ```bash
 (work) $ tbears txresult 0x469fce37cf1e7fb9892e1333a15d4e20f86e8f010b56fe0708bd89246dedcfbf
@@ -107,7 +107,7 @@ On T-Bears, you can also get the transaction results by transaction hash. In the
 }
 ```
 
-However, if you run `tbears scoreapi` against the SCORE address, and the SCORE is not active (pending or rejected), an error message will return as shown below.
+You may notice from the result above that the command `tbears txresult` doesn't return the audit status. Furthermore, if you run `tbears scoreapi` against the SCORE address, and the SCORE is not active (pending or rejected), an error message will be returned as shown below.
 
 ```bash
 (work) $ tbears scoreapi cx6177643ef0da653ce2f1c62c6220033e2d25e5cf
@@ -121,11 +121,13 @@ Can not get cx6177643ef0da653ce2f1c62c6220033e2d25e5cf's API
     "id": 1   
 }
 ```
-If the auditor accepts the audit result, SCORE status will become 'active'. You can check the SCORE status on the tracker.
+
+As you cannot review your SCORE status using tbears CLI until the SCORE is active, as a workaround you can check the SCORE status on the tracker.
+The SCORE status will become 'active' only when the auditor accepts the audit result.
 
 ![](./images/score_active.png)
 
-Then, `tbears scoreapi` will return the valid result as shown below (actual result may vary depending on the implementation). Now, the SCORE is actually running on the ICON network. 
+Once active, `tbears scoreapi` will return the valid result as shown below (actual result may vary depending on the implementation). At this point, the SCORE is actually running on the ICON network. 
 
 ```
 (work) $ tbears scoreapi cx6177643ef0da653ce2f1c62c6220033e2d25e5cf
