@@ -1,13 +1,13 @@
 # SCORE Deploy Guide
 이 문서는 ICON 네트워크에서 SCORE(Smart Contract on Reliable Environment)를 배포하는 방법에 대해 설명한다.
 
-SCORE의 배포는 tbears를 통해 가능하며, DAPP 개발자는 수수료를 지불할 수 있는 지갑이 필요하다. 한번 배포 완료된 SCORE의 갱신은 동일한 지갑 주소로만 가능하다.
+SCORE의 배포는 T-Bears를 통해 가능하며, DAPP 개발자는 수수료를 지불할 수 있는 지갑이 필요하다. 한번 배포 완료된 SCORE의 갱신은 동일한 지갑 주소로만 가능하다.
 
 ICON 네트워크 상에서 동작하는 SCORE는 의도적으로 혹은 실수에 의해 ICON 네트워크를 공격할 수 있다. ICON 네트워크는 소수에 의해 다수가 공격당하는 현상을 사전에 막기 위해 SCORE audit과정을 포함하였다. SCORE audit은 ICON MainNet에서만 이루어진다.
 
 ICON 네트워크의 auditor(s)은 DAPP 개발자가 deploy한 SCORE 위험성 여부를 사전 조사하여 SCORE를 accept 또는 reject 하며, auditor가 accept한 SCORE만 ICON 네트워크 상에서 동작할 수 있다.
 
-다음은 SCORE의 상태 diagram이다. DAPP 개발자가 tbears를 통해 SCORE를 deploy하면, 해당 SCORE는 ICON 네트워크 상에서 Pending 상태로 등록된다. 이 상태에서는 SCORE가 동작하지 않으며, ICON 네트워크의 auditor를 통해서 accept가 된 이후에야 동작하게 된다. ICON 네트워크에 위협을 가할 만하다고 판단되면, auditor는 해당 SCORE를 reject 할수 있다. 한번 active된 SCORE는 필요한 경우 동일한 DAPP 개발자(동일한 지갑)에 의해 deploy update가 가능하며, update된 SCORE의 accept가 이뤄질 때까지 이전 SCORE가 호출되게 된다.
+다음은 SCORE의 상태 diagram이다. DAPP 개발자가 T-Bears를 통해 SCORE를 deploy하면, 해당 SCORE는 ICON 네트워크 상에서 Pending 상태로 등록된다. 이 상태에서는 SCORE가 동작하지 않으며, ICON 네트워크의 auditor를 통해서 accept가 된 이후에야 동작하게 된다. ICON 네트워크에 위협을 가할 만하다고 판단되면, auditor는 해당 SCORE를 reject 할수 있다. 한번 active된 SCORE는 필요한 경우 동일한 DAPP 개발자(동일한 지갑)에 의해 deploy update가 가능하며, update된 SCORE의 accept가 이뤄질 때까지 이전 SCORE가 호출되게 된다.
 
 ![](./images/state_diagram.png)
 
@@ -188,7 +188,7 @@ Reject 상세 이유는는 reject transaction에서 사유를 확인할 수 있�
 ![](./images/rejected_2.png)
 tbears scoreapi는 최종 activte된 SCORE를 반환한다. 
 
-## Troubleshooting
+## Common Errors
 1. 수수료를 지불할 수 없는 경우
 
 ```bash

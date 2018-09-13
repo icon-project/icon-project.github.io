@@ -57,10 +57,10 @@ while True:
   // do something
 
 # Good
-i = 0;
+i = 0
 while i < 10:
   // do something
-  i++;
+  i+= 1
 ```
 
 ## import 금지
@@ -84,7 +84,7 @@ os.uname()
 ```
 
 ## 합의에 도달할 수 없는 랜덤 함수 사용 금지
-SCORE에서 무작위성이 필요한 경우 랜덤 함수를 사용하는데, 무작위성을 높이다 보면 노드간 합의에 이루지 못할수 있습니다. 어떤 시점에 합의에 참여하지 못한 minority node가 되면 더 이상 노드로써 역할을 못하게 됩니다. 이는 ICON 네트워크의 지속성에 문제를 일으키게 됩니다. 따라서 합의에 이를 수 없는 랜덤 함수 사용을 금지 합니다.
+SCORE에서 무작위성이 필요한 경우 랜덤 함수를 사용하는데, 무작위성을 높이다 보면 노드간 합의에 이루지 못할수 있습니다. 합의에 이르지 못하면 해당 블록에 포함된 모든 트랜잭션은 취소됩니다. 이는 ICON 네트워크의 지속성에 문제를 일으키게 됩니다. 따라서 합의에 이를 수 없는 랜덤 함수 사용을 금지 합니다.
 
 ```python
 # Bad
@@ -106,22 +106,22 @@ Token을 정의하는 SCORE을 제작 할 경우 [IRC2 ICON Token Standard](http
 ```python
 # IRC2 에 명시된 함수 리스트
 @external(readonly=True)
+def name(self) -> str:
+
+@external(readonly=True)
+def symbol(self) -> str:
+
+@external(readonly=True)
+def decimals(self) -> int:
+
+@external(readonly=True)
 def totalSupply(self) -> int:
 
 @external(readonly=True)
 def balanceOf(self, _owner: Address) -> int:
 
-@external(readonly=True)
-def decimals(self) -> int:
-
 @external
-def transfer(self, _to: Address, _value: int, _data: bytes = None) -> bool:
-
-@external(readonly=True)
-def name(self) -> str:
-
-@external(readonly=True)
-def symbol(self) -> str:
+def transfer(self, _to: Address, _value: int, _data: bytes=None):      
 ```
 
 ## IRC2 Token Standard에 명시된 parameter 이름 사용
@@ -228,4 +228,4 @@ won = block.height % 2 == 0
 ## Time Manipulation
 @ TBD
 
-End.
+
