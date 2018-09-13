@@ -32,4 +32,4 @@
   - Guide de démarrage rapide
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/blob/eb4c63ed3a14a592ff51412e9d6aca3350f2c1a0/README.md)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/blob/7321cb5478a2576935851e0bc96ff4f92a9c3f0a/README.md)
