@@ -1,13 +1,13 @@
 # SCORE Deploy Guide
 This document explains the deploy process of SCORE (Smart Contract on Reliable Environment) in the ICON network.
 
-Distribution of SCORE is possible through T-Bears, and DAPP developers will need a wallet to pay the transaction fee. Update of SCORE that has already been distributed, is only possible through the same wallet address. 
+Distribution of SCORE is possible through T-Bears, and DAPP developers will need a wallet to pay the transaction fee. Update of SCORE that has already been distributed is only possible through the same wallet address. 
 
 SCORE, which runs on the ICON network, may attack the ICON network intentionally or by mistake. The ICON network adops the SCORE audit process to prevent many from being attacked by the few in advance. SCORE audit is conducted on ICON Mainnet only.
 
-The auditor(s) of ICON network conduct pre-investigation on SCORE deployed by DAPP developers, to determine risk factors. SCORE can be "accepted" or "rejected," and only SCORE that has been "accepted" by the auditor can operate in the ICON network.
+The auditor(s) of ICON network conduct pre-investigation on SCORE deployed by DAPP developers to determine risk factors. SCORE can be "accepted" or "rejected," and only SCORE that has been "accepted" by the auditor can operate in the ICON network.
 
-Next is the state diagram of SCORE. If DAPP developers request to deploy the SCORE through T-Bears, the SCORE will be registered as “pending” in the ICON network. Only after it is accepted by the auditor, will it be installed. If it is determined that it poses a threat to the ICON network, auditor will “reject” the SCORE. Once activated, initial deployer can update the SCORE, and the previous SCORE will remain active while the updated SCORE is in pending status.
+Next is the state diagram of SCORE. If DAPP developers request to deploy the SCORE through T-Bears, the SCORE will be registered as “pending” in the ICON network. It will be installed only after it is accepted by the auditor. If it is determined that it poses a threat to the ICON network, auditor will “reject” the SCORE. Once activated, initial deployer can update the SCORE, and the previous SCORE will remain active while the updated SCORE is in pending status.
 
 ![](./images/state_diagram.png)
 
@@ -20,7 +20,7 @@ Please refer to [ICON SCORE development suite (tbears) TUTORIAL](https://github.
 ### Wallet
 You can create a wallet in ICONex.
 
-ICONex can be accessed in the Wallet menu of https://icon.foundation/ and installed as a chrome extension. You can deposit a certain amount of ICX, and transacton fee will be deducted from your balance.   After creating the wallet, you can back up the keystore file, which will be used when deploying the SCORE from T-Bears CLI.
+ICONex can be accessed in the Wallet menu of https://icon.foundation/ and installed as a chrome extension. You can deposit a certain amount of ICX, and transacton fee will be deducted from your balance. After creating the wallet, you can back up the keystore file, which will be used when deploying the SCORE from T-Bears CLI.
 
 ![](./images/wallet_backup.png)
 
@@ -37,7 +37,7 @@ Made keystore file successfully
 ![](./images/wallet_load.png)
 
 ### Tracker
-ICON network provides tracker(https://tracker.icon.foundation/), which enables you to access the status of block and transaction. 
+ICON network provides a tracker (https://tracker.icon.foundation/), which enables you to access the status of any block and transaction. 
 
 ![](./images/tracker.png)
 
@@ -66,7 +66,7 @@ In `uri`, you set the uri of Mainnet, while in `keyStore`, you should set the pa
 }
 
 ```
-Deploy the SCORE of your choice. In the following, SCORE named "abc,"was deployed. 
+Deploy the SCORE of your choice. In the following, SCORE named "abc" was deployed. 
 
 ```bash
 (work) $ tbears deploy abc
@@ -77,13 +77,13 @@ Send deploy request successfully.
 
 transaction hash: 0x469fce37cf1e7fb9892e1333a15d4e20f86e8f010b56fe0708bd89246dedcfbf
 ```
-You can verify the result of SCORE deployment by the transaction hash (the result of the command above) in tracker.  ![](./images/deploy_1.png)
+You can verify the result of SCORE deployment by the transaction hash (the result of the command above) in tracker. ![](./images/deploy_1.png)
 
-If you choose "Contract Created" in the screen above, you can check the status of SCORE audit. The status is  "pending" until the auditor accepts it.
+If you choose "Contract Created" in the screen above, you can check the status of SCORE audit. The status is "pending" until the auditor accepts it.
 
 ![](./images/deploy_2.png)
 
-On T-Bears, you can also get the transaction results by transaction hash. In the result, you can get the SCORE address, `scoreAddress` in the below sample.  Note that SCORE address is assigned before passing the audit. You can not check the audit status from T-Bears CLI. 
+On T-Bears, you can also get the transaction results using the transaction hash. In the result, you can get the SCORE address in the `scoreAddress` field as shown below. Note that the SCORE address is assigned before passing the audit, it doesn't mean it has been accepted yet.
 
 ```bash
 (work) $ tbears txresult 0x469fce37cf1e7fb9892e1333a15d4e20f86e8f010b56fe0708bd89246dedcfbf
@@ -107,7 +107,7 @@ On T-Bears, you can also get the transaction results by transaction hash. In the
 }
 ```
 
-However, if you run `tbears scoreapi` against the SCORE address, and the SCORE is not active (pending or rejected), an error message will return as shown below.
+You may notice from the result above that the command `tbears txresult` doesn't return the audit status. Furthermore, if you run `tbears scoreapi` against the SCORE address, and the SCORE is not active (pending or rejected), an error message will be returned as shown below.
 
 ```bash
 (work) $ tbears scoreapi cx6177643ef0da653ce2f1c62c6220033e2d25e5cf
@@ -121,11 +121,13 @@ Can not get cx6177643ef0da653ce2f1c62c6220033e2d25e5cf's API
     "id": 1   
 }
 ```
-If the auditor accepts the audit result, SCORE status will become 'active'. You can check the SCORE status on the tracker.
+
+As you cannot review your SCORE audit status using tbears CLI until the SCORE is active, as a workaround you can check the SCORE audit status on the tracker.
+The SCORE status will become 'active' only when the auditor accepts the audit result.
 
 ![](./images/score_active.png)
 
-Then, `tbears scoreapi` will return the valid result as shown below (actual result may vary depending on the implementation.). Now, the SCORE is actually running on the ICON network. 
+Once active, `tbears scoreapi` will return the valid result as shown below (actual result may vary depending on the implementation). At this point, the SCORE is actually running on the ICON network. 
 
 ```
 (work) $ tbears scoreapi cx6177643ef0da653ce2f1c62c6220033e2d25e5cf
@@ -171,7 +173,7 @@ transaction hash: 0x95fd26a68ea60fe223a9a80cf5a54ab0cb7a895d65fa4836a2fc74380b23
 ```
 ![](./images/deploy_update.png)
 
-If you click "Contract Updated" in the screen above, you can see the detail screen of the SCORE. You can see the state of the current SCORE, which is "active".  In the transaction list, you can see "Contract Updated", which means it is in "pending" status. After audit finishes, "Contract Accepted" or "Contract Rejected" transaction will appear.
+If you click "Contract Updated" in the screen above, you can see the detail screen of the SCORE. You can see the state of the current SCORE, which is "active". In the transaction list, you can see "Contract Updated", which means it is in "pending" status. After audit finishes, "Contract Accepted" or "Contract Rejected" transaction will appear.
 
 ![](./images/deploy_update_contract.png)
 
