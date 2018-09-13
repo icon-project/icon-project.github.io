@@ -153,8 +153,6 @@ SCORE API: [
 ```
 
 ### tbears deploy update
-
-### tbears deploy update
 Le déployeur initial peut mettre à jour son SCORE.
 
 Vous pouvez exécuter la commande `tbears deploy` avec l'option -m, ou changer le mode 'deploy' sur 'update' dans le fichier 'tbears_cli_config.json'.
