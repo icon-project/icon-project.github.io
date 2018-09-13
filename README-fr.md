@@ -26,7 +26,7 @@
 
 # [Audit de SCORE](https://icon-project.github.io/docs/score_audit-fr.html)
   - [Liste de choses à vérifier](https://icon-project.github.io/docs/audit_checklist-ko.html)
-  - [Guide de déploiement](https://icon-project.github.io/docs/score_deploy_guide.html)
+  - [Guide de déploiement](https://icon-project.github.io/docs/score_deploy_guide-fr.html)
 
 # Tutoriels
   - Guide de démarrage rapide
