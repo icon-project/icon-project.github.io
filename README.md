@@ -5,7 +5,7 @@
   - Transaction Fees
   - IISS
   - BTP
-  - Governance
+  - Governance - [ICONstitution and Governance](https://icon.foundation/resources/file/ICON_Yellowpaper_ICONstitution_and_Governance_EN_V1.0.pdf) 
 
 # ICON network
   - [Testnet](https://icon-project.github.io/docs/icon_testnet.html)

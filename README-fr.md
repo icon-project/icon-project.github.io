@@ -5,7 +5,7 @@
   - Frais de transaction
   - IISS
   - BTP
-  - Gouvernance
+  - Gouvernance - [ICONstitution and Governance](https://icon.foundation/resources/file/ICON_Yellowpaper_ICONstitution_and_Governance_EN_V1.0.pdf)
 
 # Réseau d'ICON
   - [Réseau de test](https://icon-project.github.io/docs/icon_testnet-fr.html) (Testnet)
