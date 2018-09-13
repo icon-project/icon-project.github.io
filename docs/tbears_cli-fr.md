@@ -30,5 +30,5 @@ $ tbears [-h] [-d] commande ...
 | blockbyheight | Récupère les informations d'un bloc grâce à la hauteur du bloc. |
 | blockbyhash | Récupère les informations d'un bloc grâce au hash du bloc. |
 
---
+---
 [Document de référence](https://github.com/icon-project/icon-project.github.io/blob/861ef5bc09c75a367150b40d89def84c57c0ccc9/docs/tbears_cli.md)
