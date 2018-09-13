@@ -83,7 +83,7 @@ If you choose "Contract Created" in the screen above, you can check the status o
 
 ![](./images/deploy_2.png)
 
-On T-Bears, you can also get the transaction results using the transaction hash. In the result, you can get the SCORE address in the `scoreAddress` field as shown below. Note that the SCORE address is assigned before passing the audit, it doesn't mean it has been accepted yet.
+On T-Bears, you can also get the transaction results using the transaction hash. In the result, you can get the SCORE address in the `scoreAddress` field as shown below. Note that the SCORE address is assigned before passing the audit, it doesn't mean it has been accepted.
 
 ```bash
 (work) $ tbears txresult 0x469fce37cf1e7fb9892e1333a15d4e20f86e8f010b56fe0708bd89246dedcfbf

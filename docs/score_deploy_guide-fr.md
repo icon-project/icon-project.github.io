@@ -85,7 +85,7 @@ Si vous choisissez "Contract Created" dans l'écran ci-dessus, vous pouvez véri
 
 ![](./images/deploy_2.png)
 
-Sur T-Bears, vous pouvez aussi récupérer le résultat de la transaction grâce au hash de la transaction. Dans le résultat, vous pouvez récupérer l'adresse du SCORE dans le champ `scoreAddress` comme montré dans l'exemple ci-dessous. Notez que l'adresse du SCORE est assignée avant de passer l'audit, cela ne veut pas dire qu'il a déjà été accepté.
+Sur T-Bears, vous pouvez aussi récupérer le résultat de la transaction grâce au hash de la transaction. Dans le résultat, vous pouvez récupérer l'adresse du SCORE dans le champ `scoreAddress` comme montré dans l'exemple ci-dessous. Notez que l'adresse du SCORE est assignée avant de passer l'audit, cela ne veut pas dire qu'il a été accepté.
 
 ```bash
 (work) $ tbears txresult 0x469fce37cf1e7fb9892e1333a15d4e20f86e8f010b56fe0708bd89246dedcfbf
@@ -214,4 +214,4 @@ Got an error response
 ```
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/blob/861ef5bc09c75a367150b40d89def84c57c0ccc9/docs/score_deploy_guide.md)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/blob/1b430f81c2fa7b6dd919ddce3ef0df3af76ba8a8/docs/score_deploy_guide.md)
