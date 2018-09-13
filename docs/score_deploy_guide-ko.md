@@ -80,7 +80,7 @@ tracker에서 transaction hash(위의 명령어의 결과) 값으로 SCORE가 de
 
 ![](./images/deploy_2.png)
 
-T-Bears 에서 해당 transaction hash값으로 transaction의 결과를 조회할 수 있는데, SCORE 주소를 확인할 수 있다. 아래 예제에서 scoreAddress값에 해당한다.
+T-Bears 에서 해당 transaction hash값으로 transaction의 결과를 조회할 수 있는데, SCORE 주소를 확인할 수 있다. 아래 예제에서 scoreAddress값에 해당한다. 그러나, audit 상태는 확인할 수 없다.
 ```bash
 (work) $ tbears txresult 0x469fce37cf1e7fb9892e1333a15d4e20f86e8f010b56fe0708bd89246dedcfbf
  Transaction result: {
