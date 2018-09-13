@@ -80,33 +80,26 @@ tracker에서 transaction hash(위의 명령어의 결과) 값으로 SCORE가 de
 
 ![](./images/deploy_2.png)
 
-T-Bears 에서 해당 transaction hash값으로 transaction의 결과를 조회할 수 있는데, deploy되었다는 것만 확인 가능하다.
+T-Bears 에서 해당 transaction hash값으로 transaction의 결과를 조회할 수 있는데, SCORE 주소를 확인할 수 있다. 아래 예제에서 scoreAddress값에 해당한다.
 ```bash
- (work) $ tbears txbyhash 0x469fce37cf1e7fb9892e1333a15d4e20f86e8f010b56fe0708bd89246dedcfbf
- Transaction: {
-    "jsonrpc": "2.0",
-    "result": {
-        "version": "0x3",
-        "from": "hxdfa6882cc1eff62a9714f24a3c070eb2f62fa9fc",
-        "value": "0x0",
-        "stepLimit": "0x300000",
-        "timestamp": "0x57423de042ca4",
-        "nid": "0x3",
-        "nonce": "0x1",
-        "to": "cx0000000000000000000000000000000000000000",
-        "data": {
-            "contentType": "application/zip",
-            "content": 생략,
-            "params": {}
-        },
-        "dataType": "deploy",
-        "signature": "lcxudmeYzguYxMI0ggqlImKfX6CtRh5G76sG9eqzexZzLT4S56YOTCaf1H5WdmcZznVo8prsnpMeBsVAs8X1mwA=",
-        "txHash": "0x469fce37cf1e7fb9892e1333a15d4e20f86e8f010b56fe0708bd89246dedcfbf",
-        "txIndex": "0x0",
-        "blockHeight": "0x1857f",
-        "blockHash": "0x8214316329767353b9669265e2490a8c41a0889930eaaa11ddf5db096f937c0c"
-    },
-    "id": 1
+(work) $ tbears txresult 0x469fce37cf1e7fb9892e1333a15d4e20f86e8f010b56fe0708bd89246dedcfbf
+ Transaction result: {
+     "jsonrpc": "2.0",
+     "result": {
+         "txHash": "0x469fce37cf1e7fb9892e1333a15d4e20f86e8f010b56fe0708bd89246dedcfbf",
+         "blockHeight": "0x1",
+         "blockHash": "0x2e7012a444a49b69e7e31a6b8a5f7a38f7bd860ec5fcf896b15416169d1dc924",
+         "txIndex": "0x0",
+         "to": "cx0000000000000000000000000000000000000000",
+         "scoreAddress": "cx7990f4e8e224e238f5eca089ebf48c5351b7ce30",
+         "stepUsed": "0x216ee30",
+         "stepPrice": "0x0",
+         "cumulativeStepUsed": "0x216ee30",
+         "eventLogs": [],
+         "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+         "status": "0x1"
+     },
+     "id": 1
 }
 ```
 
@@ -186,7 +179,7 @@ Auditor에 의해 SCORE가 reject 되면, SCORE 조회 화면에서 다음과 �
 Reject 상세 이유는는 reject transaction에서 사유를 확인할 수 있다.
 
 ![](./images/rejected_2.png)
-tbears scoreapi는 최종 activte된 SCORE를 반환한다. 
+tbears scoreapi는 최종 activte된 SCORE를 반환한다.
 
 ## Common Errors
 1. 수수료를 지불할 수 없는 경우
