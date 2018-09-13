@@ -85,7 +85,7 @@ Si vous choisissez "Contract Created" dans l'écran ci-dessus, vous pouvez véri
 
 ![](./images/deploy_2.png)
 
-Sur T-Bears, vous pouvez aussi récupérer le résultat de la transaction grâce au hash de la transaction. Dans le résultat, vous pouvez récupérer l'adresse du SCORE, `scoreAddress` dans l'exemple ci-dessous. Notez que l'adresse du SCORE est assignée avant de passer l'audit. Vous ne pouvez pas vérifier le status de l'audit depuis la ligne de commande de T-Bears.
+Sur T-Bears, vous pouvez aussi récupérer le résultat de la transaction grâce au hash de la transaction. Dans le résultat, vous pouvez récupérer l'adresse du SCORE dans le champ `scoreAddress` comme montré dans l'exemple ci-dessous. Notez que l'adresse du SCORE est assignée avant de passer l'audit, cela ne veut pas dire qu'il a déjà été accepté.
 
 ```bash
 (work) $ tbears txresult 0x469fce37cf1e7fb9892e1333a15d4e20f86e8f010b56fe0708bd89246dedcfbf
@@ -108,8 +108,7 @@ Sur T-Bears, vous pouvez aussi récupérer le résultat de la transaction grâce
      "id": 1
 }
 ```
-
-Cependant, si vous lancez `tbears scoreapi` en utilisant l'adresse du SCORE, et que le SCORE n'est pas actif (en attente ou rejeté), un message d'erreur similaire à celui ci-dessous sera retourné.
+Vous pouvez remarquer que le résultat ci-dessus de la commande `tbears txresult` ne retourne pas le status de l'audit. De plus, si vous lancez `tbears scoreapi` en utilisant l'adresse du SCORE, et que le SCORE n'est pas actif (en attente ou rejeté), un message d'erreur similaire à celui ci-dessous sera retourné.
 
 ```bash
 (work) $ tbears scoreapi cx6177643ef0da653ce2f1c62c6220033e2d25e5cf
@@ -124,11 +123,12 @@ Can not get cx6177643ef0da653ce2f1c62c6220033e2d25e5cf's API
 }
 ```
 
-Si l'auditeur accepte le résultat de l'audit, le status du SCORE deviendra 'active'. Vous pouvez vérifier le status du SCORE sur le tracker.
+Puisque vous ne pouvez pas consulter le status de votre SCORE en utilisant la ligne de commande de tbears jusqu'à ce que le SCORE soit actif, en attendant vous pouvez vérifier le status de l'audit sur le tracker.
+Le status du SCORE deviendra 'active' seulement lorsque l'auditeur accepte le résultat de l'audit.
 
 ![](./images/score_active.png)
 
-Par la suite, `tbears scoreapi` retournera un résultat valide comme montré ci-dessous (le résultat réel peut varier selon l'implementation). Passé ce point, le SCORE est opérationnel sur le réseau d'ICON.
+Une fois actif, `tbears scoreapi` retournera un résultat valide comme montré ci-dessous (le résultat réel peut varier selon l'implementation). Passé ce point, le SCORE est opérationnel sur le réseau d'ICON.
 
 ```
 (work) $ tbears scoreapi cx6177643ef0da653ce2f1c62c6220033e2d25e5cf
