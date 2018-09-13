@@ -4,6 +4,7 @@ T-Bears provides the command line interface to interact with the ICON network. I
 
 For detailed usage guideline, please see [T-Bears tutorial](https://github.com/icon-project/t-bears/blob/master/README.md). 
 To interact with the ICON network, you don’t need to `start` T-Bears service. 
+Instead, point to the remote ICON network using `-u` option, or update "uri" value in the tbears_cli_config.json file.
 Below listed CLI commands are ready to use after T-Bears installation.
 
 While every client SDKs expose same functions, one distinctive command of T-Bears is `deploy`. 
