@@ -122,7 +122,7 @@ Can not get cx6177643ef0da653ce2f1c62c6220033e2d25e5cf's API
 }
 ```
 
-As you cannot review your SCORE status using tbears CLI until the SCORE is active, as a workaround you can check the SCORE status on the tracker.
+As you cannot review your SCORE audit status using tbears CLI until the SCORE is active, as a workaround you can check the SCORE audit status on the tracker.
 The SCORE status will become 'active' only when the auditor accepts the audit result.
 
 ![](./images/score_active.png)
