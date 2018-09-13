@@ -15,7 +15,7 @@
 # Portefeuille
 
 # Client SDK
-  - [CLI (T-Bears)](https://icon-project.github.io/docs/tbears_cli.html)
+  - [CLI (T-Bears)](https://icon-project.github.io/docs/tbears_cli-fr.html)
   - [Java SDK](https://github.com/icon-project/icon-sdk-java/blob/master/quickstart/README.md)
   - [Python SDK](https://github.com/icon-project/icon-sdk-python/blob/master/README.md)
   - [JSON-RPC API v3](https://github.com/icon-project/icon-rpc-server/blob/master/docs/icon-json-rpc-v3.md)
