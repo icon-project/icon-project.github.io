@@ -26,7 +26,7 @@
 
 # [SCORE Audit](https://icon-project.github.io/docs/score_audit.html)
   - [Audit Checklist](https://icon-project.github.io/docs/audit_checklist-ko.html)
-  - [Deploy Guideline](https://icon-project.github.io/docs/score_deploy_guide-ko.html)
+  - [Deploy Guideline](https://icon-project.github.io/docs/score_deploy_guide.html)
 
 # Tutorials
   - Quickstart Guide

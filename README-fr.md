@@ -26,7 +26,7 @@
 
 # [Audit du Mainnet](https://icon-project.github.io/docs/score_audit-fr.html)
   - [Liste de choses à vérifier](https://icon-project.github.io/docs/audit_checklist-ko.html)
-  - [Guide de bonne conduite pour le déploiement](https://icon-project.github.io/docs/score_deploy_guide-ko.html)
+  - [Guide de bonne conduite pour le déploiement](https://icon-project.github.io/docs/score_deploy_guide.html)
 
 # Tutoriels
   - Guide de démarrage rapide
