@@ -5,7 +5,7 @@
   - Transaction Fees
   - IISS
   - BTP
-  - Governance
+  - Governance - [ICONstitution and Governance](https://icon.foundation/resources/file/ICON_Yellowpaper_ICONstitution_and_Governance_EN_V1.0.pdf) 
 
 # ICON network
   - [Testnet](https://icon-project.github.io/docs/icon_testnet.html)
@@ -15,7 +15,7 @@
 # Wallet
 
 # Client SDK
-  - CLI (T-Bears)
+  - [CLI (T-Bears)](https://icon-project.github.io/docs/tbears_cli.html)
   - [Java SDK](https://github.com/icon-project/icon-sdk-java/blob/master/quickstart/README.md)
   - [Python SDK](https://github.com/icon-project/icon-sdk-python/blob/master/README.md)
   - [JSON-RPC API v3](https://github.com/icon-project/icon-rpc-server/blob/master/docs/icon-json-rpc-v3.md)
