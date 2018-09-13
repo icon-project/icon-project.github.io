@@ -24,7 +24,7 @@
   - [Suite de Développement T-Bears](https://github.com/icon-project/t-bears/blob/master/README.md)
   - [Développement du SCORE](https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md)
 
-# [Audit du Mainnet](https://icon-project.github.io/docs/score_audit-fr.html)
+# [Audit de SCORE](https://icon-project.github.io/docs/score_audit-fr.html)
   - [Liste de choses à vérifier](https://icon-project.github.io/docs/audit_checklist-ko.html)
   - [Guide de bonne conduite pour le déploiement](https://icon-project.github.io/docs/score_deploy_guide.html)
 
