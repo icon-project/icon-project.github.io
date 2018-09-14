@@ -27,7 +27,8 @@ Listed below are the checklist grouped by severity.
 
 ## Timeout
 SCORE function must return fairly immediately. Blockchain is not for any long-running operation. 
-For example, if you implement token airdrop to many users, do not iterate over all users in a single function, handle each airdop separately instead..  
+For example, if you implement token airdrop to many users, do not iterate over all users in a single function. Handle each or partial airdrop(s) one by one instead.
+
 ```python
 
 # Bad
@@ -47,12 +48,12 @@ def airDropToken(self, _to: Address, _value: int, _data: bytes = None) -> bool:
 ```
 
 ## Unfinishing loop
-Use `for` and `while` statement carefully. Make it sure that the code always reaches the exit condition. 
+Use `for` and `while` statement carefully. Make sure that the code always reaches the exit condition. 
 If the operation inside the loop consumes `step`, the program will halt at some point. 
-However,if the code block inside the loop does not consume `step`, 
+However, if the code block inside the loop does not consume `step`, 
 i.e., Python built-in functions, then the program may hang there forever. 
-ICON network will force-kill the hanging task, but, still it may significantly degrade ICON network. 
-    
+ICON network will force-kill the hanging task, but, still it may significantly degrade ICON network.  
+
 ```python
 # Bad
 while True:
@@ -67,7 +68,7 @@ while i < 10:
 
 ## Package import
 SCORE must run in a sandboxed environment. 
-Package import is prohibited, except `iconservice` and the files in the same or sub-directory of the deplopying SCORE. 
+Package import is prohibited except `iconservice` and the files in the same or sub-directory of the deplopying SCORE. 
 
 ```python
 # Bad
@@ -80,6 +81,7 @@ from .myclass import *
 
 ## System call
 System call is prohibited. SCORE can not access any system resources.
+
 ```python
 # Bad
 import os
@@ -98,8 +100,9 @@ any attempt to prevent block generation by undeterministic operation is strictly
 won = datetime.datetime.now() % 2 == 0
 ```
 
-## Outboung network call
+## Outbound network call
 Outbound network call is prohibited. Outcome of network call from each node can be different. 
+
 ```python
 # Bad
 import socket
@@ -131,8 +134,8 @@ def balanceOf(self, _owner: Address) -> int:
 def transfer(self, _to: Address, _value: int, _data: bytes=None):      
 ```
 
-## IRC2 Token Standard parameter name
-When implementing IRC2 compliant token, make the parameter names in the function reamin the same 
+## IRC2 Token parameter name
+When implementing IRC2 compliant token, make the parameter names in the function remain the same 
 as defined in [IRC2 ICON Token Standard](https://github.com/icon-project/IIPs/blob/master/IIPS/iip-2.md).
 ```python
 # Bad
@@ -219,7 +222,5 @@ Output of pseudo random number generator can be predictable if random seed is re
 # block height is predictable.
 won = block.height % 2 == 0
 ```
-
-
 
 
