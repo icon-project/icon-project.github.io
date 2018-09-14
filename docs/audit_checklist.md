@@ -8,13 +8,13 @@ Listed below are the checklist grouped by severity.
 ## Severity level
 ### Critical
 - [Timeout](#timeout)
-- [Unfinished loop](#unfinished-loop)
+- [Unfinishing loop](#unfinishing-loop)
 - [Package import](#package-import)
 - [System call](#system-call)
 - [Randomness](#randomness)
 - [Outbound network call](#outbound-network-call)
-- [IRC2 Token Standard compliance](#irc2-token-standard에-compliance)
-- [IRC2 Token Standard parameter name](#irc2-token-standard-parameter-name)
+- [IRC2 Token Standard compliance](#irc2-token-standard-compliance)
+- [IRC2 Token parameter name](#irc2-token-parameter-name)
 - [Eventlog on Token Transfer](#eventlog-on-token-transfer)
 - [Eventlog without Token Transfer](#eventlog-without-token-transfer)
 - [ICXTransfer Eventlog](#icxtransfer-eventlog)
@@ -22,14 +22,8 @@ Listed below are the checklist grouped by severity.
 ### Warning
 - [External Function Parameter Check](#external-function-parameter-check)
 - [Internal Function Parameter Check](#internal-function-parameter-check)
-- [Predictable random function](#predictable-random-function)
-- [Unchecked Low Level Calls](#unchecked-low-level-calls)
-- [Fallback](#fallback)
-- [\_\_init__ Function](#\_\_init__-function)
-- [Underflow/Overflow](#underflowoverflow)
-- [Vault](#vault)
-- [Reentrancy](#reentrancy)
-- [Time Manipulation](#time-manipulation)
+- [Predictable arbitrarity](#predictable-arbitrarity)
+
 
 ## Timeout
 SCORE function must return fairly immediately. Blockchain is not for any long-running operation. 
@@ -52,7 +46,7 @@ def airDropToken(self, _to: Address, _value: int, _data: bytes = None) -> bool:
   self._transfer(self.msg.sender, _to, _value, _data)
 ```
 
-## Unfinished loop
+## Unfinishing loop
 Use `for` and `while` statement carefully. Make it sure that the code always reaches the exit condition. 
 If the operation inside the loop consumes `step`, the program will halt at some point. 
 However,if the code block inside the loop does not consume `step`, 
@@ -226,12 +220,6 @@ Output of pseudo random number generator can be predictable if random seed is re
 won = block.height % 2 == 0
 ```
 
-## Unchecked Low Level Calls
-## Fallback
-## \_\_init__ Function
-## Underflow/Overflow
-## Vault
-## Reentrancy
-## Time Manipulation
+
 
 
