@@ -5,6 +5,7 @@ Audit results will come as Pass/Fail/NA for each Critical items, and Pass/Warnin
 If any Critical item is determined to be Fail, the SCORE deployement will be rejected. 
 
 Listed below are the checklist grouped by severity. 
+We assume that you have read [this](https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md), and understand the basics of SCORE development. 
 ## Severity level
 ### Critical
 - [Timeout](#timeout)
