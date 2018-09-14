@@ -33,7 +33,7 @@ For example, if you implement token airdrop to many users, do not iterate over a
 
 # Bad
 @external
-def airDropToken(self, _value:int, _data:bytes = None) -> bool:
+def airDropToken(self, _value: int, _data: bytes = None) -> bool:
   for target in self._very_large_targets:
     self._transfer(self.msg.sender, target, _value, _data)
 
@@ -52,7 +52,7 @@ Use `for` and `while` statement carefully. Make sure that the code always reache
 If the operation inside the loop consumes `step`, the program will halt at some point. 
 However, if the code block inside the loop does not consume `step`, 
 i.e., Python built-in functions, then the program may hang there forever. 
-ICON network will force-kill the hanging task, but, still it may significantly degrade ICON network.  
+ICON network will force-kill the hanging task, but it may still degrade significantly the ICON network.  
 
 ```python
 # Bad
@@ -68,7 +68,7 @@ while i < 10:
 
 ## Package import
 SCORE must run in a sandboxed environment. 
-Package import is prohibited except `iconservice` and the files in the same or sub-directory of the deplopying SCORE. 
+Package import is prohibited except `iconservice` and the files in your deployed SCORE folder tree. 
 
 ```python
 # Bad
@@ -89,10 +89,9 @@ os.uname()
 ```
 
 ## Randomness
-Execution result of SCORE must be deterministic. Unlesss, nodes can not reach a consensus. 
+Execution result of SCORE must be deterministic. Unless, nodes can not reach a consensus. 
 If nodes fail to reach a consensus, every transactions in the block will be lost.
-Therefore, not only random function, but 
-any attempt to prevent block generation by undeterministic operation is strictly prohibited.   
+Therefore, not only random function, but any attempt to prevent block generation by undeterministic operation is strictly prohibited.   
 
 ```python
 # Bad
@@ -155,9 +154,9 @@ def Transfer(self, _from: Address, _to: Address, _value: int, _data: bytes):
 
 @external
 def transfer(self, _to: Address, _value: int, _data: bytes = None) -> bool:
-    self._balances[self.msg.sender] -= value
-    self._balances[to_] += value
-    self.Transfer(self.msg.sender, _to, value, data)
+    self._balances[self.msg.sender] -= _value
+    self._balances[_to] += _value
+    self.Transfer(self.msg.sender, _to, _value, _data)
     return True
 ```
 
@@ -171,10 +170,10 @@ def Transfer(self, _from: Address, _to: Address, _value: int, _data: bytes):
 
 @external
 def transfer(self, _to: Address, _value: int, _data: bytes = None) -> bool:
-    // token transfer 하지 않음
-    self.Transfer(self.msg.sender, _to, value, data)
+    // no token transfer
+    self.Transfer(self.msg.sender, _to, _value, _data)
     return True
-```    
+```
 
 ## ICXTransfer Eventlog
 ICXTransfer Eventlog is reserved for ICX transfer. Do not implement the Eventlog with the same name. 
@@ -194,24 +193,24 @@ Values of parameters must be in a valid range.
 There is no size limit in `str` or `int` type in Python, however, transaction message shoud not exceed 512KB.    
 ```python
 # Bad
-def myTransfer( _value: int) -> bool:
+def myTransfer(_value: int) -> bool:
     ...
 myTransfer("1000")
 
 # Good
-def myTransfer( _value: int) -> bool:
+def myTransfer(_value: int) -> bool:
     ...
 myTransfer(1000)
 
 # Bad
-def myTransfer( _value: int, _extra: str) -> bool:
+def myTransfer(_value: int, _extra: str) -> bool:
     ...
 myTransfer(1000)
 
 # Good
-def myTransfer( _value: int, _extra: str) -> bool:
+def myTransfer(_value: int, _extra: str) -> bool:
     ...
-myTransfer(1000,'abc')
+myTransfer(1000, 'abc')
 ```
 
 ## Predictable arbitrarity

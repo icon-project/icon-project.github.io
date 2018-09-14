@@ -12,7 +12,7 @@
   - Réseau principal (Mainnet)
   - Réseau de développement (Devnet)
 
-# Portefeuille
+# [Gestion du compte](https://icon-project.github.io/docs/wallet-fr.html)
 
 # Client SDK
   - [CLI (T-Bears)](https://icon-project.github.io/docs/tbears_cli-fr.html)
@@ -25,11 +25,11 @@
   - [Développement du SCORE](https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md)
 
 # [Audit de SCORE](https://icon-project.github.io/docs/score_audit-fr.html)
-  - [Liste de choses à vérifier](https://icon-project.github.io/docs/audit_checklist-ko.html)
+  - [Liste de choses à vérifier](https://icon-project.github.io/docs/audit_checklist-fr.html)
   - [Guide de déploiement](https://icon-project.github.io/docs/score_deploy_guide-fr.html)
 
 # Tutoriels
   - Guide de démarrage rapide
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/blob/7321cb5478a2576935851e0bc96ff4f92a9c3f0a/README.md)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/blob/261dd6572654f461faf1ee886ffb791ee8475346/README.md)

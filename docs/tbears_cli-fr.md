@@ -19,8 +19,8 @@ $ tbears [-h] [-d] commande ...
 | keystore | Créer un fichier keystore. Génère une pair de clés privée et publique à l'aide de la bibliothèque secp256k1. |
 | deploy | Deploie le SCORE. |
 | scoreapi | Demande la liste des APIs qui sont exposées par le SCORE donné. |
-| call | Requête icx_call en utilisant le fichier json donné en entrée utiliseur. |
-| sendtx | Requête icx_sendTransaction en utilisant le fichier json donné en entrée utiliseur. |
+| call | Requête icx_call en utilisant le fichier json donné en entrée utilisateur. |
+| sendtx | Requête icx_sendTransaction en utilisant le fichier json donné en entrée utilisateur. |
 | txresult | Récupère le résultat d'une transaction à l'aide du hash d'une transaction. |
 | txbyhash | Récupère les informations d'une transaction à l'aide du hash d'une transaction. |
 | transfer | Transfère des ICX. |

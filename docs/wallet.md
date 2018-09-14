@@ -4,7 +4,7 @@ Account Management
 ## Account
 There are two types of accounts in ICON, accounts that are associated with users, often dubbed as Externally Owned Account (EOA), and Smart Contract (SCORE) Accounts. EOA address starts with "hx" followed by a 20-byte hex string, while Smart Contract Account address starts with "cx" followed by a 20-byte hex string. 
 
-Here, we focus on EOA, beacuse, to deploy a SCORE on ICON network or make a transaction, one must hold a valid EOA. Therefore, when we say account in this document, it means EOA. The terms of EOA, wallet, and keystore are not exactly same, but often interchangeablely used. 
+In order to deploy a SCORE on ICON network or make a transaction, one must hold a valid EOA. Furthermore, when we say account in this document, it means EOA. The terms of EOA, wallet, and keystore are not exactly same, but often interchangeably used. 
 
 Account is cryptographically defined by a private-public key pair, and the account address can be derived from its public key. Creating an account is equivalant to creating a key pair, and the account can be exported as a file, a keystore file. 
 
@@ -18,7 +18,7 @@ There are several ways creating an account.
 
 ### Using T-Bears
 You can create a keystore file from CLI using `tbears keystore` command. 
-``` bash
+```bash
 $ tbears keystore [keystore_file_name]
 Input your keystore password : 
 Retype your keystore password : 
@@ -30,11 +30,11 @@ Made keystore file successfully
 #### Create an account
 KeyWallet is an object representing an account. Below code creates a new KeyWallet instance. Internally, private-public key pair is generated. 
 
-``` python
+```python
 wallet = KeyWallet.create()
 ```
 #### Load existing account
-``` python
+```python
 # load existing account using private key
 key = bytes.fromhex(userPrivateKey)
 wallet = KeyWallet.load(key)
@@ -49,11 +49,11 @@ wallet.store(destinationFilePath, password)
 
 ### Using Java SDK
 #### Create an account
-``` java
+```java
 KeyWallet wallet = KeyWallet.create()
 ```
 #### Load existing account
-``` java
+```java
 // load existing account using private key
 Bytes key = new Bytes(userPrivateKey)
 KeyWallet wallet1 = KeyWallet.load(key);
@@ -69,7 +69,7 @@ File destinationDirectory = new File("./");
 
 // keystore file password 
 String password = "password_string"; 
-   
+
 String fileName = KeyWallet.store(wallet, password, destinationDirectory);
 ```
 
@@ -80,7 +80,7 @@ ICONex is a Chrome extention app. [Installing ICONex](https://chrome.google.com/
 1. Click "Create Wallet". 
 ![img001](./images/iconex001.png)
 
-2. Select "ICON(ICX)"
+2. Select "ICON (ICX)"
 ![img002](./images/iconex002.png)
 
 3. Enter wallet name and password. 
