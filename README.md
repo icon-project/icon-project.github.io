@@ -25,7 +25,7 @@
   - [SCORE Development](https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md)
 
 # [SCORE Audit](https://icon-project.github.io/docs/score_audit.html)
-  - [Audit Checklist](https://icon-project.github.io/docs/audit_checklist-ko.html)
+  - [Audit Checklist](https://icon-project.github.io/docs/audit_checklist.html)
   - [Deploy Guideline](https://icon-project.github.io/docs/score_deploy_guide.html)
 
 # Tutorials

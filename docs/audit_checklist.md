@@ -94,8 +94,8 @@ os.uname()
 
 ## Randomness
 Execution result of SCORE must be deterministic. Unlesss, nodes can not reach a consensus. 
-If nodes fail to reach a consensus, it will cancle every transactions in the block.
-So, besides random function, 
+If nodes fail to reach a consensus, every transactions in the block will be lost.
+Therefore, not only random function, but 
 any attempt to prevent block generation by undeterministic operation is strictly prohibited.   
 
 ```python
@@ -114,9 +114,10 @@ s.connect(host, port)
 ```
 
 ## IRC2 Token Standard compliance
-Token을 정의하는 SCORE을 제작 할 경우 [IRC2 ICON Token Standard](https://github.com/icon-project/IIPs/blob/master/IIPS/iip-2.md)에 명시된 함수를 모두 구현해야 합니다.
+IRC2 compliant token must implement every functions in the specification. [IRC2 ICON Token Standard](https://github.com/icon-project/IIPs/blob/master/IIPS/iip-2.md)
+
 ```python
-# IRC2 에 명시된 함수 리스트
+# IRC2 functions
 @external(readonly=True)
 def name(self) -> str:
 
@@ -136,8 +137,9 @@ def balanceOf(self, _owner: Address) -> int:
 def transfer(self, _to: Address, _value: int, _data: bytes=None):      
 ```
 
-## IRC2 Token Standard에 명시된 parameter 이름 사용
-[IRC2 ICON Token Standard](https://github.com/icon-project/IIPs/blob/master/IIPS/iip-2.md)에 명시된 함수를 구현할 경우 인자의 이름을 반드시 동일하게 사용하여야 합니다.
+## IRC2 Token Standard parameter name
+When implementing IRC2 compliant token, make the parameter names in the function reamin the same 
+as defined in [IRC2 ICON Token Standard](https://github.com/icon-project/IIPs/blob/master/IIPS/iip-2.md).
 ```python
 # Bad
 def balanceOf(self, owner: Address) -> int:
@@ -146,8 +148,8 @@ def balanceOf(self, owner: Address) -> int:
 def balanceOf(self, _owner: Address) -> int:
 ```
 
-## Token Transfer 시 Eventlog 필수 사용
-Token transfer 시 이력 확인을 위해서 Eventlog를 반드시 남겨야 합니다.
+## Eventlog on Token Transfer
+Token transfer must trigger Eventlog.
 ```python
 # Good
 @eventlog(indexed=3)
@@ -162,8 +164,8 @@ def transfer(self, _to: Address, _value: int, _data: bytes = None) -> bool:
     return True
 ```
 
-## Token Transfer 없이 Eventlog 사용 금지
-Token을 전송하지 않고 Eventlog를 남기는 것을 금지합니다.
+## Eventlog without Token Transfer
+Do not trigger Transfer Eventlog without token transfer.   
 ```python
 # Bad
 @eventlog(indexed=3)
@@ -177,8 +179,8 @@ def transfer(self, _to: Address, _value: int, _data: bytes = None) -> bool:
     return True
 ```    
 
-## ICXTransfer Eventlog 사용 금지
-ICXTransfer는 ICX 전송할때 ICON 네트워크에서 자동으로 남기는 Eventlog입니다. 동일한 이름의 Eventlog를 SCORE 구현에서 사용할 수 없습니다.
+## ICXTransfer Eventlog
+ICXTransfer Eventlog is reserved for ICX transfer. Do not implement the Eventlog with the same name. 
 ```python
 # Bad
 @eventlog(indexed=3)
@@ -186,11 +188,13 @@ def ICXTransfer(self, _from: Address, _to: Address, _value: int):
 ```
 
 ## External Function Parameter Check
-SCORE 함수 호출할 때, 선언된 인자와 타입이 다르게 호출하거나 필수 인자(디폴트 값이 정의되지 않은 인자)를 누락하여 호출한 경우에는 ICON 네트워크에서 error 처리를 합니다. 따라서 SCORE 작성 시에 별도의 타입 체크는 고려하지 않아도 됩니다.
+If a SCORE function is called from EOA with wrong parameter types or without required parameters, ICON service will return an error. 
+Developers do not need to deliberately verify the input parameter types inside a function.   
 
 ## Internal Function Parameter Check
-SCORE 내에서 다른 함수를 호출할 때, 또는 외부 SCORE 함수를 호출할 때, 인자의 타입과 필수 인자(디폴트 값이 설정되지 않은 인자)를 올바르게 사용하여야 합니다. 예를 들면 int로 선언하고 string 타입으로 호출하거나, 그 반대의 경우를 주의 하십시오. address 타입도 마찬가지입니다. 또한 필수 인자의 경우에는 반드시 유효한 값을 사용하여 함수를 호출해야 합니다.
-string이나 int의 경우 인자 값의 길이에는 제한이 없으나, ICON 네트워크 상의 트랙잭션 메시지의 길이에는 제한(512KB)이 있습니다. 이를 넘어서지 않도록 주의하여야 합니다.
+If a SCORE calls other functions of own or of other SCORE, always make sure that parameter types are correct and required parameters are not omitted. 
+Values of parameters must be in a valid range. 
+There is no size limit in `str` or `int` type in Python, however, transaction message shoud not exceed 512KB.    
 ```python
 # Bad
 def myTransfer( _value: int) -> bool:
@@ -213,11 +217,12 @@ def myTransfer( _value: int, _extra: str) -> bool:
 myTransfer(1000,'abc')
 ```
 
-## Predictable random funtion
-블록체인 네트워크에서 예측 가능한 랜덤함수를 사용하는 것은 매우 위험합니다. 일반적으로 사용되는 random 함수는 정확하게는 pseudo random number generator(PRNG)로 seed 값이 공유되면 난수를 예측할 수 있게 됩니다. 이는 결과를 예측할 수 있게 합니다.
+## Predictable arbitrarity
+Some applications such as lottery require arbitrarity. Due to the nature of blockchain, implementation of such business logic must be done with great care. 
+Output of pseudo random number generator can be predictable if random seed is revealed.    
 ```python
 # Bad
-# block height 값을 예측할 수 있기 때문에 결과를 예측 할 수 있다.
+# block height is predictable.
 won = block.height % 2 == 0
 ```
 
@@ -225,7 +230,6 @@ won = block.height % 2 == 0
 ## Fallback
 ## \_\_init__ Function
 ## Underflow/Overflow
-
 ## Vault
 ## Reentrancy
 ## Time Manipulation
