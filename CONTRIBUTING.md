@@ -24,3 +24,4 @@ Thank you for your interest in contributing to ICON documentation project. You a
   - The localized doc must be stored alongside the default language doc in the same folder.
 - Adding a new document that we haven’t yet covered.
   - For this type of contribution, please create an issue and describe the outline of the content. This is required to align with other ongoing documentation effort. When agreed, repository maintainer will guide you which folder you should place your document and images. Pull Request without referencing an issue can be rejected.
+  - Follow a snake case file naming convention, lower_case_with_underscore.
