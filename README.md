@@ -12,7 +12,7 @@
   - Mainnet
   - Devnet
 
-# Wallet
+# [Account Management](https://icon-project.github.io/docs/wallet.html)
 
 # Client SDK
   - [CLI (T-Bears)](https://icon-project.github.io/docs/tbears_cli.html)
