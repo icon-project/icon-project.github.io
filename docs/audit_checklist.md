@@ -33,7 +33,7 @@ For example, if you implement token airdrop to many users, do not iterate over a
 
 # Bad
 @external
-def airDropToken(self, _value:int, _data:bytes = None) -> bool:
+def airDropToken(self, _value: int, _data: bytes = None) -> bool:
   for target in self._very_large_targets:
     self._transfer(self.msg.sender, target, _value, _data)
 
@@ -154,9 +154,9 @@ def Transfer(self, _from: Address, _to: Address, _value: int, _data: bytes):
 
 @external
 def transfer(self, _to: Address, _value: int, _data: bytes = None) -> bool:
-    self._balances[self.msg.sender] -= value
-    self._balances[to_] += value
-    self.Transfer(self.msg.sender, _to, value, data)
+    self._balances[self.msg.sender] -= _value
+    self._balances[_to] += _value
+    self.Transfer(self.msg.sender, _to, _value, _data)
     return True
 ```
 
@@ -171,7 +171,7 @@ def Transfer(self, _from: Address, _to: Address, _value: int, _data: bytes):
 @external
 def transfer(self, _to: Address, _value: int, _data: bytes = None) -> bool:
     // no token transfer
-    self.Transfer(self.msg.sender, _to, value, data)
+    self.Transfer(self.msg.sender, _to, _value, _data)
     return True
 ```
 
@@ -193,22 +193,22 @@ Values of parameters must be in a valid range.
 There is no size limit in `str` or `int` type in Python, however, transaction message shoud not exceed 512KB.    
 ```python
 # Bad
-def myTransfer( _value: int) -> bool:
+def myTransfer(_value: int) -> bool:
     ...
 myTransfer("1000")
 
 # Good
-def myTransfer( _value: int) -> bool:
+def myTransfer(_value: int) -> bool:
     ...
 myTransfer(1000)
 
 # Bad
-def myTransfer( _value: int, _extra: str) -> bool:
+def myTransfer(_value: int, _extra: str) -> bool:
     ...
 myTransfer(1000)
 
 # Good
-def myTransfer( _value: int, _extra: str) -> bool:
+def myTransfer(_value: int, _extra: str) -> bool:
     ...
 myTransfer(1000, 'abc')
 ```
