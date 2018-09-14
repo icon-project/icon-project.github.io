@@ -4,7 +4,7 @@ La liste des choses à vérifier lors de l'audit est constituée de 2 niveaux de
 Les résultats de l'audit seront rendus avec la mention Pass/Fail/NA (Admis/Echec/Non Annoncé) pour chaque élément Critique, et Pass/Warning/NA pour chaque élément Avertissement.
 Si le moindre élément Critique est déterminé comme étant "Fail", le déploiement du SCORE sera rejeté.
 
-Ci-dessous se trouve la liste des choses à vérifier groupés par sévérité.
+Ci-dessous se trouve la liste des choses à vérifier groupées par sévérité.
 ## Niveau de sévérité
 ### Critique
 - [Délai d'attente](#timeout)
@@ -15,9 +15,9 @@ Ci-dessous se trouve la liste des choses à vérifier groupés par sévérité.
 - [Appel réseau vers l'extérieur](#outbound-network-call)
 - [Conformité avec le standard du Token IRC2](#irc2-token-standard-compliance)
 - [Nom des paramètres du Token IRC2](#irc2-token-parameter-name)
-- [Log d'évènement lors d'un Transfert de Token](#eventlog-on-token-transfer)
-- [Log d'évènement sans Transfert de Token](#eventlog-without-token-transfer)
-- [Log d'évènement ICXTransfer](#icxtransfer-eventlog)
+- [Eventlog lors d'un Transfert de Token](#eventlog-on-token-transfer)
+- [Eventlog sans Transfert de Token](#eventlog-without-token-transfer)
+- [Eventlog ICXTransfer](#icxtransfer-eventlog)
 
 ### Avertissement
 - [Vérification de Paramètre de Fonction Externe](#external-function-parameter-check)
@@ -31,13 +31,13 @@ Par exemple, si vous implémentez un airdrop pour beaucoup d'utilisateurs, n'it�
 
 ```python
 
-# Bad
+# Mauvais
 @external
 def airDropToken(self, _value: int, _data: bytes = None) -> bool:
   for target in self._very_large_targets:
     self._transfer(self.msg.sender, target, _value, _data)
 
-# Good
+# Bon
 @external
 def airDropToken(self, _to: Address, _value: int, _data: bytes = None) -> bool:
   if self._airdrop_sent_address[_to]:
@@ -67,7 +67,7 @@ while i < 10:
 
 ## Import de paquet
 SCORE doit être exécuté dans un environnement cloisonné.
-L'import de paquet est interdit à l'exception de `iconservice` et des fichiers présent dans l'arborescence de votre SCORE.
+L'import de paquet est interdit à l'exception de `iconservice` et des fichiers présent dans l'arborescence des fichiers de votre SCORE.
 
 ```python
 # Mauvais
@@ -144,7 +144,7 @@ def balanceOf(self, owner: Address) -> int:
 def balanceOf(self, _owner: Address) -> int:
 ```
 
-## Log d'évènement lors d'un Transfert de Token
+## Eventlog lors d'un Transfert de Token
 Les transferts de Token doivent déclencher un log d'évènement (*Eventlog*).
 ```python
 # Bien
@@ -160,7 +160,7 @@ def transfer(self, _to: Address, _value: int, _data: bytes = None) -> bool:
     return True
 ```
 
-## Log d'évènement sans Transfert de Token
+## Eventlog sans Transfert de Token
 Ne déclenchez pas d'Eventlog lorsqu'il n'y a pas de transfert de token.
 ```python
 # Mauvais
@@ -175,7 +175,7 @@ def transfer(self, _to: Address, _value: int, _data: bytes = None) -> bool:
     return True
 ```
 
-## Log d'évènement ICXTransfer
+## Eventlog ICXTransfer
 L'Eventlog "ICXTransfer" est réservé pour des transferts d'ICX. N'implémentez pas d'Eventlog avec le même nom.
 ```python
 # Mauvais
