@@ -26,3 +26,5 @@ Step 开放在测试网里。
 有关详细信息，请参阅[交易费用]（/）。
 
 
+---
+[Reference](https://github.com/icon-project/icon-project.github.io/tree/2b560055206301b45d5af750d8a39165ebe0da1c)

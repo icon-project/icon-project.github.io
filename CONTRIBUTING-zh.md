@@ -25,3 +25,6 @@
 - 添加我们尚未涵盖的新文档。
   - 对于此类贡献，请创建一个问题(issue)并描述内容的大纲。这需要与其他正在进行的文档工作保持一致。达成一致意见后，存储库(repository)维护者将指导您放置文档和图像的文件夹。代码合并(pull request)如果没提供对应的问题(issue)可能会被拒绝。
   - 遵循蛇形(snake case)命名方式，如lower_case_with_underscore.
+
+---
+[Reference](https://github.com/icon-project/icon-project.github.io/tree/2b560055206301b45d5af750d8a39165ebe0da1c)

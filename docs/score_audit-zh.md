@@ -29,3 +29,6 @@
 ## 笔记
 
 此审核过程是暂时的，因为当前的ICON网络正迈向公共网络的旅程。我们没有任何控制DApps的意图。我们的首要任务是尽可能保持ICON网络稳定，并最大限度地减少我们在ICON上运营的合作伙伴业务的任何负面影响。
+
+---
+[Reference](https://github.com/icon-project/icon-project.github.io/tree/2b560055206301b45d5af750d8a39165ebe0da1c)
