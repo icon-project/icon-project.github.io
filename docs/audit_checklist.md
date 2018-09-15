@@ -91,7 +91,7 @@ os.uname()
 
 ## Randomness
 Execution result of SCORE must be deterministic. Unless, nodes can not reach a consensus. 
-If nodes fail to reach a consensus, every transactions in the block will be lost.
+If nodes fail to reach a consensus, every transactions in the block will fail.
 Therefore, not only random function, but any attempt to prevent block generation by undeterministic operation is strictly prohibited.   
 
 ```python
