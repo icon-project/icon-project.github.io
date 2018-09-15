@@ -5,6 +5,8 @@ Les résultats de l'audit seront rendus avec la mention Pass/Fail/NA (Admis/Eche
 Si le moindre élément Critique est déterminé comme étant "Fail", le déploiement du SCORE sera rejeté.
 
 Ci-dessous se trouve la liste des choses à vérifier groupées par sévérité.
+Nous supposerons que vous avez lu [ceci](https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md), et que vous comprenez les bases du développement de SCORE.
+
 ## Niveau de sévérité
 ### Critique
 - [Délai d'attente](#timeout)
@@ -33,13 +35,13 @@ Par exemple, si vous implémentez un airdrop pour beaucoup d'utilisateurs, n'it�
 
 # Mauvais
 @external
-def airDropToken(self, _value: int, _data: bytes = None) -> bool:
+def airDropToken(self, _value: int, _data: bytes = None):
   for target in self._very_large_targets:
     self._transfer(self.msg.sender, target, _value, _data)
 
 # Bon
 @external
-def airDropToken(self, _to: Address, _value: int, _data: bytes = None) -> bool:
+def airDropToken(self, _to: Address, _value: int, _data: bytes = None):
   if self._airdrop_sent_address[_to]:
      self.revert(f"Token was dropped already: {_to}")
 
@@ -56,13 +58,13 @@ Le réseau d'ICON achèvera de force la tâche qui ne répond plus, mais cela po
 ```python
 # Mauvais
 while True:
-  // faire quelque chose
+  // faire quelque chose sans consommer de 'step' ou de condition de sortie
 
 # Bien
 i = 0
 while i < 10:
   // faire quelque chose
-  i+= 1
+  i += 1
 ```
 
 ## Import de paquet
@@ -89,7 +91,7 @@ os.uname()
 
 ## Aléatoire
 Le résultat de l'exécution d'un SCORE doit être déterministe. Sans cela, les nœuds ne peuvent atteindre un consensus.
-Si les nœuds ne peuvent atteindre un consensus, toutes les transactions du bloc seront perdues.
+Si les nœuds ne peuvent atteindre un consensus, toutes les transactions du bloc échoueront.
 Par conséquent, non seulement les fonctions aléatoires, mais toute tentative qui empêcherait la génération d'un bloc par une opération indéterminéee est strictement interdite.
 
 ```python
@@ -129,7 +131,7 @@ def totalSupply(self) -> int:
 def balanceOf(self, _owner: Address) -> int:
 
 @external
-def transfer(self, _to: Address, _value: int, _data: bytes=None):      
+def transfer(self, _to: Address, _value: int, _data: bytes=None):
 ```
 
 ## Nom des paramètres du Token IRC2
@@ -153,11 +155,10 @@ def Transfer(self, _from: Address, _to: Address, _value: int, _data: bytes):
     pass
 
 @external
-def transfer(self, _to: Address, _value: int, _data: bytes = None) -> bool:
+def transfer(self, _to: Address, _value: int, _data: bytes = None):
     self._balances[self.msg.sender] -= _value
     self._balances[_to] += _value
     self.Transfer(self.msg.sender, _to, _value, _data)
-    return True
 ```
 
 ## Eventlog sans Transfert de Token
@@ -169,10 +170,9 @@ def Transfer(self, _from: Address, _to: Address, _value: int, _data: bytes):
     pass
 
 @external
-def transfer(self, _to: Address, _value: int, _data: bytes = None) -> bool:
+def doSomething(self, _to: Address, _value: int):
     // Pas de transfert de token
-    self.Transfer(self.msg.sender, _to, _value, _data)
-    return True
+    self.Transfer(self.msg.sender, _to, _value, None)
 ```
 
 ## Eventlog ICXTransfer
@@ -190,29 +190,22 @@ Les développeurs n'ont pas besoin de vérifier délibérément les paramètres 
 ## Vérification de Paramètre de Fonction Interne
 Si un SCORE appelle d'autres fonctions faisant parties de leur propre SCORE ou d'un autre SCORE, vérifiez toujours que les types sont corrects et que les paramètres requis sont présents.
 Les valeurs des paramètres doivent être dans une portée valide.
-Il n'y a pas de taille limite pour les `str` et les `int` en Python, cependant, le message de la transaction ne doit pas excéder 512Ko.
+Il n'y a pas de taille limite pour les `str` et les `int` en Python, cependant, le message de la transaction ne doit pas excéder 512 Ko.
 
 ```python
-# Mauvais
+# Déclaration des fonctions
 def myTransfer(_value: int) -> bool:
-    ...
+def myTransfer1(_value: int, _extra: str) -> bool:
+
+# Mauvais
 myTransfer("1000")
+myTransfer1(1000)
 
 # Bien
-def myTransfer(_value: int) -> bool:
-    ...
 myTransfer(1000)
-
-# Mauvais
-def myTransfer(_value: int, _extra: str) -> bool:
-    ...
-myTransfer(1000)
-
-# Bien
-def myTransfer(_value: int, _extra: str) -> bool:
-    ...
-myTransfer(1000, 'abc')
+myTransfer1(1000, 'abc')
 ```
+
 
 ## Arbitrarité prévisible
 Certaines applications comme les lotteries ont besoin d'arbitrarité. A cause de la nature de la blockchain, l'implémentation d'une telle logique doit être effectuée avec beaucoup d'attention.
@@ -224,4 +217,4 @@ won = block.height % 2 == 0
 ```
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/blob/261dd6572654f461faf1ee886ffb791ee8475346/docs/audit_checklist.md)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/32c098db25d56157ea9e1f7b65ae3ea06671bba1)
