@@ -1,11 +1,11 @@
 # How to write SCORE
-This document explains ICON audit creteria and suggests secure SCORE implementation practices. 
-Audit checklist consists of 2 severity levels of items, Critical and Warning. 
-Audit results will come as Pass/Fail/NA for each Critical items, and Pass/Warning/NA for each Warning items.  
-If any Critical item is determined to be Fail, the SCORE deployement will be rejected. 
+This document explains ICON audit creteria and suggests secure SCORE implementation practices.
+Audit checklist consists of 2 severity levels of items, Critical and Warning.
+Audit results will come as Pass/Fail/NA for each Critical items, and Pass/Warning/NA for each Warning items.
+If any Critical item is determined to be Fail, the SCORE deployement will be rejected.
 
-Listed below are the checklist grouped by severity. 
-We assume that you have read [this](https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md), and understand the basics of SCORE development. 
+Listed below are the checklist grouped by severity.
+We assume that you have read [this](https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md), and understand the basics of SCORE development.
 ## Severity level
 ### Critical
 - [Timeout](#timeout)
@@ -27,49 +27,47 @@ We assume that you have read [this](https://github.com/icon-project/icon-service
 
 
 ## Timeout
-SCORE function must return fairly immediately. Blockchain is not for any long-running operation. 
+SCORE function must return fairly immediately. Blockchain is not for any long-running operation.
 For example, if you implement token airdrop to many users, do not iterate over all users in a single function. Handle each or partial airdrop(s) one by one instead.
 
 ```python
-
 # Bad
 @external
-def airDropToken(self, _value: int, _data: bytes = None) -> bool:
-  for target in self._very_large_targets:
-    self._transfer(self.msg.sender, target, _value, _data)
+def airDropToken(self, _value: int, _data: bytes = None):
+    for target in self._very_large_targets:
+        self._transfer(self.msg.sender, target, _value, _data)
 
 # Good
 @external
-def airDropToken(self, _to: Address, _value: int, _data: bytes = None) -> bool:
-  if self._airdrop_sent_address[_to]:
-     self.revert(f"Token was dropped already: {_to}")
-
-  self._airdrop_sent_address[_to] = True
-  self._transfer(self.msg.sender, _to, _value, _data)
+def airDropToken(self, _to: Address, _value: int, _data: bytes = None):
+    if self._airdrop_sent_address[_to]:
+        self.revert(f"Token was dropped already: {_to}")
+    self._airdrop_sent_address[_to] = True
+    self._transfer(self.msg.sender, _to, _value, _data)
 ```
 
 ## Unfinishing loop
-Use `for` and `while` statement carefully. Make sure that the code always reaches the exit condition. 
-If the operation inside the loop consumes `step`, the program will halt at some point. 
-However, if the code block inside the loop does not consume `step`, 
-i.e., Python built-in functions, then the program may hang there forever. 
-ICON network will force-kill the hanging task, but it may still degrade significantly the ICON network.  
+Use `for` and `while` statement carefully. Make sure that the code always reaches the exit condition.
+If the operation inside the loop consumes `step`, the program will halt at some point.
+However, if the code block inside the loop does not consume `step`,
+i.e., Python built-in functions, then the program may hang there forever.
+ICON network will force-kill the hanging task, but it may still degrade significantly the ICON network.
 
 ```python
 # Bad
 while True:
-  // do something
+    // do something without consuming 'step' or proper exit condition
 
 # Good
 i = 0
 while i < 10:
-  // do something
-  i+= 1
+    // do something
+    i += 1
 ```
 
 ## Package import
-SCORE must run in a sandboxed environment. 
-Package import is prohibited except `iconservice` and the files in your deployed SCORE folder tree. 
+SCORE must run in a sandboxed environment.
+Package import is prohibited except `iconservice` and the files in your deployed SCORE folder tree.
 
 ```python
 # Bad
@@ -90,9 +88,9 @@ os.uname()
 ```
 
 ## Randomness
-Execution result of SCORE must be deterministic. Unless, nodes can not reach a consensus. 
+Execution result of SCORE must be deterministic. Unless, nodes can not reach a consensus.
 If nodes fail to reach a consensus, every transactions in the block will fail.
-Therefore, not only random function, but any attempt to prevent block generation by undeterministic operation is strictly prohibited.   
+Therefore, not only random function, but any attempt to prevent block generation by undeterministic operation is strictly prohibited.
 
 ```python
 # Bad
@@ -101,7 +99,7 @@ won = datetime.datetime.now() % 2 == 0
 ```
 
 ## Outbound network call
-Outbound network call is prohibited. Outcome of network call from each node can be different. 
+Outbound network call is prohibited. Outcome of network call from each node can be different.
 
 ```python
 # Bad
@@ -131,11 +129,11 @@ def totalSupply(self) -> int:
 def balanceOf(self, _owner: Address) -> int:
 
 @external
-def transfer(self, _to: Address, _value: int, _data: bytes=None):      
+def transfer(self, _to: Address, _value: int, _data: bytes=None):
 ```
 
 ## IRC2 Token parameter name
-When implementing IRC2 compliant token, make the parameter names in the function remain the same 
+When implementing IRC2 compliant token, make the parameter names in the function remain the same
 as defined in [IRC2 ICON Token Standard](https://github.com/icon-project/IIPs/blob/master/IIPS/iip-2.md).
 ```python
 # Bad
@@ -154,15 +152,14 @@ def Transfer(self, _from: Address, _to: Address, _value: int, _data: bytes):
     pass
 
 @external
-def transfer(self, _to: Address, _value: int, _data: bytes = None) -> bool:
+def transfer(self, _to: Address, _value: int, _data: bytes = None):
     self._balances[self.msg.sender] -= _value
     self._balances[_to] += _value
     self.Transfer(self.msg.sender, _to, _value, _data)
-    return True
 ```
 
 ## Eventlog without Token Transfer
-Do not trigger Transfer Eventlog without token transfer.   
+Do not trigger Transfer Eventlog without token transfer.
 ```python
 # Bad
 @eventlog(indexed=3)
@@ -170,14 +167,13 @@ def Transfer(self, _from: Address, _to: Address, _value: int, _data: bytes):
     pass
 
 @external
-def transfer(self, _to: Address, _value: int, _data: bytes = None) -> bool:
-    // no token transfer
-    self.Transfer(self.msg.sender, _to, _value, _data)
-    return True
+def doSomething(self, _to: Address, _value: int):
+    // no token transfer occurred
+    self.Transfer(self.msg.sender, _to, _value, None)
 ```
 
 ## ICXTransfer Eventlog
-ICXTransfer Eventlog is reserved for ICX transfer. Do not implement the Eventlog with the same name. 
+ICXTransfer Eventlog is reserved for ICX transfer. Do not implement the Eventlog with the same name.
 ```python
 # Bad
 @eventlog(indexed=3)
@@ -185,42 +181,32 @@ def ICXTransfer(self, _from: Address, _to: Address, _value: int):
 ```
 
 ## External Function Parameter Check
-If a SCORE function is called from EOA with wrong parameter types or without required parameters, ICON service will return an error. 
-Developers do not need to deliberately verify the input parameter types inside a function.   
+If a SCORE function is called from EOA with wrong parameter types or without required parameters, ICON service will return an error.
+Developers do not need to deliberately verify the input parameter types inside a function.
 
 ## Internal Function Parameter Check
-If a SCORE calls other functions of own or of other SCORE, always make sure that parameter types are correct and required parameters are not omitted. 
-Values of parameters must be in a valid range. 
-There is no size limit in `str` or `int` type in Python, however, transaction message shoud not exceed 512KB.    
+If a SCORE calls other functions of own or of other SCORE, always make sure that parameter types are correct and required parameters are not omitted.
+Values of parameters must be in a valid range.
+There is no size limit in `str` or `int` type in Python, however, transaction message should not exceed 512 KB.
 ```python
-# Bad
+# Function declarations
 def myTransfer(_value: int) -> bool:
-    ...
+def myTransfer1(_value: int, _extra: str) -> bool:
+
+# Bad
 myTransfer("1000")
+myTransfer1(1000)
 
 # Good
-def myTransfer(_value: int) -> bool:
-    ...
 myTransfer(1000)
-
-# Bad
-def myTransfer(_value: int, _extra: str) -> bool:
-    ...
-myTransfer(1000)
-
-# Good
-def myTransfer(_value: int, _extra: str) -> bool:
-    ...
-myTransfer(1000, 'abc')
+myTransfer1(1000, 'abc')
 ```
 
 ## Predictable arbitrarity
-Some applications such as lottery require arbitrarity. Due to the nature of blockchain, implementation of such business logic must be done with great care. 
-Output of pseudo random number generator can be predictable if random seed is revealed.    
+Some applications such as lottery require arbitrarity. Due to the nature of blockchain, implementation of such business logic must be done with great care.
+Output of pseudo random number generator can be predictable if random seed is revealed.
 ```python
 # Bad
 # block height is predictable.
 won = block.height % 2 == 0
 ```
-
-
