@@ -20,8 +20,11 @@
   - 建议引用源语言文件的提交编号以跟踪源中的更改。
   - 英文是默认语言。我们欢迎贡献者帮助我们将韩语文档翻译成英文。
   - 如果有多种语言版本，则英文是反映最新更改的官方文档。因此，在生成本地化文档时请以英语版本为基础。
-  - 英文版应该是`[filename] .md`。对于任何其他语言，请将其命名为`[filename]-[lang].md`，其中`[lang]`是ISO-639-1中定义的双字母代码。例如，`README.md`是用英文写的正式版，而`README-ja.md`是它的日文翻译版本。
+  - 英文版应该是`[filename].md`。对于任何其他语言，请将其命名为`[filename]-[lang].md`，其中`[lang]`是ISO-639-1中定义的双字母代码。例如，`README.md`是用英文写的正式版，而`README-ja.md`是它的日文翻译版本。
   - 翻译后的的文件必须与默认语言文件一起存储在同一文件夹中。
 - 添加我们尚未涵盖的新文档。
   - 对于此类贡献，请创建一个问题(issue)并描述内容的大纲。这需要与其他正在进行的文档工作保持一致。达成一致意见后，存储库(repository)维护者将指导您放置文档和图像的文件夹。代码合并(pull request)如果没提供对应的问题(issue)可能会被拒绝。
   - 遵循蛇形(snake case)命名方式，如lower_case_with_underscore.
+
+---
+[Reference](https://github.com/icon-project/icon-project.github.io/tree/2b560055206301b45d5af750d8a39165ebe0da1c)
