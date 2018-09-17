@@ -8,7 +8,7 @@ If the network id does not match, transaction will fail.
 
 ## Testnet for DApps
 
-Please note that current testnet can be reset anytimet, and you may experience unexpected downtime.
+Please note that current testnet can be reset anytime, and you may experience unexpected downtime.
 We are working on preparing a more stable final test environment
 along with less-managed multiple playground networks.  
 
