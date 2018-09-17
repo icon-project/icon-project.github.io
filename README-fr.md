@@ -33,4 +33,4 @@
   - Guide de démarrage rapide
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/blob/261dd6572654f461faf1ee886ffb791ee8475346/README.md)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/blob/d7ea24967b67b76c2b65ce9c77f9b5135699ab69/README.md)

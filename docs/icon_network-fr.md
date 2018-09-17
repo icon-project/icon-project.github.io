@@ -59,3 +59,6 @@ Notez que l'audit du SCORE n'est pas activé sur le testnet. Veuillez être sûr
   - [Guide de déploiement](https://icon-project.github.io/docs/score_deploy_guide-fr.html)
 
 Si vous avez la moindre question à propos du processus de l'audit, merci d'envoyer à mail à `audit@icon.foundation`.
+
+---
+[Document de référence](https://github.com/icon-project/icon-project.github.io/blob/d7ea24967b67b76c2b65ce9c77f9b5135699ab69/icon_network.md)
