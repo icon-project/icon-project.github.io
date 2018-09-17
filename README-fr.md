@@ -2,10 +2,10 @@
 
 # Aperçu du réseau
   - LFT
-  - Frais de transaction
-  - IISS
+  - Frais de transaction - \[[Télécharger le papier jaune](https://icon.foundation/resources/file/ICON_Yellowpaper_Transactionfee_EN_V1.0.pdf)\]
+  - IISS - \[Télécharger le papier jaune\]
   - BTP
-  - Gouvernance - [ICONstitution and Governance](https://icon.foundation/resources/file/ICON_Yellowpaper_ICONstitution_and_Governance_EN_V1.0.pdf)
+  - Gouvernance - \[[Télécharger le papier jaune](https://icon.foundation/resources/file/ICON_Yellowpaper_ICONstitution_and_Governance_EN_V1.0.pdf)\]
 
 # Réseau d'ICON
   - [Réseau de test](https://icon-project.github.io/docs/icon_testnet-fr.html) (Testnet)
