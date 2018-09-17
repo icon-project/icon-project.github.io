@@ -7,10 +7,11 @@
   - BTP
   - Gouvernance - \[[Télécharger le papier jaune](https://icon.foundation/resources/file/ICON_Yellowpaper_ICONstitution_and_Governance_EN_V1.0.pdf)\]
 
-# Réseau d'ICON
-  - [Réseau de test](https://icon-project.github.io/docs/icon_testnet-fr.html) (Testnet)
-  - Réseau principal (Mainnet)
-  - Réseau de développement (Devnet)
+# [Réseau d'ICON](https://icon-project.github.io/docs/icon_network-fr.html)
+  - [Devnet privé sur AWS](https://icon-project.github.io/docs/icon_network-fr.html#private-devnet-on-aws)
+  - [Testnet pour les DApps](https://icon-project.github.io/docs/icon_network-fr.html#testnet-for-dapps)
+  - [Testnet pour les échanges](https://icon-project.github.io/docs/icon_network-fr.html#testnet-for-exchanges)
+  - [Mainnet](https://icon-project.github.io/docs/icon_network-fr.html#mainnet)
 
 # [Gestion du compte](https://icon-project.github.io/docs/wallet-fr.html)
 
