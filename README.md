@@ -2,15 +2,16 @@
 
 # Network Overview
   - LFT
-  - Transaction Fees
-  - IISS
+  - Transaction Fees - \[[download yellow paper](https://icon.foundation/resources/file/ICON_Yellowpaper_Transactionfee_EN_V1.0.pdf)\]
+  - IISS - \[download yellow paper\]
   - BTP
-  - Governance - [ICONstitution and Governance](https://icon.foundation/resources/file/ICON_Yellowpaper_ICONstitution_and_Governance_EN_V1.0.pdf) 
+  - Governance - \[[download yellow paper](https://icon.foundation/resources/file/ICON_Yellowpaper_ICONstitution_and_Governance_EN_V1.0.pdf)\]
 
-# ICON network
-  - [Testnet](https://icon-project.github.io/docs/icon_testnet.html)
-  - Mainnet
-  - Devnet
+# [ICON Network](https://icon-project.github.io/docs/icon_network.html)
+  - [Private Devnet on AWS](https://icon-project.github.io/docs/icon_network.html#private-devnet-on-aws)
+  - [Testnet for DApps](https://icon-project.github.io/docs/icon_network.html#testnet-for-dapps)
+  - [Testnet for Exchanges](https://icon-project.github.io/docs/icon_network.html#testnet-for-exchanges)
+  - [Mainnet](https://icon-project.github.io/docs/icon_network.html#mainnet)
 
 # [Account Management](https://icon-project.github.io/docs/wallet.html)
 
