@@ -187,8 +187,8 @@ You can see the detailed reason of rejection in reject transaction.
 
 If SCORE update is rejected, then previous SCORE remains active. 
 
-## Common Errors 
-1. If you cannot pay the transaction fee,
+## Common Errors
+- If you cannot pay the transaction fee,
 
 ```bash
 (work) $ tbears deploy abc
@@ -199,8 +199,11 @@ Got an error response
 {'jsonrpc': '2.0', 'error': {'code': -32600, 'message': 'Out of balance'}, 'id': 1}
 ```
 
-2. Only the initial deployer can update the SCORE. If you use a different wallet during `deploy update`,![](./images/deploy_other_owner.png)
-3. If you  `deploy update` of a SCORE that is not active,
+- Only the initial deployer can update the SCORE. If you use a different wallet during `deploy update`,
+
+![](./images/deploy_other_owner.png)
+
+- If you  `deploy update` a SCORE that is not active,
 
 ```bash
 (work) $ tbears deploy -m update -o cx06a427d41e87612c27c3caa2f1d7444c69781dc9  abc
