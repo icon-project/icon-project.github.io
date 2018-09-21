@@ -1,4 +1,14 @@
-# What is ICON
+# ICON - Hyperconnect the World
+
+ICON is a scalable smart contract enabled blockchain platform with an innovative consensus mechanism, decentralized
+governance structure, and a long-term goal of interoperability between enterprise and public blockchains.
+
+As a brief overview of the technical details: ICON has smart contracts known as SCOREs that are written in Python,
+an enhanced BFT (Byzantine Fault Tolerance) based algorithm known as LFT, and a concept known as “Virtual Step”
+allowing SCORE operators to cover user transaction fees.
+
+Our goal is to Hyperconnect the World, and by combining groundbreaking technology, a strong community, and relentless
+growth strategies we believe this goal is reachable.
 
 # Network Overview
   - LFT
