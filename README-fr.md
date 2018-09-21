@@ -1,5 +1,11 @@
 # Qu'est-ce que ICON
 
+ICON est une plateforme de blockchain extensive qui permet l'utilisation de contrats intelligents (*smart contracts*) et doté d'un mécanisme de consensus innovant,
+avec une structure décentralisée de gouvernance, un but sur le long terme d'interopérabilité entre les entreprises et les blockchains publiques.
+Pour faire un bref aperçu des détails techniques : ICON possède des smart contracts aussi appelés SCOREs qui sont écrits en Python,
+un algorithme de consensus amélioré basée sur BFT (Problème des Généraux Byzantins) connu sous le nom de LFT, et un concept connu en tant que "Virtual Step"
+Notre but est d'hyperconnecter le monde, et en combonant des technologies révolutionnaires, une communauté forte, et une stratégie de croissance implacable, nous croyons que ce but est atteignable.
+
 # Aperçu du réseau
   - LFT
   - Frais de transaction - \[[Télécharger le papier jaune](https://icon.foundation/resources/file/ICON_Yellowpaper_Transactionfee_EN_V1.0.pdf)\]
