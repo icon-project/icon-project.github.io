@@ -38,7 +38,7 @@ Euljiro network is exclusively open to the exchange developers.
 | Network ID (nid)| 2 |
 | Tracker         | https://trackerdev.icon.foundation |
 | Transaction fee | on  |
-| SCORE audit     | off |
+| SCORE audit     | on  |
 
 To receive test ICX, please contact your account manager.
 
