@@ -152,14 +152,16 @@ brew install git // git 설치
 
 * Anaconda를 설치합니다.
 ```
-wget https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh 
-bash ./Anaconda3-5.2.0-Linux-x86_64.sh
+wget https://repo.anaconda.com/archive/Anaconda3-5.2.0-MacOSX-x86_64.sh
+bash ./Anaconda3-5.2.0-MacOSX-x86_64.sh
 ```
+> 기존에 설치한 Python3가 있는 경우 생략이 가능합니다.
 
 * Virtualenv (python3 venv 대체 가능)를 설치합니다.
 ```
-pip3 install virtualenv
+pip install virtualenv
 ```
+> 기존에 설치한 Python3가 있다면, pip3를 통해 Virtualenv를 설치할 수 있습니다.
 ---
 #### *Ubuntu Linux*
 * apt-get 패키지 리스트를 업데이트 및 업그레이드 합니다.
@@ -170,7 +172,7 @@ sudo apt-get upgrade
 
 * LevelDB, libsecp256k1, autoconf, automake, libtool, pkg-config 를 설치합니다.
 ```
-sudo apt-get install libleveldb1 libleveldb-dev
+sudo apt-get install libleveldb1v5 libleveldb-dev
 sudo apt-get install autoconf automake libtool pkg-config
 sudo apt-get install libsecp256k1-dev
 ```
@@ -216,7 +218,7 @@ source venv/bin/activate
 ```
 * 생성된 `dist` 디렉토리의 `.whl` 파일과 `pip` 를 이용하여 T-Bears를 설치합니다.
 ```
-(venv) pip install ./dist/tbears-1.0.5-py3-none-any.whl
+(venv) pip install ./dist/tbears-1.0.5.1-py3-none-any.whl
 ```
 ---
 #### 2. PyPI 통해 설치하기
@@ -238,7 +240,12 @@ source ./bin/activate
 ```
 ---
 #### 3. Docker 활용하기
-* Docker 설치하기
+* Docker 설치하기(MacOS)
+```
+wget https://download.docker.com/mac/stable/Docker.dmg
+hdiutil attach Docker.dmg
+```
+* Docker 설치하기(Ubuntu Linux)
 ```
 curl -fsSL https://get.docker.com/ | sudo sh
 ```
