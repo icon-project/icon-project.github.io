@@ -91,7 +91,7 @@ os.uname()
 
 ## Aléatoire
 Le résultat de l'exécution d'un SCORE doit être déterministe. Sans cela, les nœuds ne peuvent atteindre un consensus.
-Si les nœuds ne peuvent atteindre un consensus, toutes les transactions du bloc échoueront.
+Si les nœuds ne peuvent atteindre un consensus à cause d'un résultat non déterministe, toutes les transactions du bloc seront perdues.
 Par conséquent, non seulement les fonctions aléatoires, mais toute tentative qui empêcherait la génération d'un bloc par une opération indéterminéee est strictement interdite.
 
 ```python
@@ -217,4 +217,4 @@ won = block.height % 2 == 0
 ```
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/32c098db25d56157ea9e1f7b65ae3ea06671bba1)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/96292abe7ff71f401c310569b5341060519486ad)
