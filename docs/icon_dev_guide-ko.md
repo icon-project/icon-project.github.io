@@ -218,7 +218,7 @@ source venv/bin/activate
 ```
 * 생성된 `dist` 디렉토리의 `.whl` 파일과 `pip` 를 이용하여 T-Bears를 설치합니다.
 ```
-(venv) pip install ./dist/tbears-1.0.5.1-py3-none-any.whl
+(venv) pip install ./dist/tbears-*.1-py3-none-any.whl
 ```
 ---
 #### 2. PyPI 통해 설치하기
