@@ -36,7 +36,7 @@ Le réseau Euljiro est exclusivement ouvert pour les développeurs des échanges
 | Network ID (nid)| 2 |
 | Tracker         | https://trackerdev.icon.foundation |
 | Frais de transaction | Activé  |
-| Audit de SCORE     | Désactivé |
+| Audit de SCORE     | Activé |
 
 Pour recevoir des ICX de test, merci de contacter votre gérant de compte.
 
@@ -61,4 +61,4 @@ Notez que l'audit du SCORE n'est pas activé sur le testnet. Veuillez être sûr
 Si vous avez la moindre question à propos du processus de l'audit, merci d'envoyer à mail à `audit@icon.foundation`.
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/blob/d7ea24967b67b76c2b65ce9c77f9b5135699ab69/icon_network.md)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/96292abe7ff71f401c310569b5341060519486ad)
