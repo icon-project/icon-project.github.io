@@ -12,7 +12,7 @@ growth strategies we believe this goal is reachable.
 
 # Network Overview
   - LFT
-  - Transaction Fees - \[[download yellow paper](https://icon.foundation/resources/file/ICON_Yellowpaper_Transactionfee_EN_V1.0.pdf)\]
+  - [Transaction Fees](https://icon-project.github.io/docs/step.html) - \[[download yellow paper](https://icon.foundation/resources/file/ICON_Yellowpaper_Transactionfee_EN_V1.0.pdf)\]
   - IISS - \[download yellow paper\]
   - BTP
   - Governance - \[[download yellow paper](https://icon.foundation/resources/file/ICON_Yellowpaper_ICONstitution_and_Governance_EN_V1.0.pdf)\]
