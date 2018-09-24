@@ -59,7 +59,7 @@ root@b65c6a4cccf8:/tbears#
 ```
 
 We will interact with the testnet.
-[[Testnet Info](https://icon-project.github.io/docs/icon_network.html#testnet-for-dapps)].
+[[Testnet Info](icon_network.md#testnet-for-dapps)].
 You can pass the node API endpoint to the -u option to make T-Bears talk to the right one.
 For the sake of simplicity, we will invoke query methods which do not reqiure keystore file.
 - Sample query 1 : Get the genesis block of the testnet. You can verify the network id in the response message.
