@@ -28,4 +28,4 @@ Thank you for your interest in contributing to ICON documentation project. You a
 
 ## Style guide
 
-- Use relative links to internal md files. [[Relative links for GithHub Pages](https://blog.github.com/2016-12-05-relative-links-for-github-pages/)] This will make md files rendered by markdown viewer on GitHub.com, redered as html files on GitHub Pages.
+- Use relative links to internal md files. [[Relative links for GithHub Pages](https://blog.github.com/2016-12-05-relative-links-for-github-pages/)] This will make md files rendered by markdown viewer on GitHub.com, rendered as html files on GitHub Pages.
