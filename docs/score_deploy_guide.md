@@ -77,7 +77,9 @@ Send deploy request successfully.
 
 transaction hash: 0x469fce37cf1e7fb9892e1333a15d4e20f86e8f010b56fe0708bd89246dedcfbf
 ```
-You can verify the result of SCORE deployment by the transaction hash (the result of the command above) in tracker. ![](./images/deploy_1.png)
+You can verify the result of SCORE deployment by the transaction hash (the result of the command above) in tracker.
+
+![](./images/deploy_1.png)
 
 If you choose "Contract Created" in the screen above, you can check the status of SCORE audit. The status is "pending" until the auditor accepts it.
 

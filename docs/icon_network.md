@@ -57,8 +57,20 @@ To receive test ICX, please contact your account manager.
 
 Before you submit your SCORE to the ICON mainnet, you should test thoroughly on T-Bears and testnet.
 Note that SCORE audit is not enabled in testnet. Please make sure you understand the ICON audit policy and follow the guidelines.
-- [SCORE Audit](https://icon-project.github.io/docs/score_audit.html)
-- [Audit Checklist](https://icon-project.github.io/docs/audit_checklist.html)
-- [Deploy Guideline](https://icon-project.github.io/docs/score_deploy_guide.html)
+- [SCORE Audit](score_audit.md)
+- [Audit Checklist](audit_checklist.md)
+- [Deploy Guideline](score_deploy_guide.md)
   
 If you have any questions about the audit process, please send email to `audit@icon.foundation`.
+
+## How to change network in ICONex Chrome extension
+- Open the Chrome DevTools by pressing F12, then go to the **Application** tab. In the **Storage** section, expand **Local Storage**. 
+- Add a new key/value pair, **isDev/true**, by clicking on the empty row at the bottom of the table.
+
+![](images/iconex-isdev.png)
+
+- Reload your wallet, then you will see the menu in the bottom. Click the **ICX (SERVER)** button to open the dropup list of the available networks. You can choose predefined one, or manually set a custom node. 
+
+![](images/iconex-network.png)
+
+ 
