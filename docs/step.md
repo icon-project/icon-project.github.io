@@ -1,13 +1,12 @@
 # Step Price
 
-Transaction fee is calculated as `requiredStep = usedStep * stepPrice`.
+Transaction fee is calculated as `usedStep * stepPrice`.
 
-- Where `stepPrice` is the ICX exchange rate, and `usedStep` is calulated by the sum of `stepCost` for each action processed in the transaction.
+- Where `stepPrice` is the ICX exchange rate, and `usedStep` is the sum of `stepCost` for each action processed in the transaction.
 
-- If the `requiredStep` exceeds the `stepLimit` you privided, the transaction will fail, but the amount of `stepLimit` is deducted from your balance.  
+- If `usedStep` reaches the `stepLimit` before finishing the execution, the transaction will fail with `out of step` error, but the amount of `stepLimit` is deducted from your balance.  
 
-- Before excuting your transaction, there is a prevalidation of the `requiredStep`. You account must hold at least `stepLimit * stepPrice`. If you do not have sufficient ICX, your transaction will fail immediately.
-
+- Before executing your transaction, your account must hold at least `stepLimit * stepPrice` amount of ICX. If you do not have sufficient ICX, your transaction will fail immediately.
 
 You can query the `stepCost` of each action and the maximum possible `stepLimit` value you can set. 
 
