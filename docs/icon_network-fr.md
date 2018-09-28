@@ -54,11 +54,22 @@ Pour recevoir des ICX de test, merci de contacter votre gérant de compte.
 
 Avant de soumettre votre SCORE au réseau principal d'ICON, vous devez le tester entièrement à l'aide de T-Bears et du testnet.
 Notez que l'audit du SCORE n'est pas activé sur le testnet. Veuillez être sûr que vous comprenez la politique d'audit d'ICON et de suivre les règles.
-# [Audit de SCORE](https://icon-project.github.io/docs/score_audit-fr.html)
-  - [Liste de choses à vérifier](https://icon-project.github.io/docs/audit_checklist-fr.html)
-  - [Guide de déploiement](https://icon-project.github.io/docs/score_deploy_guide-fr.html)
+  - [Audit de SCORE](score_audit-fr.md)
+  - [Liste de choses à vérifier](audit_checklist-fr.md)
+  - [Guide de déploiement](score_deploy_guide-fr.md)
 
 Si vous avez la moindre question à propos du processus de l'audit, merci d'envoyer à mail à `audit@icon.foundation`.
 
+## Comment changer de réseau dans l'extension Chrome ICONex
+- Ouvrez les outils de développement de Chrome en appuyant sur F12, puis allez dans l'onglet **Application**. Dans la section **Storage**, déroulez **Local Storage**.
+- Ajoutez une nouvelle pair clé/valeur, **isDev/true**, en cliquant dans la ligne vide en bas de la table.
+
+![](images/iconex-isdev.png)
+
+- Rechargez votre portefeuille, et vous verrez un menu en bas. Cliquez sur le boutton **ICX (SERVER)** afin d'ouvrir une liste déroulante des réseaux disponibles.
+Vous pouvez en choisir un prédéfini, ou définir manuellement votre noeud.
+
+![](images/iconex-network.png)
+
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/96292abe7ff71f401c310569b5341060519486ad)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/9d9e86d7cad026ffd92ef33797f92a9817b2c7e6)
