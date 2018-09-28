@@ -34,9 +34,8 @@ We will install T-Bears using docker, and send some queries to the testnet.
 - Install and run T-Bears with docker.
 Below command will download the image and run the container.
 On execution, configuration files and the test account keyfile are generated.
-Note that the test account refers to the one reside on the T-Bears simulated environment,
-you can use the `keystore_test1` file on the local T-Bears environment only,
-and should not use the file to sign your transaction to other networks.  
+Note that you should not use the generated keystore to sign your transaction to other networks,
+only use the `keystore_test1` file on the local T-Bears environment.
 
 ```bash
 $ docker run -it --name tbears-container -p 9000:9000 iconloop/tbears
@@ -61,7 +60,7 @@ root@b65c6a4cccf8:/tbears#
 We will interact with the testnet.
 [[Testnet Info](icon_network.md#testnet-for-dapps)].
 You can pass the node API endpoint to the -u option to make T-Bears talk to the right one.
-For the sake of simplicity, we will invoke query methods which do not reqiure keystore file.
+For the sake of simplicity, we will invoke query methods which do not require keystore file.
 - Sample query 1 : Get the genesis block of the testnet. You can verify the network id in the response message.
 Make sure block height should be in hexadecimal. 
 
