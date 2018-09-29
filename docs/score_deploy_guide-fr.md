@@ -79,7 +79,9 @@ Send deploy request successfully.
 transaction hash: 0x469fce37cf1e7fb9892e1333a15d4e20f86e8f010b56fe0708bd89246dedcfbf
 ```
 
-Vous pouvez vérifier le résultat du déploiement du SCORE grâce au hash de la transaction (le résultat de la commande ci-dessus) dans le tracker. ![](./images/deploy_1.png)
+Vous pouvez vérifier le résultat du déploiement du SCORE grâce au hash de la transaction (le résultat de la commande ci-dessus) dans le tracker. 
+
+![](./images/deploy_1.png)
 
 Si vous choisissez "Contract Created" dans l'écran ci-dessus, vous pouvez vérifier le status de l'audit de votre SCORE. Le status est "*pending*" (en attente) jusqu'à ce que l'auditeur l'accepte.
 
@@ -214,4 +216,4 @@ Got an error response
 ```
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/blob/1b430f81c2fa7b6dd919ddce3ef0df3af76ba8a8/docs/score_deploy_guide.md)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/9d9e86d7cad026ffd92ef33797f92a9817b2c7e6)
