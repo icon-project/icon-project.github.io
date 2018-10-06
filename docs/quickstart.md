@@ -18,8 +18,8 @@ This tutorial is in three parts. In part 1, you will get familar with the develo
 - Create an account (in Chrome wallet)
 - Get test ICX
 - Transaction fees
-- Deploy HelloWorld contact to the testnet (T-Bears)
-- Execute HelloWorld contract (T-Bears, Python)
+- Deploy HelloWorld contact to the testnet (T-Bears CLI)
+- Execute HelloWorld contract (T-Bears CLI, Python)
 
 #### Part 3. Private devnet on AWS
 

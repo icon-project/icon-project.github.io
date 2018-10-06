@@ -18,24 +18,22 @@ Please refer to the [network guide](icon_network.md) for more information.
 
 ## Create an account (in Chrome wallet)
 
-Let's create an account in ICONex, and download the keystore file. 
+Let's create an account in ICONex, and download the keystore file. Full guideline of creating a keyfile is [here](wallet.md#create-an-account).
 
 We will use this keystore file on testnet. The keystore file downloaded from ICONex will look something like `UTC--2018-10-06T06_00_02.195Z--hxbac99ffea54749ca1c86ab4e6bfe0b630bf7a7a0`. As you may have noticed, the latter part of the filename is your address, `hxbac99ffea54749ca1c86ab4e6bfe0b630bf7a7a0` in this example. Let's rename the file to `keyfile_test2` for human readibility. 
-
-Full guideline of creating a keyfile is [here](wallet.md#create-an-account).
 
 
 
 ## Get test ICX
 
-You need ICX to deploy and invoke a SCORE on testnet, because every transaction on testnet requires a  fee. To receive testnet ICX, please send email to `testicx@icon.foundation` with following information.
+You need ICX to deploy and invoke a SCORE on testnet, because every transaction on testnet requires a fee. To receive testnet ICX, please send email to `testicx@icon.foundation` with following information.
 
 - Testnet node url
 - Address to receive the testnet ICX, the one you created and downloaded above.
 
-Check your balance. 
+Check your balance from CLI, or in the ICONex. 
 
-```bash
+```console
 # tbears -u https://bicon.net.solidwallet.io/api/v3 balance [account]
 ```
 
@@ -49,7 +47,7 @@ Check your balance.
 
   Every transaction request message has a `stepLimit` field. This value can not exceed the "maximun step limit" defined in the Governance SCORE. 
 
-  ```json
+  ```
   {
       "jsonrpc": "2.0",
       "method": "icx_sendTransaction",
@@ -64,9 +62,9 @@ Check your balance.
 
 - `stepUsed` in transaction result 
 
-  You may have already noticed that every transaction result returns a `stepUsed` field. This is the actual amount of step consumed by the transaction. It is a good practice to test against T-Bears to figure out the rough step amount required by each transaction. On T-Bears, step is calculated but the step price is set to zero, so transaction fee is always zero. T-Bears will return `Out of step` error, if the step usage reaches the `stepLimit` defined in your trasaction request. 
+  You may have already noticed that every transaction result returns a `stepUsed` field. This is the actual amount of step consumed by the transaction. It is a good practice to test against T-Bears to figure out the step amount required by each transaction. On T-Bears, step is calculated but the step price is set to zero, so transaction fee is always zero. T-Bears will return `Out of step` error, if the step usage reaches the `stepLimit` value in your trasaction request. 
 
-  ```json
+  ```
   {
       "jsonrpc": "2.0",
       "result": {
@@ -82,12 +80,12 @@ Check your balance.
 
   When you recieve an `Out of step` error, increase the `stepLimit` in the request message. The value should be larger than `stepUsed`.
 
-  ```json
+  ```
   {
       "jsonrpc": "2.0", 
       "result": {
           "txHash": "0x9f512fe4b431d8780d75c29ad307f3....", 
-           ...
+          ...
           "stepUsed": "0x4d361d0",
           "status": "0x0", 
           "failure": {
@@ -103,9 +101,9 @@ Check your balance.
 
 Unlike T-Bears emulated environment, on testnet, valid sinature is required to send a transaction. So, every transaction request will require a keystore file to sign it. 
 
-We will modify the default cli configuration file, "tbears_cli_config.json",  for testnet. In this config file, we will set `uri`, `nid`, and `stepLimit`. 
+We will modify the default cli configuration file, "tbears_cli_config.json", for testnet. In this config file, we will set `uri`, `nid`, and `stepLimit`. 
 
-```bash
+```console
 {
     "uri": "https://bicon.net.solidwallet.io/api/v3",  <-- testnet api endpoint
     "nid": "0x3",  <-- testnet network id. deploy command reads this value.
@@ -117,22 +115,22 @@ We will modify the default cli configuration file, "tbears_cli_config.json",  fo
 }
 ```
 
-`tbears deploy` command with `-k [keystore_file]` options will install the SCORE on testnet. Target network info (uri, nid) is read from the default config file.  Don't forget to get the SCORE address from the transaction result. 
+`tbears deploy` command with `-k [keystore_file]` options will install the SCORE on testnet. Target network info (uri, nid) is read from the default config file. Don't forget to get the SCORE address from the transaction result. 
 
-```bash
+```console
 root@07dfee84208e:/tbears# tbears deploy hello_world -k keystore_test2
 root@07dfee84208e:/tbears# tbears txresult [txhash]
 ```
 
 
 
-## Execute HelloWorld contract (T-Bears, Python)
+## Execute HelloWorld contract (T-Bears CLI, Python)
 
-#### T-Bears
+#### T-Bears CLI
 
-Same command will invoke `hello` method on testnet. Read-only function call does not require keystore file. Testnet `uri` is read from the defaul config file.  Just make sure you correctly updated `to` and `from` values in the "call.json" request message.
+Same command will invoke `hello` method on testnet. Read-only function call does not require keystore file. Testnet `uri` is read from the default config file. Just make sure you correctly updated `to` and `from` values in the "call.json" request message.
 
-```bash
+```console
 root@07dfee84208e:/tbears# tbears call call.json
 
 root@07dfee84208e:/tbears# cat call.json 
@@ -154,7 +152,7 @@ root@07dfee84208e:/tbears# cat call.json
 
 #### Python SDK
 
-We will create a "hello.py" to invoke a ` hello` method of the contract on testnet. Use the actual SCORE address and keystore password in your code.
+We will create a "hello.py" to invoke a `hello` method of the contract on testnet. Use the actual SCORE address and keystore password in your code.
 
 ```python
 from iconsdk.icon_service import IconService
@@ -181,11 +179,11 @@ result = icon_service.call(call)
 print(result)
 ```
 
-Because you don't need to sign your read-only function call request, creating a wallet instance from the keystore file is not a mandatory step. We created a wallet instance just to get your account address. 
+Because you don't need to sign your read-only function call request, creating a wallet instance from the keystore file is not a mandatory step. Wallet instance is created just to get your account address. 
 
 Run the code. 
 
-```bash
+```console
 $ python3 test.py
 Hello, hxbac99ffea54749ca1c86ab4e6bfe0b630bf7a7a0. My name is HelloWorld
 ```
