@@ -1,4 +1,4 @@
-# Step Price
+# Transaction Fee
 
 Transaction fee is calculated as `usedStep * stepPrice`.
 
@@ -8,11 +8,12 @@ Transaction fee is calculated as `usedStep * stepPrice`.
 
 - Before executing your transaction, your account must hold at least `stepLimit * stepPrice` amount of ICX. If you do not have sufficient ICX, your transaction will fail immediately.
 
-You can query the `stepCost` of each action and the maximum possible `stepLimit` value you can set. 
+You can query the `stepCost` of each action, the maximum possible `stepLimit` value you can set, and the `stepPrice`. 
 
 - SCORE Address - cx0000000000000000000000000000000000000001
 - [getStepCost](https://github.com/icon-project/governance/blob/master/README.md#getstepcosts)
 - [getMaxStepLimit](https://github.com/icon-project/governance/blob/master/README.md#getmaxsteplimit)
+- [getStepPrice](https://github.com/icon-project/governance/blob/master/README.md#getstepprice)
 
 ```bash
 root@b65c6a4cccf8:/tbears# cat stepcost.json 
@@ -72,5 +73,28 @@ response : {
     "jsonrpc": "2.0",
     "result": "0x9502f900",
     "id": 2
+}
+```
+
+```bash
+root@07dfee84208e:/tbears# cat stepprice.json 
+{
+    "jsonrpc": "2.0",
+    "id": 3,
+    "method": "icx_call",
+    "params": {
+        "to": "cx0000000000000000000000000000000000000001",
+        "dataType": "call",
+        "data": {
+            "method": "getStepPrice"
+            }
+        }
+    }
+}
+root@07dfee84208e:/tbears# tbears call -u https://bicon.net.solidwallet.io/api/v3 stepprice.json 
+response : {
+    "jsonrpc": "2.0",
+    "result": "0x2540be400",
+    "id": 3
 }
 ```
