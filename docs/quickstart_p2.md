@@ -2,7 +2,7 @@
 
 In this part 2, we will deploy the HelloWorld SCORE onto the testnet. You will learn how to configure your tools to interact with the testnet.
 
-## Connect to the testnet (in Chrome wallet)
+## Configure ICONex to connect to the testnet
 
 If you have not installed ICON Chrome wallet, here is the chrome web store [link](https://chrome.google.com/webstore/detail/iconex/flpiciilemghbmfalicajoolhkkenfel).
 
@@ -16,7 +16,7 @@ Please refer to the [network guide](icon_network.md) for more information.
 
 
 
-## Create an account (in Chrome wallet)
+## Create an account in ICONex
 
 Let's create an account in ICONex, and download the keystore file. Full guideline of creating a keyfile is [here](wallet.md#create-an-account).
 
@@ -97,25 +97,30 @@ Check your balance from CLI, or in the ICONex.
 
 
 
-## Deploy HelloWorld contact to the testnet (T-Bears CLI)
-
-Unlike T-Bears emulated environment, on testnet, valid sinature is required to send a transaction. So, every transaction request will require a keystore file to sign it. 
+## Configure T-Bears CLI to see the testnet
 
 We will modify the default cli configuration file, "tbears_cli_config.json", for testnet. In this config file, we will set `uri`, `nid`, and `stepLimit`. 
+Every CLI commands lookup the `uri` from the config file if `-u` option is not given. `deploy` command uses `nid` and `stepLimit` values in this file. 
 
-```console
+```
 {
-    "uri": "https://bicon.net.solidwallet.io/api/v3",  <-- testnet api endpoint
-    "nid": "0x3",  <-- testnet network id. deploy command reads this value.
+    "uri": "https://bicon.net.solidwallet.io/api/v3",
+    "nid": "0x3",
     "keyStore": null,
     "from": "hxe7af5fcfd8dfc67530a01a0e403882687528dfcb",
     "to": "cx0000000000000000000000000000000000000000",
-    "stepLimit": "0x5000000",  <-- deploy command reads this value.
+    "stepLimit": "0x5000000",
     ...
 }
 ```
 
-`tbears deploy` command with `-k [keystore_file]` options will install the SCORE on testnet. Target network info (uri, nid) is read from the default config file. Don't forget to get the SCORE address from the transaction result. 
+
+
+## Deploy HelloWorld to the testnet (T-Bears CLI)
+
+Unlike T-Bears emulated environment, on testnet, valid sinature is required to send a transaction. So, every transaction request will require a keystore file to sign it. 
+
+`tbears deploy` command with `-k [keystore_file]` option will install the SCORE on testnet. Target network info (uri, nid) is read from the default config file. Don't forget to get the SCORE address from the transaction result. 
 
 ```console
 root@07dfee84208e:/tbears# tbears deploy hello_world -k keystore_test2
@@ -124,7 +129,7 @@ root@07dfee84208e:/tbears# tbears txresult [txhash]
 
 
 
-## Execute HelloWorld contract (T-Bears CLI, Python)
+## Execute HelloWorld (T-Bears CLI, Python)
 
 #### T-Bears CLI
 

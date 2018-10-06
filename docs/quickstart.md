@@ -14,12 +14,13 @@ This tutorial is in three parts. In part 1, you will get familar with the develo
 
 #### Part 2. [HelloWorld on testnet](quickstart_p2.md)
 
-- Connect to the testnet (in Chrome wallet)
-- Create an account (in Chrome wallet)
+- Configure ICONex to connect to the testnet
+- Create an account in ICONex
 - Get test ICX
 - Transaction fees
-- Deploy HelloWorld contact to the testnet (T-Bears CLI)
-- Execute HelloWorld contract (T-Bears CLI, Python)
+- Configure T-Bears to see the testnet
+- Deploy HelloWorld to the testnet (T-Bears CLI)
+- Execute HelloWorld (T-Bears CLI, Python)
 
 #### Part 3. Private devnet on AWS
 
