@@ -103,7 +103,7 @@ Unlike T-Bears emulated environment, on testnet, valid sinature is required to s
 
 We will modify the default cli configuration file, "tbears_cli_config.json", for testnet. In this config file, we will set `uri`, `nid`, and `stepLimit`. 
 
-```console
+```
 {
     "uri": "https://bicon.net.solidwallet.io/api/v3",  <-- testnet api endpoint
     "nid": "0x3",  <-- testnet network id. deploy command reads this value.
