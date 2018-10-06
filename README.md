@@ -36,7 +36,9 @@ Our goal is to Hyperconnect the World, and by combining groundbreaking technolog
   - [Deploy Guideline](/docs/score_deploy_guide.md)
 
 # Tutorials
-  - [Quickstart Guide](/docs/quickstart_guide.md)
+  - [Quickstart Guide](/docs/quickstart.md)
+    - [Part 1. HelloWorld on local emulated environment](/docs/quickstart_p1.md)
+    - [Part 2. HelloWorld on testnet](/docs/quickstart_p2.md)
   - Sample SCOREs 
     - [Hello World](https://github.com/icon-project/samples/blob/master/hello_world/README.md)
     - [IRC2 Token](https://github.com/sink772/IRC2-token-standard)
