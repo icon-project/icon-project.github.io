@@ -8,21 +8,21 @@ Notre but est d'hyperconnecter le monde, et en combonant des technologies révol
 
 # Aperçu du réseau
   - LFT
-  - Frais de transaction - \[[Télécharger le papier jaune](https://icon.foundation/resources/file/ICON_Yellowpaper_Transactionfee_EN_V1.0.pdf)\]
+  - [Frais de transaction](/docs/step-fr.md) - \[[Télécharger le papier jaune](https://icon.foundation/resources/file/ICON_Yellowpaper_Transactionfee_EN_V1.0.pdf)\]
   - IISS - \[Télécharger le papier jaune\]
   - BTP
   - Gouvernance - \[[Télécharger le papier jaune](https://icon.foundation/resources/file/ICON_Yellowpaper_ICONstitution_and_Governance_EN_V1.0.pdf)\]
 
-# [Réseau d'ICON](https://icon-project.github.io/docs/icon_network-fr.html)
-  - [Devnet privé sur AWS](https://icon-project.github.io/docs/icon_network-fr.html#private-devnet-on-aws)
-  - [Testnet pour les DApps](https://icon-project.github.io/docs/icon_network-fr.html#testnet-for-dapps)
-  - [Testnet pour les échanges](https://icon-project.github.io/docs/icon_network-fr.html#testnet-for-exchanges)
-  - [Mainnet](https://icon-project.github.io/docs/icon_network-fr.html#mainnet)
+# [Réseau d'ICON](/docs/icon_network-fr.md)
+  - [Devnet privé sur AWS](/docs/icon_network-fr.md#private-devnet-on-aws)
+  - [Testnet pour les DApps](/docs/icon_network-fr.md#testnet-for-dapps)
+  - [Testnet pour les échanges](/docs/icon_network-fr.md#testnet-for-exchanges)
+  - [Mainnet](/docs/icon_network-fr.md#mainnet)
 
-# [Gestion du compte](https://icon-project.github.io/docs/wallet-fr.html)
+# [Gestion du compte](/docs/wallet-fr.md)
 
 # Client SDK
-  - [CLI (T-Bears)](https://icon-project.github.io/docs/tbears_cli-fr.html)
+  - [CLI (T-Bears)](/docs/tbears_cli-fr.md)
   - [Java SDK](https://github.com/icon-project/icon-sdk-java/blob/master/quickstart/README.md)
   - [Python SDK](https://github.com/icon-project/icon-sdk-python/blob/master/README.md)
   - [JSON-RPC API v3](https://github.com/icon-project/icon-rpc-server/blob/master/docs/icon-json-rpc-v3.md)
@@ -31,12 +31,12 @@ Notre but est d'hyperconnecter le monde, et en combonant des technologies révol
   - [Suite de Développement T-Bears](https://github.com/icon-project/t-bears/blob/master/README.md)
   - [Développement du SCORE](https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md)
 
-# [Audit de SCORE](https://icon-project.github.io/docs/score_audit-fr.html)
-  - [Liste de choses à vérifier](https://icon-project.github.io/docs/audit_checklist-fr.html)
-  - [Guide de déploiement](https://icon-project.github.io/docs/score_deploy_guide-fr.html)
+# [Audit de SCORE](/docs/score_audit-fr.md)
+  - [Liste de choses à vérifier](/docs/audit_checklist-fr.md)
+  - [Guide de déploiement](/docs/score_deploy_guide-fr.md)
 
 # Tutoriels
   - Guide de démarrage rapide
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/blob/d7ea24967b67b76c2b65ce9c77f9b5135699ab69/README.md)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/9d9e86d7cad026ffd92ef33797f92a9817b2c7e6)

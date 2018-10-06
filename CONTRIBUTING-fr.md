@@ -24,5 +24,9 @@ Merci de votre intérêt pour participer au développement de la documentation d
 - Ajouter un nouveau document que nous n'avons pas encore couvert.
   - Pour ce type de contribution, merci de créer une *issue* et exposez un aperçu du contenu que vous souhaitez créer. Ceci est requis afin d'aligner nos efforts sur la documentation en cours de rédaction. Lorsque la demande est acceptée, le mainteneur du dépôt vous guidera pour vous indiquer dans quel dossier vous devriez créer vos documents et vos images. Les demandes de fusion de branches sans référence à une *issue* préalablement créée peuvent être rejetées.
 
+## Guide Stylistique
+
+- Utilisez des liens relatifs dans vos fichiers md internes. [[Relative links for GithHub Pages](https://blog.github.com/2016-12-05-relative-links-for-github-pages/)] Cela permet de rendre les fichiers md consultables sur GitHub.com, et généré en HTML sur Github Pages.
+
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/blob/eb4c63ed3a14a592ff51412e9d6aca3350f2c1a0/CONTRIBUTING.md)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/9d9e86d7cad026ffd92ef33797f92a9817b2c7e6)
