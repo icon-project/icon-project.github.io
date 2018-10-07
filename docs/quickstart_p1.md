@@ -156,7 +156,7 @@ root@07dfee84208e:/tbears# cat call.json
 
 ## Modify HelloWorld contract to greet you
 
-It will be a pleasure to have more agreeable HelloWorld SCORE. Let's give them a name, and greet you nicer way. One method will be added, `hello` will be modified.
+It would be a pleasure to have a more agreeable HelloWorld SCORE. Let's give it a name, and greet you with a nicer way. One method will be added, `hello` method will be modified.
 
 - `name` is a read-only funtion, and returns the SCORE name.
 
