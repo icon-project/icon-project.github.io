@@ -62,7 +62,7 @@ Check your balance from CLI, or in the ICONex.
 
 - `stepUsed` in transaction result 
 
-  You may have already noticed that every transaction result returns a `stepUsed` field. This is the actual amount of step consumed by the transaction. It is a good practice to test against T-Bears to figure out the step amount required by each transaction. On T-Bears, step is calculated but the step price is set to zero, so transaction fee is always zero. T-Bears will return `Out of step` error, if the step usage reaches the `stepLimit` value in your trasaction request. 
+  You may have already noticed that every transaction result returns a `stepUsed` field. This is the actual amount of step consumed by the transaction. It is a good practice to test against T-Bears to figure out the step amount required by each transaction. On T-Bears, step is calculated but the step price is set to zero, so transaction fee is always zero. T-Bears will return `Out of step` error only if the step usage reaches the `stepLimit` value in your transaction request. 
 
   ```
   {
@@ -78,7 +78,7 @@ Check your balance from CLI, or in the ICONex.
 
 - `Out of step` error in transaction result
 
-  When you recieve an `Out of step` error, increase the `stepLimit` in the request message. The value should be larger than `stepUsed`.
+  When you receive an `Out of step` error, increase the `stepLimit` in the request message. The value should be larger than `stepUsed`.
 
   ```
   {
