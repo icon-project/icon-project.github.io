@@ -1,10 +1,10 @@
 # Qu'est-ce que ICON
 
-ICON est une plateforme de blockchain extensive qui permet l'utilisation de contrats intelligents (*smart contracts*) et doté d'un mécanisme de consensus innovant,
-avec une structure décentralisée de gouvernance, un but sur le long terme d'interopérabilité entre les entreprises et les blockchains publiques.
-Pour faire un bref aperçu des détails techniques : ICON possède des smart contracts aussi appelés SCOREs qui sont écrits en Python,
-un algorithme de consensus amélioré basée sur BFT (Problème des Généraux Byzantins) connu sous le nom de LFT, et un concept connu en tant que "Virtual Step"
-Notre but est d'hyperconnecter le monde, et en combonant des technologies révolutionnaires, une communauté forte, et une stratégie de croissance implacable, nous croyons que ce but est atteignable.
+ICON est une plateforme de blockchain extensive qui permet l'utilisation de contrats intelligents (*smart contracts*) et doté d'un mécanisme de consensus innovant, avec une structure décentralisée de gouvernance, un but sur le long terme d'interopérabilité entre les entreprises et les blockchains publiques.
+
+Pour faire un bref aperçu des détails techniques : ICON possède des smart contracts aussi appelés SCOREs qui sont écrits en Python, un algorithme de consensus amélioré basée sur BFT (Problème des Généraux Byzantins) connu sous le nom de LFT, et un concept connu en tant que "Virtual Step" qui permettent aux opérateurs de SCORE de couvrir les frais de transaction.
+
+Notre but est d'hyperconnecter le monde, et en combinant des technologies révolutionnaires, une communauté forte, et une stratégie de croissance implacable, nous croyons que ce but est atteignable.
 
 # Aperçu du réseau
   - LFT
@@ -36,7 +36,11 @@ Notre but est d'hyperconnecter le monde, et en combonant des technologies révol
   - [Guide de déploiement](/docs/score_deploy_guide-fr.md)
 
 # Tutoriels
-  - Guide de démarrage rapide
+  - [Guide de démarrage rapide](/docs/quickstart-fr.md)
+    - [Partie 1. HelloWorld sur un environnement émulé local](/docs/quickstart_p1-fr.md)
+    - [Part 2. HelloWorld sur le testnet](/docs/quickstart_p2-fr.md)
+    - [Hello World](https://github.com/icon-project/samples/blob/master/hello_world/README.md)
+    - [Token IRC2](https://github.com/sink772/IRC2-token-standard)
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/9d9e86d7cad026ffd92ef33797f92a9817b2c7e6)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/f615ff6f6387e9605a8d12958dbc17117903e8e9)

@@ -66,10 +66,10 @@ Si vous avez la moindre question à propos du processus de l'audit, merci d'envo
 
 ![](images/iconex-isdev.png)
 
-- Rechargez votre portefeuille, et vous verrez un menu en bas. Cliquez sur le boutton **ICX (SERVER)** afin d'ouvrir une liste déroulante des réseaux disponibles.
+- Rechargez votre portefeuille, et vous verrez un menu en bas. Cliquez sur le bouton **ICX (SERVER)** afin d'ouvrir une liste déroulante des réseaux disponibles.
 Vous pouvez en choisir un prédéfini, ou définir manuellement votre noeud.
 
 ![](images/iconex-network.png)
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/9d9e86d7cad026ffd92ef33797f92a9817b2c7e6)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/f615ff6f6387e9605a8d12958dbc17117903e8e9)
