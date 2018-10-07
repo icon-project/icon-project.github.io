@@ -45,7 +45,7 @@ Check your balance from CLI, or in the ICONex.
 
 - `stepLimit` in transaction request message
 
-  Every transaction request message has a `stepLimit` field. This value can not exceed the "maximun step limit" defined in the Governance SCORE. 
+  Every transaction request message has a `stepLimit` field. This value can not exceed the "maximum step limit" defined in the Governance SCORE. 
 
   ```
   {
