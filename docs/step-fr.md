@@ -1,4 +1,4 @@
-# Prix du Step
+# Frais de transaction
 
 Les frais de transaction sont calculés comme ceci : `usedStep * stepPrice`.
 
@@ -8,11 +8,12 @@ Les frais de transaction sont calculés comme ceci : `usedStep * stepPrice`.
 
 - Avant d'exécuter votre transaction, votre compte doit détenir au moins un montant d'ICX égal à `stepLimit * stepPrice` . Si vous n'avez pas assez d'ICX, votre transaction échouera immédiatement.
 
-Vous pouvez requêter le `stepCost` de chaque action et la valeur maximum de `stepLimit` que vous pouvez mettre.
+Vous pouvez requêter le `stepCost` de chaque action, la valeur maximum de `stepLimit` que vous pouvez mettre, et le `stepPrice`.
 
 - Address du SCORE - cx0000000000000000000000000000000000000001
 - [getStepCost](https://github.com/icon-project/governance/blob/master/README.md#getstepcosts)
 - [getMaxStepLimit](https://github.com/icon-project/governance/blob/master/README.md#getmaxsteplimit)
+- [getStepPrice](https://github.com/icon-project/governance/blob/master/README.md#getstepprice)
 
 ```bash
 root@b65c6a4cccf8:/tbears# cat stepcost.json 
@@ -75,5 +76,28 @@ response : {
 }
 ```
 
+```bash
+root@07dfee84208e:/tbears# cat stepprice.json 
+{
+    "jsonrpc": "2.0",
+    "id": 3,
+    "method": "icx_call",
+    "params": {
+        "to": "cx0000000000000000000000000000000000000001",
+        "dataType": "call",
+        "data": {
+            "method": "getStepPrice"
+            }
+        }
+    }
+}
+root@07dfee84208e:/tbears# tbears call -u https://bicon.net.solidwallet.io/api/v3 stepprice.json 
+response : {
+    "jsonrpc": "2.0",
+    "result": "0x2540be400",
+    "id": 3
+}
+```
+
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/9d9e86d7cad026ffd92ef33797f92a9817b2c7e6)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/f615ff6f6387e9605a8d12958dbc17117903e8e9)
