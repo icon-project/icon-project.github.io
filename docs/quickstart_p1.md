@@ -1,6 +1,6 @@
 # Part 1. HelloWorld on local emulated environment
 
-## Intall T-Bears (Docker)
+## Install T-Bears (Docker)
 
 - Install Docker [[Get Started with Docker](https://www.docker.com/get-started)]
 
@@ -98,7 +98,7 @@ class HelloWorld(IconScoreBase):
         return "Hello"
 ```
 
-Let's deploy the contract without modification and get the contract address. For every transaction, you need to check the execution result using txhash. Transaction result contains the SCORE address if the deploy was successful. 
+Let's deploy the contract without modification and get the contract address. For every transaction, you need to check the execution result using txhash. Transaction result contains the SCORE address if the deployment was successful. 
 
 ```console
 root@07dfee84208e:/tbears# tbears deploy hello_world

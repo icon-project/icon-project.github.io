@@ -118,7 +118,7 @@ Every CLI commands lookup the `uri` from the config file if `-u` option is not g
 
 ## Deploy HelloWorld to the testnet (T-Bears CLI)
 
-Unlike T-Bears emulated environment, on testnet, valid sinature is required to send a transaction. So, every transaction request will require a keystore file to sign it. 
+Unlike T-Bears emulated environment, on testnet, valid signature is required to send a transaction. So, every transaction request will require a keystore file to sign it. 
 
 `tbears deploy` command with `-k [keystore_file]` option will install the SCORE on testnet. Target network info (uri, nid) is read from the default config file. Don't forget to get the SCORE address from the transaction result. 
 
