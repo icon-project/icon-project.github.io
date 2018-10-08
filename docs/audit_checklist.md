@@ -24,8 +24,14 @@ We assume that you have read [this](https://github.com/icon-project/icon-service
 - [External Function Parameter Check](#external-function-parameter-check)
 - [Internal Function Parameter Check](#internal-function-parameter-check)
 - [Predictable arbitrarity](#predictable-arbitrarity)
+- [Unchecked Low Level Calls](#unchecked-low-level-calls)
+- [Fallback](#fallback)
+- [\_\_init__ Function](#\_\_init__-function)
+- [Underflow/Overflow](#underflowoverflow)
+- [Vault](#vault)
+- [Reentrancy](#reentrancy)
 
-
+# Critical
 ## Timeout
 SCORE function must return fairly immediately. Blockchain is not for any long-running operation.
 For example, if you implement token airdrop to many users, do not iterate over all users in a single function. Handle each or partial airdrop(s) one by one instead.
@@ -180,6 +186,7 @@ ICXTransfer Eventlog is reserved for ICX transfer. Do not implement the Eventlog
 def ICXTransfer(self, _from: Address, _to: Address, _value: int):
 ```
 
+# Warning
 ## External Function Parameter Check
 If a SCORE function is called from EOA with wrong parameter types or without required parameters, ICON service will return an error.
 Developers do not need to deliberately verify the input parameter types inside a function.
@@ -209,4 +216,140 @@ Output of pseudo random number generator can be predictable if random seed is re
 # Bad
 # block height is predictable.
 won = block.height % 2 == 0
+```
+## Unchecked Low Level Calls
+In case of sending ICX by calling low level function such as 'ics.send', you should check the result of calling 'icx.send' is succeed or not. Consider using 'icx.transfer' instead or prepare compensation code for failure.
+```python
+
+# Bad
+self._refund_icx_amount[_to] += amount
+self.icx.send(_to)
+
+# Good
+self._refund_icx_amount[_to] += amount
+if not self.icx.send(_to, amount):
+    self._refund_icx_amount[_to] -= amount
+
+# Good
+self._refund_icx_amount[_to] += amount
+self.icx.transfer(_to, amount)
+```
+
+## Fallback
+Anybody can call 'fallback' or 'tokenFallback' function by sending ICX or token. In order to your SCORE secured in your hand, Do not change ownership of the SCORE in such functions.
+```python
+# Bad
+@payable
+def fallback(self):
+    if self.msg.value >= 0:
+        self.owner = msg.sender
+```
+
+## \_\_init\_\_ Function
+It is recommended to implement \_\_init\_\_ function and call super().\_\_init\_\_ in custom class which inherits IConScoreBase.
+```python
+# Bad
+class MyClass(IconScoreBase):
+    def __init__(self, db: IconScoreDatabase):
+        self._context__name = VarDB('context.name', db, str)
+        self._context__cap = VarDB('context.cap', db, int)
+        ...
+
+# Good
+class MyClass(IconScoreBase):
+    def __init__(self, db: IconScoreDatabase):
+        super().__init__(db)
+        self._context__name = VarDB('context.name', db, str)
+        self._context__cap = VarDB('context.cap', db, int)
+        ...
+```
+
+## Underflow/Overflow
+When you do arithmetic, It is really important to validate that operands and results are in the designed range.
+```python
+# Bad
+@external
+def mintToken(self, _amount: int):
+    if not msg.sender == self.owner:
+        self.revert('Only owner can mint token')
+
+    # if _amount is below zero, self._balances[self.owner] and self._total_supply can be minus potentially
+    self._balances[self.owner] = self._balances[self.owner] + _amount
+    self._total_supply.set(self._total_supply.get() + _amount)
+
+    self.Transfer(EOA_ZERO, self.owner, _amount, b'mint')
+
+# Good  
+@external
+def mintToken(self, _amount: int):
+    if not msg.sender == self.owner:
+        self.revert('Only owner can mint token')
+    if value <= 0:
+        self.revert('Value should be greater than 0')
+
+    self._balances[self.owner] = self._balances[self.owner] + _amount
+    self._total_supply.set(self._total_supply.get() + _amount)
+
+    self.Transfer(EOA_ZERO, self.owner, _amount, b'mint')
+```
+
+## Vault
+Anybody can view data stored in public blockchain network. Accordingly, it is strongly recommended to save personal data such as password off the blockchain network even if it is encrypted.
+```python
+# Bad
+def changePassword(self, _account: Account, _passwd: str):
+    if msg.sender != _account:
+        self.revert('Only owner of the account can change password')
+
+    self.passwords[_account] = _passwd
+```
+
+## Reentrancy
+When you send ICX or token to someone, keep it mind that the target could be another SCORE. If target SCORE's recipient function such as fallback or tokenFallback implemented maliciously, it could reenter original SCORE. Then there could be unintended loop between two SCOREs.
+```python
+# Bad
+# refund function in SCORE1. (assume ICX:token ratio is 1:1)
+def refund(self, _to:Address, _amount:int):
+    if msg.sender != _to:
+        self.revert('Only owner of the account can request refund')
+    if token_balances[_to] < _amount:
+        self.revert('Not enough balance')
+
+    self.icx.transfer(_to, _amount)
+    self.token_balances[_to] -= _amount
+
+# malicious fallback function in SCORE2
+@payable
+def fallback(self):
+    is msg.sender == SCORE1_ADDRESS:
+        # call refund of SCORE1 Again
+        score1 = self.create_interface_score(SCORE1_ADDRESS, Score1Interface)
+            score1.refund(self.msg.sender, bigAmountOfICX)
+
+# Good
+# refund function in SCORE1
+def refund(self, _to:Address, _amount:int):
+    if msg.sender != _to:
+        self.revert('Only owner of the account can request refund')
+    if token_balances[_to] < _amount:
+        self.revert('Not enough balance')
+
+    # decrease balance first
+    self.balances[_to] -= _amount
+    self.icx.transfer(_to, _amount)
+
+# Good
+# refund function in SCORE1
+def refund(self, _to:Address, _amount:int):
+    if msg.sender != _to:
+        self.revert('Only owner of the account can request refund')
+    if token_balances[_to] < _amount:
+        self.revert('Not enough balance')
+
+    # block if _to is smart contract
+    if _to.is_contract:
+        self.revert('ICX can not be transferred to SCORE')
+
+    self.icx.transfer(_to, _amount)
+    self.balances[_to] -= _amount
 ```

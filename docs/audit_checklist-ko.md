@@ -27,8 +27,8 @@ audit 항목은 중요도에 따라 Critical과 Warning 두 단계로 나뉘어 
 - [Underflow/Overflow](#underflowoverflow)
 - [Vault](#vault)
 - [Reentrancy](#reentrancy)
-- [Time Manipulation](#time-manipulation)
 
+# Critical
 ## Timeout
 시간이 너무 많이 소요되도록 SCORE 함수를 구현하지 마십시오. ICON 네트워크는 SCORE 함수 작성시 가급적 빠르게 리턴하도록 작성하는 것을 권장합니다. 예를 들어 모든 사용자에게 Airdrop을 할 경우, Transaction 한번으로 모든 것을 처리하지 않고 사용자별로 Transaction을 분리하여 처리하는 것을 권장합니다.
 ```python
@@ -64,7 +64,7 @@ while i < 10:
 ```
 
 ## import 금지
-ICON 네트워크에서 SCORE는 외부 환경에 영향을 받지 않고 완전히 독립된 상태로 동작되어야 합니다. 이를 보장하기 위해 Deploy하는 SCORE의 하위 모듈과 iconservice의 import만을 허용합니다.
+ICON 네트워크에서 SCORE는 외부 환경에 영향을 받지 않고 완전히 독립된 상태로 동작되어야 합니다. 이를 보장하기 위해 배포하는 SCORE의 하위 모듈과 iconservice의 import만을 허용합니다.
 
 ```python
 # Bad
@@ -172,13 +172,13 @@ ICXTransfer는 ICX 전송할때 ICON 네트워크에서 자동으로 남기는 E
 @eventlog(indexed=3)
 def ICXTransfer(self, _from: Address, _to: Address, _value: int):
 ```
-
+# Warning
 ## External Function Parameter Check
 SCORE 함수 호출할 때, 선언된 인자와 타입이 다르게 호출하거나 필수 인자(디폴트 값이 정의되지 않은 인자)를 누락하여 호출한 경우에는 ICON 네트워크에서 error 처리를 합니다. 따라서 SCORE 작성 시에 별도의 타입 체크는 고려하지 않아도 됩니다.
 
 ## Internal Function Parameter Check
 SCORE 내에서 다른 함수를 호출할 때, 또는 외부 SCORE 함수를 호출할 때, 인자의 타입과 필수 인자(디폴트 값이 설정되지 않은 인자)를 올바르게 사용하여야 합니다. 예를 들면 int로 선언하고 string 타입으로 호출하거나, 그 반대의 경우를 주의 하십시오. address 타입도 마찬가지입니다. 또한 필수 인자의 경우에는 반드시 유효한 값을 사용하여 함수를 호출해야 합니다.
-string이나 int의 경우 인자 값의 길이에는 제한이 없으나, ICON 네트워크 상의 트랙잭션 메시지의 길이에는 제한(512KB)이 있습니다. 이를 넘어서지 않도록 주의하여야 합니다.
+string이나 int의 경우 인자 값의 길이에는 제한이 없으나, ICON 네트워크 상의 트랙잭션 메시지의 길이에는 제한(512KB)이 있습니다. 이를 넘지 않도록 주의하여야 합니다.
 ```python
 # Bad
 def myTransfer( _value: int) -> bool:
@@ -210,22 +210,138 @@ won = block.height % 2 == 0
 ```
 
 ## Unchecked Low Level Calls
-@ TBD
+icx.send 와 같은 저수준 함수를 사용하여 ICX를 전송 할 경우 그 결과값에 대한 처리에 주의하십시오. 전송이 실패할 경우 보상코드를 넣어주거나 icx.transfer 와 같이 오류가 발생했을 때 자동으로 데이터를 원복해주는 고수준함수를 사용하십시오.
+```python
+
+# Bad
+self._refund_icx_amount[_to] += amount
+self.icx.send(_to)
+
+# Good
+self._refund_icx_amount[_to] += amount
+if not self.icx.send(_to, amount):
+    self._refund_icx_amount[_to] -= amount
+
+# Good
+self._refund_icx_amount[_to] += amount
+self.icx.transfer(_to, amount)
+```
 
 ## Fallback
-@ TBD
+ICX를 전송 받는 fallback 함수나 Token을 전송 받는 tokenFallback 함수에서 SCORE의 소유권을 이전하는 등의 위험한 행동을 주의하십시오.
+```python
+# Bad
+@payable
+def fallback(self):
+    if self.msg.value >= 0:
+        self.owner = msg.sender
+```
 
-## \_\_init__ Function
-@ TBD
+## \_\_init\_\_ Function
+IConScoreBase를 상속받는 클래스를 정의 할 때 python 의 기본 init 함수를 구현하고 그 내부에서 부모의 init함수를 호출 하는 것을 권장합니다.
+```python
+# Bad
+class MyClass(IconScoreBase):
+    def __init__(self, db: IconScoreDatabase):
+        self._context__name = VarDB('context.name', db, str)
+        self._context__cap = VarDB('context.cap', db, int)
+        ...
+
+# Good
+class MyClass(IconScoreBase):
+    def __init__(self, db: IconScoreDatabase):
+        super().__init__(db)
+        self._context__name = VarDB('context.name', db, str)
+        self._context__cap = VarDB('context.cap', db, int)
+        ...
+```
 
 ## Underflow/Overflow
-@ TBD
+사칙연산을 수행 할 때 결과 값이 의도한 범위를 벗어나지 않는지 검사하는 것은 매우 중요합니다.
+```python
+# Bad
+@external
+def mintToken(self, _amount: int):
+    if not msg.sender == self.owner:
+        self.revert('Only owner can mint token')
+
+    # if _amount 가 음수이면 self._balances[self.owner] 와 self._total_supply 가 음수가 될 수있는 잠재적인 위험이 있다.
+    self._balances[self.owner] = self._balances[self.owner] + _amount
+    self._total_supply.set(self._total_supply.get() + _amount)
+
+    self.Transfer(EOA_ZERO, self.owner, _amount, b'mint')
+
+# Good  
+@external
+def mintToken(self, _amount: int):
+    if not msg.sender == self.owner:
+        self.revert('Only owner can mint token')
+    if value <= 0:
+        self.revert('Value should be greater than 0')
+
+    self._balances[self.owner] = self._balances[self.owner] + _amount
+    self._total_supply.set(self._total_supply.get() + _amount)
+
+    self.Transfer(EOA_ZERO, self.owner, _amount, b'mint')
+```
 
 ## Vault
-@ TBD
+블록체인 네트워크에 기록되는 데이터들은 기본적으로 누구나 열람 가능합니다. 따라서 비밀번호 등과 같은 민감한 개인 정보는 암호화 되어있더라고 하더라도 블록체인 네트워크에 기록하는 것을 권장하지 않습니다.
+```python
+# Bad
+def changePassword(self, _account: Account, _passwd: str):
+    if msg.sender != _account:
+        self.revert('Only owner of the account can change password')
+
+    self.passwords[_account] = _passwd
+```
+
 ## Reentrancy
-@ TBD
-## Time Manipulation
-@ TBD
+SCORE의 코드 내에서 ICX나 토큰을 전송할 때에는 그 대상이 또 다른 SCORE 일 수도 있다는 점을 명심하세요. 1번 SCORE에서 2번 SCORE를 호출 했는데 2번 SCORE의 코드에서 다시 1번 SCORE의 함수를 호출한다면 의도치않은 loop가 발생 될 수 있습니다.
+```python
+# Bad
+# refund function in SCORE1. (assume ICX:token ratio is 1:1)
+def refund(self, _to:Address, _amount:int):
+    if msg.sender != _to:
+        self.revert('Only owner of the account can request refund')
+    if token_balances[_to] < _amount:
+        self.revert('Not enough balance')
 
+    self.icx.transfer(_to, _amount)
+    self.token_balances[_to] -= _amount
 
+# malicious fallback function in SCORE2
+@payable
+def fallback(self):
+    is msg.sender == SCORE1_ADDRESS:
+        # call refund of SCORE1 Again
+        score1 = self.create_interface_score(SCORE1_ADDRESS, Score1Interface)
+            score1.refund(self.msg.sender, bigAmountOfICX)
+
+# Good
+# refund function in SCORE1
+def refund(self, _to:Address, _amount:int):
+    if msg.sender != _to:
+        self.revert('Only owner of the account can request refund')
+    if token_balances[_to] < _amount:
+        self.revert('Not enough balance')
+
+    # decrease balance first
+    self.balances[_to] -= _amount
+    self.icx.transfer(_to, _amount)
+
+# Good
+# refund function in SCORE1
+def refund(self, _to:Address, _amount:int):
+    if msg.sender != _to:
+        self.revert('Only owner of the account can request refund')
+    if token_balances[_to] < _amount:
+        self.revert('Not enough balance')
+
+    # block if _to is smart contract
+    if _to.is_contract:
+        self.revert('ICX can not be transferred to SCORE')
+
+    self.icx.transfer(_to, _amount)
+    self.balances[_to] -= _amount
+```
