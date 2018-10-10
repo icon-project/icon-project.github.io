@@ -25,8 +25,7 @@ We assume that you have read [this](https://github.com/icon-project/icon-service
 - [Internal Function Parameter Check](#internal-function-parameter-check)
 - [Predictable arbitrarity](#predictable-arbitrarity)
 - [Unchecked Low Level Calls](#unchecked-low-level-calls)
-- [Fallback](#fallback)
-- [\_\_init__ Function](#\_\_init__-function)
+- [Super Class](#super-class)
 - [Underflow/Overflow](#underflowoverflow)
 - [Vault](#vault)
 - [Reentrancy](#reentrancy)
@@ -218,7 +217,8 @@ Output of pseudo random number generator can be predictable if random seed is re
 won = block.height % 2 == 0
 ```
 ## Unchecked Low Level Calls
-In case of sending ICX by calling low level function such as 'ics.send', you should check the result of calling 'icx.send' is succeed or not. Consider using 'icx.transfer' instead or prepare compensation code for failure.
+In case of sending ICX by calling low level function such as 'icx.send', you should check the result of calling 'icx.send' is succeed or not. Consider using 'icx.transfer' instead or prepare compensation code for failure. 'icx.send' only returns boolean result of whether sending ICX succeed or not and do not handle failure. On the other hand, 'icx.transfer' raises Exception if sending failed. Therefore if a dapp developer does not catch the exception, it will automatically reverted by IconService. [Reference: An object used to transfer icx coin]( https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md#icx--an-object-used-to-transfer-icx-coin)
+
 ```python
 
 # Bad
@@ -235,25 +235,20 @@ self._refund_icx_amount[_to] += amount
 self.icx.transfer(_to, amount)
 ```
 
-## Fallback
-Anybody can call 'fallback' or 'tokenFallback' function by sending ICX or token. In order to your SCORE secured in your hand, Do not change ownership of the SCORE in such functions.
-```python
-# Bad
-@payable
-def fallback(self):
-    if self.msg.value >= 0:
-        self.owner = msg.sender
-```
-
-## \_\_init\_\_ Function
-It is recommended to implement \_\_init\_\_ function and call super().\_\_init\_\_ in custom class which inherits IConScoreBase.
+## Super Class
+In order to initialize DB, you must implement \_\_init\_\_ function and call super().\_\_init\_\_ in custom class which inherits IConScoreBase. As well as init function, super().on_install() must be called in on_install function and super().on_update must be called in on_update function.
 ```python
 # Bad
 class MyClass(IconScoreBase):
     def __init__(self, db: IconScoreDatabase):
         self._context__name = VarDB('context.name', db, str)
         self._context__cap = VarDB('context.cap', db, int)
-        ...
+
+    def on_install(self, name: str, cap: str) -> None:
+        # doSomething
+
+    def on_update(self) -> None:
+        # doSomething
 
 # Good
 class MyClass(IconScoreBase):
@@ -261,7 +256,14 @@ class MyClass(IconScoreBase):
         super().__init__(db)
         self._context__name = VarDB('context.name', db, str)
         self._context__cap = VarDB('context.cap', db, int)
-        ...
+
+    def on_install(self, name: str, cap: str) -> None:
+        super().on_install()
+        # doSomething
+
+    def on_update(self) -> None:
+        super().on_update()
+        # doSomething
 ```
 
 ## Underflow/Overflow

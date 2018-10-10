@@ -22,8 +22,7 @@ audit 항목은 중요도에 따라 Critical과 Warning 두 단계로 나뉘어 
 - [Internal Function Parameter Check](#internal-function-parameter-check)
 - [예측 가능한 랜덤 함수 사용 금지](#예측-가능한-랜덤-함수-사용-금지)
 - [Unchecked Low Level Calls](#unchecked-low-level-calls)
-- [Fallback](#fallback)
-- [\_\_init__ Function](#\_\_init__-function)
+- [Super Class](#super-class)
 - [Underflow/Overflow](#underflowoverflow)
 - [Vault](#vault)
 - [Reentrancy](#reentrancy)
@@ -210,7 +209,7 @@ won = block.height % 2 == 0
 ```
 
 ## Unchecked Low Level Calls
-icx.send 와 같은 저수준 함수를 사용하여 ICX를 전송 할 경우 그 결과값에 대한 처리에 주의하십시오. 전송이 실패할 경우 보상코드를 넣어주거나 icx.transfer 와 같이 오류가 발생했을 때 자동으로 데이터를 원복해주는 고수준함수를 사용하십시오.
+icx.send 와 같은 저수준 함수를 사용하여 ICX를 전송 할 경우 그 결과값에 대한 처리에 주의하십시오. 전송이 실패할 경우 보상코드를 넣어주거나 icx.transfer 와 같이 오류가 발생했을 때 자동으로 데이터를 원복해주는 고수준함수를 사용하십시오. icx.send 함수는 전송의 실패/성공여부를 리턴하지만 전송이 실패한 경우 이전 데이터를 원복하지는 않습니다. 반대로 icx.transfer 함수는 전송이 실패하면 Exception을 발생시켜 개발자가 따로 처리를 해주지 않을 경우 자동으로 Revert합니다. [참고: An object used to transfer icx coin]( https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md#icx--an-object-used-to-transfer-icx-coin)
 ```python
 
 # Bad
@@ -226,26 +225,20 @@ if not self.icx.send(_to, amount):
 self._refund_icx_amount[_to] += amount
 self.icx.transfer(_to, amount)
 ```
-
-## Fallback
-ICX를 전송 받는 fallback 함수나 Token을 전송 받는 tokenFallback 함수에서 SCORE의 소유권을 이전하는 등의 위험한 행동을 주의하십시오.
-```python
-# Bad
-@payable
-def fallback(self):
-    if self.msg.value >= 0:
-        self.owner = msg.sender
-```
-
-## \_\_init\_\_ Function
-IConScoreBase를 상속받는 클래스를 정의 할 때 python 의 기본 init 함수를 구현하고 그 내부에서 부모의 init함수를 호출 하는 것을 권장합니다.
+## Super Class
+IConScoreBase를 상속받는 클래스를 정의 할 때 python 의 기본 init 함수를 구현하고 그 내부에서 부모의 init함수를 호출해야 합니다. 또한, on_install 함수에서는 super().on_install() 함수를 호출해야하고, on_update 함수에서는 super().on_update()함수를 호출해야 합니다.
 ```python
 # Bad
 class MyClass(IconScoreBase):
     def __init__(self, db: IconScoreDatabase):
         self._context__name = VarDB('context.name', db, str)
         self._context__cap = VarDB('context.cap', db, int)
-        ...
+
+    def on_install(self, name: str, cap: str) -> None:
+        # doSomething
+
+    def on_update(self) -> None:
+        # doSomething
 
 # Good
 class MyClass(IconScoreBase):
@@ -253,7 +246,14 @@ class MyClass(IconScoreBase):
         super().__init__(db)
         self._context__name = VarDB('context.name', db, str)
         self._context__cap = VarDB('context.cap', db, int)
-        ...
+
+    def on_install(self, name: str, cap: str) -> None:
+        super().on_install()
+        # doSomething
+
+    def on_update(self) -> None:
+        super().on_update()
+        # doSomething
 ```
 
 ## Underflow/Overflow
