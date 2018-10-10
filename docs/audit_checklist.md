@@ -217,7 +217,7 @@ Output of pseudo random number generator can be predictable if random seed is re
 won = block.height % 2 == 0
 ```
 ## Unchecked Low Level Calls
-In case of sending ICX by calling low level function such as 'icx.send', you should check the result of calling 'icx.send' is succeed or not. Consider using 'icx.transfer' instead or prepare compensation code for failure. 'icx.send' only returns boolean result of whether sending ICX succeed or not and do not handle failure. On the other hand, 'icx.transfer' raises Exception if sending failed. Therefore if a dapp developer does not catch the exception, it will automatically reverted by IconService. [Reference: An object used to transfer icx coin]( https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md#icx--an-object-used-to-transfer-icx-coin)
+In case of sending ICX by calling a low level function such as 'icx.send', you should check the execution result of 'icx.send' and handle the failure properly. 'icx.send' returns boolean result of its execution, and does not raise an exception on failure. On the other hand, 'icx.transfer' raises an exception if transaction fails. If the SCORE does not catch the exception, the transaction will be reverted. [Reference: An object used to transfer icx coin]( https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md#icx--an-object-used-to-transfer-icx-coin)
 
 ```python
 
@@ -236,11 +236,11 @@ self.icx.transfer(_to, amount)
 ```
 
 ## Super Class
-In order to initialize DB, you must implement \_\_init\_\_ function and call super().\_\_init\_\_ in custom class which inherits IConScoreBase. As well as init function, super().on_install() must be called in on_install function and super().on_update must be called in on_update function.
+In your SCORE main class that inherits IconScoreBase, you must call super().\_\_init\_\_() in the \_\_init\_\_() function to initialize the state DB. Likewise, super().on_install() must be called in on_install() function and super().on_update() must be called in on_update() function.
 ```python
 # Bad
 class MyClass(IconScoreBase):
-    def __init__(self, db: IconScoreDatabase):
+    def __init__(self, db: IconScoreDatabase) -> None:
         self._context__name = VarDB('context.name', db, str)
         self._context__cap = VarDB('context.cap', db, int)
 
@@ -252,7 +252,7 @@ class MyClass(IconScoreBase):
 
 # Good
 class MyClass(IconScoreBase):
-    def __init__(self, db: IconScoreDatabase):
+    def __init__(self, db: IconScoreDatabase) -> None:
         super().__init__(db)
         self._context__name = VarDB('context.name', db, str)
         self._context__cap = VarDB('context.cap', db, int)
@@ -296,7 +296,7 @@ def mintToken(self, _amount: int):
 ```
 
 ## Vault
-Anybody can view data stored in public blockchain network. Accordingly, it is strongly recommended to save personal data such as password off the blockchain network even if it is encrypted.
+Anybody can view the data stored in public blockchain network. It is strongly recommended to save personal data such as password off the blockchain network even if it is encrypted.
 ```python
 # Bad
 def changePassword(self, _account: Account, _passwd: str):
@@ -307,7 +307,7 @@ def changePassword(self, _account: Account, _passwd: str):
 ```
 
 ## Reentrancy
-When you send ICX or token to someone, keep it mind that the target could be another SCORE. If target SCORE's recipient function such as fallback or tokenFallback implemented maliciously, it could reenter original SCORE. Then there could be unintended loop between two SCOREs.
+When you send ICX or token, keep it mind that the target could be a SCORE. If the SCORE's fallback or tokenFallback function is implemented maliciously, it could reenter original SCORE. Then there could be unintended loop between two SCOREs.
 ```python
 # Bad
 # refund function in SCORE1. (assume ICX:token ratio is 1:1)
