@@ -102,4 +102,4 @@ ICONex est une application sous la forme d'une extension de Chrome. [Installer I
 2. Vous pouvez charger votre compte depuis un keystore ("Select wallet file") ou utiliser une clé privée ("Enter Private Key").
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/f615ff6f6387e9605a8d12958dbc17117903e8e9)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/3c4d77ced348bc5ea801eb61f55b5ac79e805ebd)

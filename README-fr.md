@@ -43,4 +43,4 @@ Notre but est d'hyperconnecter le monde, et en combinant des technologies révol
     - [Token IRC2](https://github.com/sink772/IRC2-token-standard)
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/f615ff6f6387e9605a8d12958dbc17117903e8e9)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/3c4d77ced348bc5ea801eb61f55b5ac79e805ebd)

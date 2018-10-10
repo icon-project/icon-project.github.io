@@ -29,4 +29,4 @@ Merci de votre intérêt pour participer au développement de la documentation d
 - Utilisez des liens relatifs dans vos fichiers md internes. [[Relative links for GithHub Pages](https://blog.github.com/2016-12-05-relative-links-for-github-pages/)] Cela permet de rendre les fichiers md consultables sur GitHub.com, et généré en HTML sur Github Pages.
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/f615ff6f6387e9605a8d12958dbc17117903e8e9)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/3c4d77ced348bc5ea801eb61f55b5ac79e805ebd)

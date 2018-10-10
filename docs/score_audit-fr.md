@@ -7,7 +7,7 @@ Pour chaque SCORE soumis pour le déploiement sur le réseau principal (*mainnet
 Le code doit être déterministe puisqu'il sera exécuté sur plusieurs nœuds. Vous devriez éviter tout fonctionnement logique qui dépend sur des entrées non déterministes, tels que l'heure, les nombres aléatoires, ou des sources de données externes.
 
 - N'utilisez pas l'horloge temporelle. Utilisez les numéros de blocs à la place. Si vous souhaitez vraiment utiliser une information relative au temps, utilisez l'horodatage des blocs, ou l'horodatage des transactions.
-- N'utilisez pas le module Python `random`. Considérez d'utiliser le hash du bloc ou le hash de la transaction afin de générer des nombres aléatoires.
+- N'utilisez pas le module Python `random`. N'utilisez pas le hash de la transaction ou la hauteur du bloc comme seed afin de générer des nombres aléatoires.
 - N'effectuez pas d'appel réseau qui récupère des données venant de sources externes dont l'issue ne peut être vérifiée et qui pourrait changer au fil du temps.
 
 Pour passer un audit d'ICON, nous vous recommandons de procéder à la liste suivante :
@@ -30,4 +30,4 @@ Pour passer un audit d'ICON, nous vous recommandons de procéder à la liste sui
 Ce processus d'audit devrait être temporaire puisque le réseau d'ICON courant n'en est encore qu'à ses balbutiements en tant que réseau public. Nous confirmons que nous n'avons pas l'intention d'avoir un contrôle sur les DApps. Notre première priorité est de maintenir le réseau d'ICON aussi stable que possible, et de minimiser tout impact négatif, s'il y en a, de nos partenaires qui se servent d'ICON.
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/f615ff6f6387e9605a8d12958dbc17117903e8e9)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/3c4d77ced348bc5ea801eb61f55b5ac79e805ebd)
