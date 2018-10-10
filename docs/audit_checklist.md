@@ -286,8 +286,8 @@ def mintToken(self, _amount: int):
 def mintToken(self, _amount: int):
     if not msg.sender == self.owner:
         self.revert('Only owner can mint token')
-    if value <= 0:
-        self.revert('Value should be greater than 0')
+    if _amount <= 0:
+        self.revert('_amount should be greater than 0')
 
     self._balances[self.owner] = self._balances[self.owner] + _amount
     self._total_supply.set(self._total_supply.get() + _amount)
