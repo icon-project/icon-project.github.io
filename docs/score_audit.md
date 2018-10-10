@@ -7,7 +7,7 @@ For every SCOREs requested to deploy to the ICON mainnet, we perform a security 
 Code should be deterministic as it will run on multiple nodes. You should avoid any business logic that depends on non-deterministic input such as clock time, random number, or external data source.
 
 - Do not use clock time. Use block height instead. If you really want to use time information, use block timestamp or transaction timestamp.
-- Do not use python random module. Transaction hash is one option to consider to generate a random number.
+- Do not use python random module. Do not use transaction hash or block height as a seed for generating a pseudo random number since they are predictable.
 - Do not make an outgoing network call to fetch external data source whose outcome cannot be verified and also can change over time.
 
 To pass an ICON audit, we recommend you do the following.
