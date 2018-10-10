@@ -25,8 +25,13 @@ Nous supposerons que vous avez lu [ceci](https://github.com/icon-project/icon-se
 - [Vérification de Paramètre de Fonction Externe](#external-function-parameter-check)
 - [Vérification de Paramètre de Fonction Interne](#internal-function-parameter-check)
 - [Arbitrarité prévisible](#predictable-arbitrarity)
+- [Appels bas niveau non vérifiés](#unchecked-low-level-calls)
+- [Super Classe](#super-class)
+- [Dépassement de capacité](#underflowoverflow)
+- [Coffre fort](#vault)
+- [Réentrance](#reentrancy)
 
-
+# Critique
 ## Délai d'attente
 Une fonction d'un SCORE doit retourner aussi vite que possible. La blockchain n'est pas faite pour des opérations qui durent longtemps.
 Par exemple, si vous implémentez un airdrop pour beaucoup d'utilisateurs, n'itérez pas sur tous les utilisateurs dans une seule fonction. Gérez plutôt chaque airdrop un par un ou partiellement.
@@ -183,6 +188,7 @@ L'Eventlog "ICXTransfer" est réservé pour des transferts d'ICX. N'implémentez
 def ICXTransfer(self, _from: Address, _to: Address, _value: int):
 ```
 
+# Avertissement
 ## Vérification de Paramètre de Fonction Externe
 Si une fonction SCORE est appelée depuis un EOA avec les mauvais types pour les paramètres ou un paramètre manquant, le service d'ICON retournera de lui même une erreur.
 Les développeurs n'ont pas besoin de vérifier délibérément les paramètres d'entrée à l'intérieur d'une fonction.
@@ -216,5 +222,150 @@ La sortie d'un générateur de nombre pseudo aléatoire peut être prévisible s
 won = block.height % 2 == 0
 ```
 
+## Appels bas niveau non vérifié
+Dans le cas où l'on envoie des ICX en appelant une fonction bas niveau telle que 'icx.send', vous devez vérifier le résultat de l'exécution de 'icx.send' et gérer le cas d'erreur proprement. 'icx.send' retourne un booléen en résultat de son exécution, et ne lève pas d'exception en cas d'échec. En contrepartie, 'icx.transfer' lève une exception si la transaction échoue. Si le SCORE ne gère pas l'exception, la transaction sera annulée. [Référence: *An object used to transfer icx coin*]( https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md#icx--an-object-used-to-transfer-icx-coin)
+
+```python
+
+# Mauvais
+self._refund_icx_amount[_to] += amount
+self.icx.send(_to)
+
+# Bien
+self._refund_icx_amount[_to] += amount
+if not self.icx.send(_to, amount):
+    self._refund_icx_amount[_to] -= amount
+
+# Bien
+self._refund_icx_amount[_to] += amount
+self.icx.transfer(_to, amount)
+```
+
+## Super Classe
+Dans la classe principale de votre SCORE qui hérite de IconScoreBase, vous devez appeler super().\_\_init\_\_() dans la fonction \_\_init\_\_() afin d'initialiser la database des états. De la même manière, super().on_install() doit être appelé dans la fonction on_install() et super().on_update() doit être appelé dans la fonction on_update().
+
+```python
+# Mauvais
+class MyClass(IconScoreBase):
+    def __init__(self, db: IconScoreDatabase) -> None:
+        self._context__name = VarDB('context.name', db, str)
+        self._context__cap = VarDB('context.cap', db, int)
+
+    def on_install(self, name: str, cap: str) -> None:
+        # Faire quelque chose
+
+    def on_update(self) -> None:
+        # Faire quelque chose
+
+# Bien
+class MyClass(IconScoreBase):
+    def __init__(self, db: IconScoreDatabase) -> None:
+        super().__init__(db)
+        self._context__name = VarDB('context.name', db, str)
+        self._context__cap = VarDB('context.cap', db, int)
+
+    def on_install(self, name: str, cap: str) -> None:
+        super().on_install()
+        # Faire quelque chose
+
+    def on_update(self) -> None:
+        super().on_update()
+        # Faire quelque chose
+```
+
+## Dépassement de capacité
+Lorsque vous effectuez des opérations arithmétiques, il est vraiment important de valider que les opérandes et les résultats sont dans la portée désirée.
+
+```python
+# Mauvais
+@external
+def mintToken(self, _amount: int):
+    if not msg.sender == self.owner:
+        self.revert('Only owner can mint token')
+
+    # Si _amount est en dessous de zéro, self._balances[self.owner] et self._total_supply peuvent potentiellement devenir négatif
+    self._balances[self.owner] = self._balances[self.owner] + _amount
+    self._total_supply.set(self._total_supply.get() + _amount)
+
+    self.Transfer(EOA_ZERO, self.owner, _amount, b'mint')
+
+# Bien  
+@external
+def mintToken(self, _amount: int):
+    if not msg.sender == self.owner:
+        self.revert('Only owner can mint token')
+    if _amount <= 0:
+        self.revert('_amount should be greater than 0')
+
+    self._balances[self.owner] = self._balances[self.owner] + _amount
+    self._total_supply.set(self._total_supply.get() + _amount)
+
+    self.Transfer(EOA_ZERO, self.owner, _amount, b'mint')
+```
+
+## Coffre fort
+N'importe qui peut consulter les données qui sont sur le réseau de la blockchain publique. Il est recommandé de ne pas sauvegarder de données personnelles tels que des mots de passe sur le réseau de la blockchain, même s'il est chiffré.
+
+```python
+# Mauvais
+def changePassword(self, _account: Account, _passwd: str):
+    if msg.sender != _account:
+        self.revert('Only owner of the account can change password')
+
+    self.passwords[_account] = _passwd
+```
+
+## Réentrance
+Quand vous envoyez des ICX ou des tokens, gardez à l'esprit que la cible pourrait être un SCORE. Si la fonction de repli (*fallback*) est implémentée de manière malveillante, il est pourrait réentrer dans le SCORE original. Ainsi il pourrait y avoir une boucle non voulue entre les deux SCOREs.
+
+```python
+# Mauvais
+# Fonction de remboursement dans SCORE1 (assumez que le ratio ICX:token est 1:1)
+def refund(self, _to:Address, _amount:int):
+    if msg.sender != _to:
+        self.revert('Only owner of the account can request refund')
+    if token_balances[_to] < _amount:
+        self.revert('Not enough balance')
+
+    self.icx.transfer(_to, _amount)
+    self.token_balances[_to] -= _amount
+
+# Function fallback malveillante dans SCORE2
+@payable
+def fallback(self):
+    is msg.sender == SCORE1_ADDRESS:
+        # Appel du remboursement (refund) à nouveau dans SCORE1
+        score1 = self.create_interface_score(SCORE1_ADDRESS, Score1Interface)
+        score1.refund(self.msg.sender, bigAmountOfICX)
+
+# Bien
+# Fonction de remboursement dans SCORE1
+def refund(self, _to:Address, _amount:int):
+    if msg.sender != _to:
+        self.revert('Only owner of the account can request refund')
+    if token_balances[_to] < _amount:
+        self.revert('Not enough balance')
+
+    # D'abord décrémenter le solde du compte
+    self.balances[_to] -= _amount
+    self.icx.transfer(_to, _amount)
+
+# Bien
+# Fonction de remboursement dans SCORE1
+def refund(self, _to:Address, _amount:int):
+    if msg.sender != _to:
+        self.revert('Only owner of the account can request refund')
+    if token_balances[_to] < _amount:
+        self.revert('Not enough balance')
+
+    # block if _to is smart contract
+    if _to.is_contract:
+        self.revert('ICX can not be transferred to SCORE')
+
+    self.icx.transfer(_to, _amount)
+    self.balances[_to] -= _amount
+```
+
+
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/f615ff6f6387e9605a8d12958dbc17117903e8e9)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/3c4d77ced348bc5ea801eb61f55b5ac79e805ebd)
