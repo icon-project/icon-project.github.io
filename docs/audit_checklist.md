@@ -267,7 +267,7 @@ class MyClass(IconScoreBase):
 ```
 
 ## Underflow/Overflow
-When you do arithmetic, It is really important to validate that operands and results are in the designed range.
+When you do arithmetic, it is really important to validate that operands and results are in the designed range.
 ```python
 # Bad
 @external
@@ -326,7 +326,7 @@ def fallback(self):
     is msg.sender == SCORE1_ADDRESS:
         # call refund of SCORE1 Again
         score1 = self.create_interface_score(SCORE1_ADDRESS, Score1Interface)
-            score1.refund(self.msg.sender, bigAmountOfICX)
+        score1.refund(self.msg.sender, bigAmountOfICX)
 
 # Good
 # refund function in SCORE1
