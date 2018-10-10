@@ -143,9 +143,9 @@ def Transfer(self, _from: Address, _to: Address, _value: int, _data: bytes):
 
 @external
 def transfer(self, _to: Address, _value: int, _data: bytes = None) -> bool:
-    self._balances[self.msg.sender] -= value
-    self._balances[to_] += value
-    self.Transfer(self.msg.sender, _to, value, data)
+    self._balances[self.msg.sender] -= _value
+    self._balances[to_] += _value
+    self.Transfer(self.msg.sender, _to, _value, data)
     return True
 ```
 
@@ -160,7 +160,7 @@ def Transfer(self, _from: Address, _to: Address, _value: int, _data: bytes):
 @external
 def transfer(self, _to: Address, _value: int, _data: bytes = None) -> bool:
     // token transfer 하지 않음
-    self.Transfer(self.msg.sender, _to, value, data)
+    self.Transfer(self.msg.sender, _to, _value, data)
     return True
 ```    
 
