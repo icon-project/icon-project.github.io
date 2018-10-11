@@ -272,7 +272,7 @@ When you do arithmetic, it is really important to validate that operands and res
 # Bad
 @external
 def mintToken(self, _amount: int):
-    if not msg.sender == self.owner:
+    if not self.msg.sender == self.owner:
         self.revert('Only owner can mint token')
 
     # if _amount is below zero, self._balances[self.owner] and self._total_supply can be minus potentially
@@ -284,7 +284,7 @@ def mintToken(self, _amount: int):
 # Good  
 @external
 def mintToken(self, _amount: int):
-    if not msg.sender == self.owner:
+    if not self.msg.sender == self.owner:
         self.revert('Only owner can mint token')
     if _amount <= 0:
         self.revert('_amount should be greater than 0')
@@ -300,7 +300,7 @@ Anybody can view the data stored in public blockchain network. It is strongly re
 ```python
 # Bad
 def changePassword(self, _account: Account, _passwd: str):
-    if msg.sender != _account:
+    if self.msg.sender != _account:
         self.revert('Only owner of the account can change password')
 
     self.passwords[_account] = _passwd
@@ -312,18 +312,21 @@ When you send ICX or token, keep it mind that the target could be a SCORE. If th
 # Bad
 # refund function in SCORE1. (assume ICX:token ratio is 1:1)
 def refund(self, _to:Address, _amount:int):
-    if msg.sender != _to:
-        self.revert('Only owner of the account can request refund')
+    if self.msg.sender != self.owner and self.msg.sender != _to:
+        self.revert('You are not allowed to request refund')
     if token_balances[_to] < _amount:
         self.revert('Not enough balance')
 
+    # send icx first
     self.icx.transfer(_to, _amount)
+
+    # decrease balance later
     self.token_balances[_to] -= _amount
 
 # malicious fallback function in SCORE2
 @payable
 def fallback(self):
-    is msg.sender == SCORE1_ADDRESS:
+    is self.msg.sender == SCORE1_ADDRESS:
         # call refund of SCORE1 Again
         score1 = self.create_interface_score(SCORE1_ADDRESS, Score1Interface)
         score1.refund(self.msg.sender, bigAmountOfICX)
@@ -331,20 +334,22 @@ def fallback(self):
 # Good
 # refund function in SCORE1
 def refund(self, _to:Address, _amount:int):
-    if msg.sender != _to:
-        self.revert('Only owner of the account can request refund')
+    if self.msg.sender != self.owner and self.msg.sender != _to:
+        self.revert('You are not allowed to request refund')
     if token_balances[_to] < _amount:
         self.revert('Not enough balance')
 
     # decrease balance first
     self.balances[_to] -= _amount
+
+    # send icx later
     self.icx.transfer(_to, _amount)
 
 # Good
 # refund function in SCORE1
 def refund(self, _to:Address, _amount:int):
-    if msg.sender != _to:
-        self.revert('Only owner of the account can request refund')
+    if self.msg.sender != self.owner and self.msg.sender != _to:
+        self.revert('You are not allowed to request refund')
     if token_balances[_to] < _amount:
         self.revert('Not enough balance')
 
@@ -352,6 +357,9 @@ def refund(self, _to:Address, _amount:int):
     if _to.is_contract:
         self.revert('ICX can not be transferred to SCORE')
 
+    # send icx first
     self.icx.transfer(_to, _amount)
+
+    # decrease balance later
     self.balances[_to] -= _amount
 ```
