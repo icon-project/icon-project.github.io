@@ -299,7 +299,7 @@ def mint_token(self, _amount: int):
 Anybody can view the data stored in public blockchain network. It is strongly recommended to save personal data such as password off the blockchain network even if it is encrypted.
 ```python
 # Bad
-def changePassword(self, _account: Address, _password: str):
+def change_password(self, _account: Address, _password: str):
     if self.msg.sender != _account:
         self.revert('Only owner of the account can change password')
 
