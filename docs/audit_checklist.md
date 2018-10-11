@@ -38,13 +38,13 @@ For example, if you implement token airdrop to many users, do not iterate over a
 ```python
 # Bad
 @external
-def airDropToken(self, _value: int, _data: bytes = None):
+def airdrop_token(self, _value: int, _data: bytes = None):
     for target in self._very_large_targets:
         self._transfer(self.msg.sender, target, _value, _data)
 
 # Good
 @external
-def airDropToken(self, _to: Address, _value: int, _data: bytes = None):
+def airdrop_token(self, _to: Address, _value: int, _data: bytes = None):
     if self._airdrop_sent_address[_to]:
         self.revert(f"Token was dropped already: {_to}")
     self._airdrop_sent_address[_to] = True
@@ -173,7 +173,7 @@ def Transfer(self, _from: Address, _to: Address, _value: int, _data: bytes):
 
 @external
 def doSomething(self, _to: Address, _value: int):
-    // no token transfer occurred
+    #  no token transfer occurred
     self.Transfer(self.msg.sender, _to, _value, None)
 ```
 
@@ -271,7 +271,7 @@ When you do arithmetic, it is really important to validate that operands and res
 ```python
 # Bad
 @external
-def mintToken(self, _amount: int):
+def mint_token(self, _amount: int):
     if not self.msg.sender == self.owner:
         self.revert('Only owner can mint token')
 
@@ -283,7 +283,7 @@ def mintToken(self, _amount: int):
 
 # Good  
 @external
-def mintToken(self, _amount: int):
+def mint_token(self, _amount: int):
     if not self.msg.sender == self.owner:
         self.revert('Only owner can mint token')
     if _amount <= 0:
@@ -299,11 +299,11 @@ def mintToken(self, _amount: int):
 Anybody can view the data stored in public blockchain network. It is strongly recommended to save personal data such as password off the blockchain network even if it is encrypted.
 ```python
 # Bad
-def changePassword(self, _account: Account, _passwd: str):
+def changePassword(self, _account: Address, _password: str):
     if self.msg.sender != _account:
         self.revert('Only owner of the account can change password')
 
-    self.passwords[_account] = _passwd
+    self.passwords[_account] = _password
 ```
 
 ## Reentrancy
@@ -311,10 +311,11 @@ When you send ICX or token, keep it mind that the target could be a SCORE. If th
 ```python
 # Bad
 # refund function in SCORE1. (assume ICX:token ratio is 1:1)
+@external
 def refund(self, _to:Address, _amount:int):
     if self.msg.sender != self.owner and self.msg.sender != _to:
         self.revert('You are not allowed to request refund')
-    if token_balances[_to] < _amount:
+    if self.token_balances[_to] < _amount:
         self.revert('Not enough balance')
 
     # send icx first
@@ -326,17 +327,18 @@ def refund(self, _to:Address, _amount:int):
 # malicious fallback function in SCORE2
 @payable
 def fallback(self):
-    is self.msg.sender == SCORE1_ADDRESS:
+    if self.msg.sender == SCORE1_ADDRESS:
         # call refund of SCORE1 Again
         score1 = self.create_interface_score(SCORE1_ADDRESS, Score1Interface)
         score1.refund(self.msg.sender, bigAmountOfICX)
 
 # Good
 # refund function in SCORE1
+@external
 def refund(self, _to:Address, _amount:int):
     if self.msg.sender != self.owner and self.msg.sender != _to:
         self.revert('You are not allowed to request refund')
-    if token_balances[_to] < _amount:
+    if self.token_balances[_to] < _amount:
         self.revert('Not enough balance')
 
     # decrease balance first
@@ -347,10 +349,11 @@ def refund(self, _to:Address, _amount:int):
 
 # Good
 # refund function in SCORE1
+@external
 def refund(self, _to:Address, _amount:int):
     if self.msg.sender != self.owner and self.msg.sender != _to:
         self.revert('You are not allowed to request refund')
-    if token_balances[_to] < _amount:
+    if self.token_balances[_to] < _amount:
         self.revert('Not enough balance')
 
     # block if _to is smart contract
