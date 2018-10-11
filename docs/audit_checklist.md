@@ -61,12 +61,12 @@ ICON network will force-kill the hanging task, but it may still degrade signific
 ```python
 # Bad
 while True:
-    // do something without consuming 'step' or proper exit condition
+    # do something without consuming 'step' or proper exit condition
 
 # Good
 i = 0
 while i < 10:
-    // do something
+    # do something
     i += 1
 ```
 
