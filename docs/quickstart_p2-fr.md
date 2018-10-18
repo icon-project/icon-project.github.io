@@ -28,7 +28,7 @@ Vous avez besoin d'ICX pour déployer et invoquer un SCORE sur le testnet, car c
 Vérifiez votre solde depuis la ligne de commande, ou sur ICONex.
 
 ```console
-# tbears -u https://bicon.net.solidwallet.io/api/v3 balance [compte]
+# tbears balance [compte] -u https://bicon.net.solidwallet.io/api/v3
 ```
 
 ## Frais de transaction
@@ -182,4 +182,4 @@ Hello, hxbac99ffea54749ca1c86ab4e6bfe0b630bf7a7a0. My name is HelloWorld
 ```
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/3c4d77ced348bc5ea801eb61f55b5ac79e805ebd)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/b876874deb842cd062059f813ad5918d95d16053)

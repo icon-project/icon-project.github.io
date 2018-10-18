@@ -28,8 +28,8 @@ Notre but est d'hyperconnecter le monde, et en combinant des technologies révol
   - [JSON-RPC API v3](https://github.com/icon-project/icon-rpc-server/blob/master/docs/icon-json-rpc-v3.md)
 
 # SCORE
+  - [Guide de SCORE](https://icon-project.github.io/score-guide)
   - [Suite de Développement T-Bears](https://github.com/icon-project/t-bears/blob/master/README.md)
-  - [Développement du SCORE](https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md)
 
 # [Audit de SCORE](/docs/score_audit-fr.md)
   - [Liste de choses à vérifier](/docs/audit_checklist-fr.md)
@@ -41,6 +41,7 @@ Notre but est d'hyperconnecter le monde, et en combinant des technologies révol
     - [Part 2. HelloWorld sur le testnet](/docs/quickstart_p2-fr.md)
     - [Hello World](https://github.com/icon-project/samples/blob/master/hello_world/README.md)
     - [Token IRC2](https://github.com/sink772/IRC2-token-standard)
+    - [Portefeuille Multisig](https://github.com/icon-project/multisig-wallet)
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/3c4d77ced348bc5ea801eb61f55b5ac79e805ebd)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/b876874deb842cd062059f813ad5918d95d16053)
