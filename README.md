@@ -28,8 +28,8 @@ Our goal is to Hyperconnect the World, and by combining groundbreaking technolog
   - [JSON-RPC API v3](https://github.com/icon-project/icon-rpc-server/blob/master/docs/icon-json-rpc-v3.md)
 
 # SCORE
+  - [SCORE Guide](https://icon-project.github.io/score-guide/)
   - [T-Bears Development Suite](https://github.com/icon-project/t-bears/blob/master/README.md)
-  - [SCORE Development](https://github.com/icon-project/icon-service/blob/master/docs/dapp_guide.md)
 
 # [SCORE Audit](/docs/score_audit.md)
   - [Audit Checklist](/docs/audit_checklist.md)
