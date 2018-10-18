@@ -34,7 +34,7 @@ You need ICX to deploy and invoke a SCORE on testnet, because every transaction 
 Check your balance from CLI, or in the ICONex. 
 
 ```console
-# tbears -u https://bicon.net.solidwallet.io/api/v3 balance [account]
+# tbears balance [account] -u https://bicon.net.solidwallet.io/api/v3
 ```
 
 
