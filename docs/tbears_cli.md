@@ -2,10 +2,10 @@
 
 T-Bears provides the command line interface to interact with the ICON network. It implements all the JSON-RPC v3 APIs. 
 
-For detailed usage guideline, please see [T-Bears tutorial](https://github.com/icon-project/t-bears/blob/master/README.md). 
+For a detailed usage guideline, please see [T-Bears tutorial](https://github.com/icon-project/t-bears/blob/master/README.md). 
 To interact with the ICON network, you don’t need to `start` T-Bears service. 
 Instead, point to the remote ICON network using `-u` option, or update "uri" value in the tbears_cli_config.json file.
-Below listed CLI commands are ready to use after T-Bears installation.
+The CLI commands listed below are ready to use after installing T-Bears.
 
 ```bash
 $ tbears [-h] [-d] command ...
@@ -32,9 +32,9 @@ We will install T-Bears using docker, and send some queries to the testnet.
 
 - Install docker. [[Get started with Docker](https://www.docker.com/get-started)]
 - Install and run T-Bears with docker.
-Below command will download the image and run the container.
+The below command will download the image and run the container.
 On execution, configuration files and the test account keyfile are generated.
-Note that you should not use the generated keystore to sign your transaction to other networks,
+Note that you should not use the generated keystore to sign your transaction on other networks,
 only use the `keystore_test1` file on the local T-Bears environment.
 
 ```bash
@@ -57,12 +57,12 @@ Started tbears service successfully
 root@b65c6a4cccf8:/tbears#
 ```
 
-We will interact with the testnet.
+Now we will interact with the testnet.
 [[Testnet Info](icon_network.md#testnet-for-dapps)].
 You can pass the node API endpoint to the -u option to make T-Bears talk to the right one.
-For the sake of simplicity, we will invoke query methods which do not require keystore file.
-- Sample query 1 : Get the genesis block of the testnet. You can verify the network id in the response message.
-Make sure block height should be in hexadecimal. 
+For the sake of simplicity, we will invoke query methods that do not require a keystore file.
+- Sample query 1 : Get the genesis block of the testnet. You can verify the network ID in the response message.
+Make sure block height is in hexadecimal format. 
 
 ```bash
 root@b65c6a4cccf8:/tbears# tbears blockbyheight -u https://bicon.net.solidwallet.io/api/v3 0x0
