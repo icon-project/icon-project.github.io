@@ -5,10 +5,7 @@ T-Bears fournit une interface en ligne de commande pour interagir avec le résea
 Pour un guide détaillé de son utilisation, merci de regarder le [tutorial de T-Bears](https://github.com/icon-project/t-bears/blob/master/README.md). 
 Pour interagir avec le réseau d'ICON, vous n'avez pas besoin de `start` le service T-Bears.
 A la place, utilisez l'option `-u` pour pointer avec le réseau d'ICON, ou mettez à jour la valeur "uri" de votre fichier de configuration tbears_cli_config.json.
-Ci-dessous est listé les commandes en ligne de commande qui sont disponibles après une installation de T-Bears.
-
-Bien que tous les clients des SDKs exposent les mêmes fonctions, une des commandes particulière de T-Bears est `deploy`.
-Si vous voulez déployer votre propre SCORE, vous devez toujours le faire depuis T-Bears.
+Les commandes en ligne de commande listées ci-dessous sont disponibles après une installation de T-Bears.
 
 ```console
 $ tbears [-h] [-d] commande ...
@@ -60,7 +57,7 @@ Started tbears service successfully
 root@b65c6a4cccf8:/tbears#
 ```
 
-Nous allons interagir avec le testnet.
+Nous allons maintenant interagir avec le testnet.
 [[Testnet Information](icon_network-fr.md#testnet-for-dapps)].
 Vous pouvez passer le point d'accès de l'API du noeud avec l'option -u pour faire en sorte que T-Bears communique avec le bon noeud.
 Pour des raisons de simplicité, nous invoquerons des méthodes qui ne requiert pas de keystore.
@@ -178,4 +175,4 @@ response : {
 ```
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/3c4d77ced348bc5ea801eb61f55b5ac79e805ebd)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/b876874deb842cd062059f813ad5918d95d16053)

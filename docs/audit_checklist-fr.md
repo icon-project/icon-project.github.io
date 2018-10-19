@@ -40,13 +40,13 @@ Par exemple, si vous implémentez un airdrop pour beaucoup d'utilisateurs, n'it�
 
 # Mauvais
 @external
-def airDropToken(self, _value: int, _data: bytes = None):
+def airdrop_token(self, _value: int, _data: bytes = None):
   for target in self._very_large_targets:
     self._transfer(self.msg.sender, target, _value, _data)
 
 # Bon
 @external
-def airDropToken(self, _to: Address, _value: int, _data: bytes = None):
+def airdrop_token(self, _to: Address, _value: int, _data: bytes = None):
   if self._airdrop_sent_address[_to]:
      self.revert(f"Token was dropped already: {_to}")
 
@@ -63,12 +63,12 @@ Le réseau d'ICON achèvera de force la tâche qui ne répond plus, mais cela po
 ```python
 # Mauvais
 while True:
-  // faire quelque chose sans consommer de 'step' ou de condition de sortie
+  # faire quelque chose sans consommer de 'step' ou de condition de sortie
 
 # Bien
 i = 0
 while i < 10:
-  // faire quelque chose
+  # faire quelque chose
   i += 1
 ```
 
@@ -176,7 +176,7 @@ def Transfer(self, _from: Address, _to: Address, _value: int, _data: bytes):
 
 @external
 def doSomething(self, _to: Address, _value: int):
-    // Pas de transfert de token
+    # Pas de transfert de token
     self.Transfer(self.msg.sender, _to, _value, None)
 ```
 
@@ -279,7 +279,7 @@ Lorsque vous effectuez des opérations arithmétiques, il est vraiment important
 ```python
 # Mauvais
 @external
-def mintToken(self, _amount: int):
+def mint_token(self, _amount: int):
     if not msg.sender == self.owner:
         self.revert('Only owner can mint token')
 
@@ -291,7 +291,7 @@ def mintToken(self, _amount: int):
 
 # Bien  
 @external
-def mintToken(self, _amount: int):
+def mint_token(self, _amount: int):
     if not msg.sender == self.owner:
         self.revert('Only owner can mint token')
     if _amount <= 0:
@@ -308,11 +308,11 @@ N'importe qui peut consulter les données qui sont sur le réseau de la blockcha
 
 ```python
 # Mauvais
-def changePassword(self, _account: Account, _passwd: str):
+def change_password(self, _account: Address, _password: str):
     if msg.sender != _account:
         self.revert('Only owner of the account can change password')
 
-    self.passwords[_account] = _passwd
+    self.passwords[_account] = _password
 ```
 
 ## Réentrance
@@ -321,6 +321,7 @@ Quand vous envoyez des ICX ou des tokens, gardez à l'esprit que la cible pourra
 ```python
 # Mauvais
 # Fonction de remboursement dans SCORE1 (assumez que le ratio ICX:token est 1:1)
+@external
 def refund(self, _to:Address, _amount:int):
     if msg.sender != _to:
         self.revert('Only owner of the account can request refund')
@@ -333,7 +334,7 @@ def refund(self, _to:Address, _amount:int):
 # Function fallback malveillante dans SCORE2
 @payable
 def fallback(self):
-    is msg.sender == SCORE1_ADDRESS:
+    if msg.sender == SCORE1_ADDRESS:
         # Appel du remboursement (refund) à nouveau dans SCORE1
         score1 = self.create_interface_score(SCORE1_ADDRESS, Score1Interface)
         score1.refund(self.msg.sender, bigAmountOfICX)
@@ -343,7 +344,7 @@ def fallback(self):
 def refund(self, _to:Address, _amount:int):
     if msg.sender != _to:
         self.revert('Only owner of the account can request refund')
-    if token_balances[_to] < _amount:
+    if self.token_balances[_to] < _amount:
         self.revert('Not enough balance')
 
     # D'abord décrémenter le solde du compte
@@ -355,7 +356,7 @@ def refund(self, _to:Address, _amount:int):
 def refund(self, _to:Address, _amount:int):
     if msg.sender != _to:
         self.revert('Only owner of the account can request refund')
-    if token_balances[_to] < _amount:
+    if self.token_balances[_to] < _amount:
         self.revert('Not enough balance')
 
     # block if _to is smart contract
@@ -368,4 +369,4 @@ def refund(self, _to:Address, _amount:int):
 
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/3c4d77ced348bc5ea801eb61f55b5ac79e805ebd)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/b876874deb842cd062059f813ad5918d95d16053)

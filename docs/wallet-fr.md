@@ -2,7 +2,7 @@ Gestion du compte
 ==============
 
 ## Compte
-Il y a deux types de comptes sur ICON, les comptes associés avec les utilisateurs, souvent nommés les *Externally Owned Account* (EOA), et les *Smart Contract (SCORE) Accounts*. Une addresse EOA commence par "hx" suivi par une chaîne de caractère hexadécimale de 20 octets, tandis que l'adresse d'un compte d'un Smart Contract commence par "cx" suivi par une chaîne de caractère hexadécimale de 20 octets.
+Il y a deux types de comptes sur ICON, les comptes associés avec les utilisateurs, souvent nommés les *Externally Owned Accounts* (EOA), et les *Smart Contract (SCORE) Accounts*. Une addresse EOA commence par "hx" suivi par une chaîne de caractère hexadécimale de 20 octets, tandis que l'adresse d'un compte d'un Smart Contract commence par "cx" suivi par une chaîne de caractère hexadécimale de 20 octets.
 
 Afin de déployer un SCORE sur le réseau d'ICON ou pour créer une transaction, on doit détenir un EOA valide. De plus, lorsqu'on parle de compte dans ce document, on parle d'EOA. Les termes comme EOA, portefeuille et keystore ne sont pas exactement les mêmes, mais souvent utilisés de manière interchangeable.
 
@@ -102,4 +102,4 @@ ICONex est une application sous la forme d'une extension de Chrome. [Installer I
 2. Vous pouvez charger votre compte depuis un keystore ("Select wallet file") ou utiliser une clé privée ("Enter Private Key").
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/3c4d77ced348bc5ea801eb61f55b5ac79e805ebd)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/b876874deb842cd062059f813ad5918d95d16053)
