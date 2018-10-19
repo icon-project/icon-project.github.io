@@ -39,6 +39,7 @@ Notre but est d'hyperconnecter le monde, et en combinant des technologies révol
   - [Guide de démarrage rapide](/docs/quickstart-fr.md)
     - [Partie 1. HelloWorld sur un environnement émulé local](/docs/quickstart_p1-fr.md)
     - [Part 2. HelloWorld sur le testnet](/docs/quickstart_p2-fr.md)
+  - Exemples de SCOREs
     - [Hello World](https://github.com/icon-project/samples/blob/master/hello_world/README.md)
     - [Token IRC2](https://github.com/sink772/IRC2-token-standard)
     - [Portefeuille Multisig](https://github.com/icon-project/multisig-wallet)
