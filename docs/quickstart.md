@@ -6,7 +6,7 @@ This tutorial is in three parts. In part 1, you will get familiar with the devel
 
 #### Part 1. [HelloWorld on local emulated environment](quickstart_p1.md)
 
-- Intall T-Bears (Docker)
+- Install T-Bears (Docker)
 - Test account
 - Check your account balance
 - Create HelloWorld contract and deploy it
