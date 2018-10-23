@@ -40,7 +40,7 @@ Euljiro network is exclusively open to the exchange developers.
 | Transaction fee | on  |
 | SCORE audit     | on  |
 
-To receive test ICX, please contact your account manager.
+To receive test ICX, please send email to `testicx@icon.foundation` with following information.
 
 
 ## Mainnet
