@@ -195,7 +195,7 @@ This section describes how to create a valid signature using address's private k
 
 ### Private key
 
-The private key of address which is used for generating a signature.
+The private key of `from` address which was used for generating a transaction data.
 
 ### Transaction hash 
 
