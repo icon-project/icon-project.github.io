@@ -94,6 +94,7 @@ Example:
        "version": "0x3",
        "from": "hxbe258ceb872e08851f1f59694dac2558708ece11",
        "to": "cxb0776ee37f5b45bfaea8cff1d8232fbb6122ec32",
+       "value": "0xde0b6b3a7640000",
        "stepLimit": "0x12345",
        "timestamp": "0x563a6cf330136"
 }
@@ -102,7 +103,7 @@ Example:
 Serialized as
 
 ``` 
-{from.hxbe258ceb872e08851f1f59694dac2558708ece11.stepLimit.0x12345.timestamp.0x563a6cf330136.to.cxb0776ee37f5b45bfaea8cff1d8232fbb6122ec32.version.0x3}
+{from.hxbe258ceb872e08851f1f59694dac2558708ece11.stepLimit.0x12345.timestamp.0x563a6cf330136.to.cxb0776ee37f5b45bfaea8cff1d8232fbb6122ec32.value.0xde0b6b3a7640000.version.0x3}
 ```
 
 ### Array type
@@ -211,41 +212,48 @@ The final step is encoding serialized signature. Based on Base64, encode seriali
 
 Below is the example of creating a signature in python. 
 
-Here is the transaction's params field. We will create a transaction signature using these data.
+Here is the transaction data. We will create a transaction signature using these data.
 
 ```json
 {
-       "version": "0x3",
-       "from": "hxbe258ceb872e08851f1f59694dac2558708ece11",
-       "to": "cxb0776ee37f5b45bfaea8cff1d8232fbb6122ec32",
-       "stepLimit": "0x12345",
-       "timestamp": "0x563a6cf330136"
+    "jsonrpc": "2.0",
+    "method": "icx_sendTransaction",
+    "id": 1234,
+    "params": {
+        "version": "0x3",
+        "from": "hxbe258ceb872e08851f1f59694dac2558708ece11",
+        "to": "cxb0776ee37f5b45bfaea8cff1d8232fbb6122ec32",
+        "value": "0xde0b6b3a7640000",
+        "stepLimit": "0x12345",
+        "timestamp": "0x563a6cf330136"
+    }
 }
 ```
 
 Serialize transaction data.
 
 ```
-icx_sendTransaction.from.hxbe258ceb872e08851f1f59694dac2558708ece11.stepLimit.0x12345.timestamp.0x563a6cf330136.to.cxb0776ee37f5b45bfaea8cff1d8232fbb6122ec32.version.0x3
+icx_sendTransaction.from.hxbe258ceb872e08851f1f59694dac2558708ece11.stepLimit.0x12345.timestamp.0x563a6cf330136.to.cxb0776ee37f5b45bfaea8cff1d8232fbb6122ec32.value.0xde0b6b3a7640000.version.0x3
 ```
 
-Hash the serialized transaction data.
-
-```
-b'B\xa3L\xba\xc9\xb2\x93\x1cn\x99\x14k\x0f]0\xde3\x8cW\x7fj\x08+\xeb:#\x98\xdb\xb69\xb5l'
-```
-
-Create transaction signature.
+Hash the serialized transaction data and create transaction signature.
 
 ```python
 import base64
+import hashlib
 import secp256k1
 
-# transaction_hash
-msg_hash = b'B\xa3L\xba\xc9\xb2\x93\x1cn\x99\x14k\x0f]0\xde3\x8cW\x7fj\x08+\xeb:#\x98\xdb\xb69\xb5l'
+serialized_transaction = "icx_sendTransaction.from.hxbe258ceb872e08851f1f59694dac2558708ece11.stepLimit.0x12345.timestamp.0x563a6cf330136.to.cxb0776ee37f5b45bfaea8cff1d8232fbb6122ec32.value.0xde0b6b3a7640000.version.0x3"
 
-# create private key object
-private_key_object = secp256k1.PrivateKey(b'B\xa3L\xba\xc9\xb2\x93\x1cn\x99\x14k\x0f]0\xde3\x8cW\x7fj\x08+\xeb:#\x98\xdb\xb69\xb5l')
+# transaction_hash
+# result: b'\xc4\xa3\xa8\xae\xb5uH\x90\\\xfd\x9a1a\x9b\xe0\x05W\xf6\x03\x9a9\xac\xb8\xc5o\xce\x14\xcak\xae\x1f\x08'
+msg_hash = hashlib.sha3_256(serialized_transaction.encode()).digest()
+
+# prepare the private key (this private key is just used for example)
+private_key = b'\xbd\xf1o \xef\x8b\xe1\x08\x9f\x81\xd1\xc35\xfcf\xd9\xaa\xb8\t\xc0\xba>\xbcl\x08\xb1\xb8\xf0Q\xde\x7f\xaa'
+
+# create a private key object
+private_key_object = secp256k1.PrivateKey(private_key)
 
 # create a recoverable ECDSA signature
 recoverable_signature = private_key_object.ecdsa_sign_recoverable(msg_hash, raw=True)
