@@ -26,7 +26,7 @@ Our goal is to Hyperconnect the World, and by combining groundbreaking technolog
   - [Java SDK](https://github.com/icon-project/icon-sdk-java/blob/master/quickstart/README.md)
   - [Python SDK](https://github.com/icon-project/icon-sdk-python/blob/master/README.md)
   - [JSON-RPC API v3](https://github.com/icon-project/icon-rpc-server/blob/master/docs/icon-json-rpc-v3.md)
-  - [Create transaction signature](/docs/create_transaction_signature.md)
+  - [Generating transaction signature](/docs/transaction_signature.md)
   
 # SCORE
   - [SCORE Guide](https://icon-project.github.io/score-guide/)
