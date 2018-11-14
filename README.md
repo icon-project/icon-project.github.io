@@ -41,5 +41,6 @@ Our goal is to Hyperconnect the World, and by combining groundbreaking technolog
     - [Part 2. HelloWorld on testnet](/docs/quickstart_p2.md)
   - Sample SCOREs 
     - [Hello World](https://github.com/icon-project/samples/blob/master/hello_world/README.md)
-    - [IRC2 Token](https://github.com/sink772/IRC2-token-standard)
+    - [IRC2 Token](https://github.com/icon-project/samples/blob/master/irc2_token)
+    - [Crowdsale](https://github.com/icon-project/samples/blob/master/crowdsale)
     - [Multisig Wallet](https://github.com/icon-project/multisig-wallet)
