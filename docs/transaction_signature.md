@@ -250,7 +250,7 @@ serialized_transaction = "icx_sendTransaction.from.hxbe258ceb872e08851f1f59694da
 msg_hash = hashlib.sha3_256(serialized_transaction.encode()).digest()
 
 # prepare the private key (this private key is just used for example)
-private_key = b'\xbd\xf1o \xef\x8b\xe1\x08\x9f\x81\xd1\xc35\xfcf\xd9\xaa\xb8\t\xc0\xba>\xbcl\x08\xb1\xb8\xf0Q\xde\x7f\xaa'
+private_key = b'\x870\x91*\xef\xedB\xac\x05\x8f\xd3\xf6\xfdvu8\x11\x04\xd49\xb3\xe1\x1f\x17\x1fTR\xd4\xf9\x19mL'
 
 # create a private key object
 private_key_object = secp256k1.PrivateKey(private_key)
@@ -265,5 +265,5 @@ recoverable_sig = bytes(bytearray(signature) + recovery_id.to_bytes(1, 'big'))
 # base64 encode
 transaction_signature = base64.b64encode(recoverable_sig) 
 
-# transaction_signature: b'h4ZD76kjLyaUM4P7OtnhFXPVf2lrJ/9qDZM1/lYJlEIDHhwwPtOAfZ5LBBemNzoJM5r6mXmB8NXZAsVBwGFwWgE='
+# transaction_signature: b'a5fs7KC8Qw3Rpgyhx2b02WG7jghqdRT58dznUVb8qV12QhWx0zXi0YnIAmHHL2NF55ULn1RaEwrzQq2Fiq5W8wA='
 ```
