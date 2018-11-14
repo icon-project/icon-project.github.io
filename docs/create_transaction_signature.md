@@ -210,7 +210,7 @@ The private key of address which is used for generating a transaction.
 
 ## Create signature 
 
-The first step is making a serialized signature. Using the `secp256k1` library, create recoverable ECDSA signature of a transaction. At this point, transaction hash is used as message data (used for validation of transaction). The result data should be 64 bytes serialized signature (R, S) + 1bytes recovery id (V).  
+The first step is making a serialized signature. Using the `secp256k1` library, create recoverable ECDSA signature of a transaction. At this point, transaction hash is used as message data (used for validation of transaction). The result data should be 64 bytes serialized signature (R, S) + 1 byte recovery id (V).  
 
 The final step is encoding serialized signature. Based on Base64, encode serialized signature. 
 
@@ -250,7 +250,7 @@ Create transaction signature.
 import base64
 import secp256k1
 
-# tranasaction_hash
+# transaction_hash
 msg_hash = b'B\xa3L\xba\xc9\xb2\x93\x1cn\x99\x14k\x0f]0\xde3\x8cW\x7fj\x08+\xeb:#\x98\xdb\xb69\xb5l'
 
 # create private key object
@@ -259,7 +259,7 @@ private_key_object = secp256k1.PrivateKey(b'B\xa3L\xba\xc9\xb2\x93\x1cn\x99\x14k
 # create a recoverable ECDSA signature
 recoverable_signature = private_key_object.ecdsa_sign_recoverable(msg_hash, raw=True)
 
-# convert the result from ecdsa_sign_recoverable to a tuple composed of 65 bytesand an integer denominated as recovery id.
+# convert the result from ecdsa_sign_recoverable to a tuple composed of 65 bytes and an integer denominated as recovery id.
 signature, recovery_id = private_key_object.ecdsa_recoverable_serialize(recoverable_signature)
 recoverable_sig = bytes(bytearray(signature) + recovery_id.to_bytes(1, 'big'))
 
