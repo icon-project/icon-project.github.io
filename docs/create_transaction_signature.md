@@ -1,8 +1,6 @@
 # Introduction
 
-It’s a document for a software engineer who wants to write codes related to signature verification or signing and other software engineers who are interested in the internals of ICON.
-
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+This document describes how to generate a transaction signature. There are two major operations for generating the signature, serialize the original transaction data and sign the serialized data with user's own private key.
 
 - [Serialize transaction data](#Serialize-transaction-data)
   - [Pre-condition](#Pre-condition)
@@ -22,15 +20,12 @@ It’s a document for a software engineer who wants to write codes related to si
   - [Create signature](#Create-signature)
   - [Example](#example-1)
 
-<!-- /TOC -->
-
 # Serialize transaction data
 
-When a user sends transaction, he needs to sign data with his own key. The data must be serialized as bytes for making hash.
-
-This describes the way to serialize transaction data. 
-
-But it doesn’t describe how to make transaction data itself. It will be described in JSON API Documents.
+When a user sends a transaction, he needs to sign the data with his own private key.
+Before signing the data, it needs to be serialized as bytes for generating a hash.
+This section describes how to serialize the transaction data.
+But it doesn't describe how to make the transaction data itself. It is described in [JSON-RPC API v3](https://github.com/icon-project/icon-rpc-server/blob/master/docs/icon-json-rpc-v3.md) documents.
 
 ## Pre-condition
 
@@ -40,14 +35,14 @@ Transaction data is written in JSON with some restrictions.
 
 | Type       | Description                                                  |
 | ---------- | ------------------------------------------------------------ |
-| String     | Normal string without U+0000 (NULL) character.ex) “Value”    |
-| Dictionary | Pairs of key and value.{ “key1” : “value1”, “key1” : “value2” } |
-| Array      | Series of values[ “value1”, “value2” ]                       |
+| String     | Normal string without U+0000 (NULL) character. ex) “Value”   |
+| Dictionary | Pairs of key and value. ex) {“key1”: “value1”, “key1”: “value2”} |
+| Array      | Series of values. ex) [“value1”, “value2”]                   |
 | Null       | null                                                         |
 
 ## Serialize
 
-ICON uses JSON RPC v2.0. And the transaction request looks like the following:
+ICON uses JSON-RPC v2.0. And the transaction request looks like the following:
 
 ```json
 {
@@ -67,7 +62,7 @@ ICON uses JSON RPC v2.0. And the transaction request looks like the following:
 }
 ```
 
-Serialization is applied on params field value, a dictionary. Of course, the signature field is ignored. It uses the same rule of Dictionary except that it doesn’t have any brace for each end. And it will have a method name(“icx_sendTransaction”) as the prefix of serialized data. Of course, it uses “.” for the separator between name and object data itself.
+Serialization is applied on `params` field value, a dictionary. Of course, the `signature` field is ignored. It uses the same rule of Dictionary except that it doesn't have any brace for each end. And it will have a method name (“icx_sendTransaction”) as the prefix of serialized data. It uses `.` for the separator between name and object data itself.
 
 ```
 icx_sendTransaction.<key1>.<value1>.<key2>.<value2>
@@ -77,7 +72,7 @@ You may refer UTF-8 encoded byte for all special characters in String type.
 
 ### String type
 
-Apply UTF-8 encoding to the text. Characters in the list should be escaped with “\”. Key and string don’t have any null character, U+0000.
+Apply UTF-8 encoding to the text. Characters in the list below should be escaped with `\`. Key and string must not have any null character, U+0000.
 
 | Name  | Backslash (REVERSE SOLIDUS) | Period (FULL STOP) | Left curly bracket | Right curly bracket | Left square bracket | Right square bracket |
 | ----- | --------------------------- | ------------------ | ------------------ | ------------------- | ------------------- | -------------------- |
@@ -86,13 +81,13 @@ Apply UTF-8 encoding to the text. Characters in the list should be escaped with 
 
 ### Dictionary type
 
-Enclosed with “{“ and “}”. And key-value pairs are separated with “.”. And also the key and value are separated with “.”. The encoding of key follows encoding of String type. The order of keys follows normal “UTF-8” encoding byte comparison ( it’s same as Unicode string order ). 
+Enclosed with `{` and `}`, and key/value pairs are separated with `.`. The encoding of key follows encoding of String type. The order of keys follows normal “UTF-8” encoding byte comparison (it’s same as Unicode string order).
 
 ```
 {<key1>.<value1>.<key2>.<value2>}
 ```
 
-Example
+Example:
 
 ```json
 {
@@ -112,7 +107,7 @@ Serialized as
 
 ### Array type
 
-Enclosed with “[“ and “]”. All values are separated with “.”.
+Enclosed with `[` and `]`. All values are separated with `.`.
 
 ``` 
 [<value1>.<value2>.<value3>]
@@ -120,7 +115,7 @@ Enclosed with “[“ and “]”. All values are separated with “.”.
 
 ### Null type
 
-null will be represented as an escaped zero.
+Null will be represented as an escaped zero.
 
 ```
 \0
@@ -128,9 +123,9 @@ null will be represented as an escaped zero.
 
 ## Example
 
-### Normal send transaction
+### Normal ICX transfer
 
-Original JSON request
+Original JSON request:
 
 ```json
 {
@@ -144,13 +139,12 @@ Original JSON request
         "value": "0xde0b6b3a7640000",
         "stepLimit": "0x12345",
         "timestamp": "0x563a6cf330136",
-        "nonce": "0x1",
-        "signature": "VAia7YZ2Ji6igKWzjR2YsGa2m53nKPrfK7uXYW78QLE+ATehAVZPC40szvAiA6NEU5gCYB4c4qaQzqDh2ugcHgA="
+        "nonce": "0x1"
     }
 }
 ```
 
-Serialized params
+Serialized params:
 
 ```
 icx_sendTransaction.from.hxbe258ceb872e08851f1f59694dac2558708ece11.nonce.0x1.stepLimit.0x12345.timestamp.0x563a6cf330136.to.hx5bfdb090f43a808005ffc27c25b213145e80b7cd.value.0xde0b6b3a7640000.version.0x3
@@ -158,7 +152,7 @@ icx_sendTransaction.from.hxbe258ceb872e08851f1f59694dac2558708ece11.nonce.0x1.st
 
 ### SCORE API Invoke
 
-Original JSON request
+Original JSON request:
 
 ```json
 
@@ -173,7 +167,6 @@ Original JSON request
         "stepLimit": "0x12345",
         "timestamp": "0x563a6cf330136",
         "nonce": "0x1",
-        "signature": "VAia7YZ2Ji6igKWzjR2YsGa2m53nKPrfK7uXYW78QLE+ATehAVZPC40szvAiA6NEU5gCYB4c4qaQzqDh2ugcHgA=",
         "dataType": "call",
         "data": {
             "method": "transfer",
@@ -186,7 +179,7 @@ Original JSON request
 }
 ```
 
-Serialized params
+Serialized params:
 
  ```
 icx_sendTransaction.data.{method.transfer.params.{to.hxab2d8215eab14bc6bdd8bfb2c8151257032ecd8b.value.0x1}}.dataType.call.from.hxbe258ceb872e08851f1f59694dac2558708ece11.nonce.0x1.stepLimit.0x12345.timestamp.0x563a6cf330136.to.cxb0776ee37f5b45bfaea8cff1d8232fbb6122ec32.version.0x3
@@ -196,19 +189,19 @@ icx_sendTransaction.data.{method.transfer.params.{to.hxab2d8215eab14bc6bdd8bfb2c
 
 For a transaction to be executed successfully, a user needs to create and present the signature with which user can prove the ownership of the address. 
 
-This describes how to create a valid signature using address's private key and serialized transaction data.
+This section describes how to create a valid signature using address's private key and serialized transaction data.
 
 ## Required data
 
 ### Private key
 
-The private key of address which is used for generating a transaction.
+The private key of address which is used for generating a signature.
 
 ### Transaction hash 
 
-256 bytes hash data which is created by hashing serialized transaction using SHA3.
+32 bytes (256-bit) hash data which is created by hashing the serialized transaction data using SHA3_256.
 
-## Create signature 
+## Create signature
 
 The first step is making a serialized signature. Using the `secp256k1` library, create recoverable ECDSA signature of a transaction. At this point, transaction hash is used as message data (used for validation of transaction). The result data should be 64 bytes serialized signature (R, S) + 1 byte recovery id (V).  
 
@@ -218,9 +211,7 @@ The final step is encoding serialized signature. Based on Base64, encode seriali
 
 Below is the example of creating a signature in python. 
 
-
-
-Below is the transaction's params field. We will create transaction signature using these data.
+Here is the transaction's params field. We will create a transaction signature using these data.
 
 ```json
 {
@@ -238,7 +229,7 @@ Serialize transaction data.
 icx_sendTransaction.from.hxbe258ceb872e08851f1f59694dac2558708ece11.stepLimit.0x12345.timestamp.0x563a6cf330136.to.cxb0776ee37f5b45bfaea8cff1d8232fbb6122ec32.version.0x3
 ```
 
-Hash serialized transaction data.
+Hash the serialized transaction data.
 
 ```
 b'B\xa3L\xba\xc9\xb2\x93\x1cn\x99\x14k\x0f]0\xde3\x8cW\x7fj\x08+\xeb:#\x98\xdb\xb69\xb5l'
