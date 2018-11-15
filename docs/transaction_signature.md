@@ -28,7 +28,7 @@ This document does not describe how to make the transaction data itself. Transac
 
 ## Precondition
 
-Transaction data is written in JSON with some restrictions.
+Transaction data is in JSON format with some restrictions.
 
 ### Allowed types in JSON
 
@@ -41,7 +41,7 @@ Transaction data is written in JSON with some restrictions.
 
 ## Serialize
 
-ICON uses JSON-RPC v2.0. And the transaction request looks like the following:
+ICON follows the JSON-RPC v2.0 protocol spec. A singed transaction request looks like the following: 
 
 ```json
 {
@@ -61,17 +61,17 @@ ICON uses JSON-RPC v2.0. And the transaction request looks like the following:
 }
 ```
 
-Serialization is applied on `params` field value, a dictionary. Of course, the `signature` field is ignored. It uses the same rule of Dictionary except that it doesn't have any brace for each end. And it will have a method name (“icx_sendTransaction”) as the prefix of serialized data. It uses `.` for the separator between name and object data itself.
+Transaction data is serialized by concatenating key, value pairs in `params` with `.` as a delimiter. Our final goal is generating the `signature` to sign the transaction, therefore, the `signature` field shown above example is not part of the data to be serialized. Adding the method name, “icx_sendTransaction” in this example, to the serialized string as a prefix completes the serialization process.
 
 ```
-icx_sendTransaction.<key1>.<value1>.<key2>.<value2>
+icx_sendTransaction.<key1>.<value1>....<keyN>.<valueN>
 ```
 
-You may refer UTF-8 encoded byte for all special characters in String type.
+Make sure that all the special characters in string must be UTF-8 encoded.
 
 ### String type
 
-Apply UTF-8 encoding to the text. Characters in the list below should be escaped with `\`. Key and string must not have any null character, U+0000.
+Apply UTF-8 encoding to the text. Characters listed below should be escaped with `\`. String must not have any null character, U+0000.
 
 | Name  | Backslash (REVERSE SOLIDUS) | Period (FULL STOP) | Left curly bracket | Right curly bracket | Left square bracket | Right square bracket |
 | ----- | --------------------------- | ------------------ | ------------------ | ------------------- | ------------------- | -------------------- |
@@ -80,7 +80,7 @@ Apply UTF-8 encoding to the text. Characters in the list below should be escaped
 
 ### Dictionary type
 
-Enclosed with `{` and `}`, and key/value pairs are separated with `.`. The encoding of key follows encoding of String type. The order of keys follows normal “UTF-8” encoding byte comparison (it’s same as Unicode string order).
+Enclosed with `{` and `}`, and key/value pairs are separated with `.`. Every keys in dictionary are string type, therefore, the same encoding rules apply. The order of keys in the serialized data follows the natural ordering of the UTF-8 encoded byte comparison (it’s same as Unicode string order).
 
 ```
 {<key1>.<value1>.<key2>.<value2>}
@@ -123,7 +123,7 @@ Null will be represented as an escaped zero.
 
 ## Example
 
-### Normal ICX transfer
+### ICX transfer
 
 Original JSON request:
 
@@ -150,7 +150,7 @@ Serialized params:
 icx_sendTransaction.from.hxbe258ceb872e08851f1f59694dac2558708ece11.nonce.0x1.stepLimit.0x12345.timestamp.0x563a6cf330136.to.hx5bfdb090f43a808005ffc27c25b213145e80b7cd.value.0xde0b6b3a7640000.version.0x3
 ```
 
-### SCORE API Invoke
+### SCORE API invocation
 
 Original JSON request:
 
@@ -187,15 +187,13 @@ icx_sendTransaction.data.{method.transfer.params.{to.hxab2d8215eab14bc6bdd8bfb2c
 
 # Create transaction signature
 
-For a transaction to be executed successfully, a user needs to create and present the signature with which user can prove the ownership of the address. 
-
-This section describes how to create a valid signature using address's private key and serialized transaction data.
+This section describes how to create a valid signature for a transaction using the private key associated with a specific wallet address.
 
 ## Required data
 
 ### Private key
 
-The private key of `from` address which was used for generating a transaction data.
+The private key of the `from` address from which the transaction request was made.
 
 ### Transaction hash 
 
@@ -203,7 +201,7 @@ The private key of `from` address which was used for generating a transaction da
 
 ## Create signature
 
-The first step is making a serialized signature. Using the `secp256k1` library, create recoverable ECDSA signature of a transaction. At this point, transaction hash is used as message data (used for validation of transaction). The result data should be 64 bytes serialized signature (R, S) + 1 byte recovery id (V).  
+The first step is making a serialized signature. Using the `secp256k1` library, create a recoverable ECDSA signature of a transaction hash. This ensures that the transaction was originated from the private key owner, and the transaction message received by the recipient is not compromised. The resulting output should be 64 bytes serialized signature (R, S) with 1 byte recovery id (V).
 
 The final step is to encode the generated signature as a Base64-encoded string.
 
