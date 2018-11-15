@@ -41,7 +41,7 @@ Transaction data is in JSON format with some restrictions.
 
 ## Serialize
 
-ICON follows the JSON-RPC v2.0 protocol spec. A singed transaction request looks like the following: 
+ICON follows the JSON-RPC v2.0 protocol spec. A signed transaction request looks like the following: 
 
 ```json
 {
@@ -61,8 +61,7 @@ ICON follows the JSON-RPC v2.0 protocol spec. A singed transaction request looks
 }
 ```
 
-Transaction data is serialized by concatenating key, value pairs in `params` with `.` as a delimiter. Our final goal is generating the `signature` to sign the transaction, therefore, the `signature` field shown above example is not part of the data to be serialized. Adding the method name, “icx_sendTransaction” in this example, to the serialized string as a prefix completes the serialization process.
-
+Transaction data is serialized by concatenating key, value pairs in `params` with `.` as a delimiter. Our final goal is generating the `signature` of transaction data, therefore, the `signature` field shown above example is not part of the data to be serialized. Adding the method name, “icx_sendTransaction” in this example, to the serialized string as a prefix completes the serialization process.
 ```
 icx_sendTransaction.<key1>.<value1>....<keyN>.<valueN>
 ```
