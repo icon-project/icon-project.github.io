@@ -1,9 +1,9 @@
 # Introduction
 
-This document describes how to generate a transaction signature. There are two major operations for generating the signature, serialize the original transaction data and sign the serialized data with user's own private key.
+When a user sends a transaction, they need to sign the data with their own private key. There are two major steps involved in signing the transaction, serializing the original transaction data and generating a signature with user's own private key. This document describes the process of generating a digital signature of transaction data.
 
 - [Serialize transaction data](#Serialize-transaction-data)
-  - [Pre-condition](#Pre-condition)
+  - [Precondition](#Precondition)
     - [Allowed types in JSON](#Allowed-types-in-JSON)
   - [Serialize](#Serialize)
     - [String type](#String-type)
@@ -22,12 +22,11 @@ This document describes how to generate a transaction signature. There are two m
 
 # Serialize transaction data
 
-When a user sends a transaction, he needs to sign the data with his own private key.
-Before signing the data, it needs to be serialized as bytes for generating a hash.
+Before signing the data, the data needs to be serialized as bytes.
 This section describes how to serialize the transaction data.
-But it doesn't describe how to make the transaction data itself. It is described in [JSON-RPC API v3](https://github.com/icon-project/icon-rpc-server/blob/master/docs/icon-json-rpc-v3.md) documents.
+This document does not describe how to make the transaction data itself. Transaction message specification is defined in [JSON-RPC API v3](https://github.com/icon-project/icon-rpc-server/blob/master/docs/icon-json-rpc-v3.md).
 
-## Pre-condition
+## Precondition
 
 Transaction data is written in JSON with some restrictions.
 
@@ -206,13 +205,13 @@ The private key of `from` address which was used for generating a transaction da
 
 The first step is making a serialized signature. Using the `secp256k1` library, create recoverable ECDSA signature of a transaction. At this point, transaction hash is used as message data (used for validation of transaction). The result data should be 64 bytes serialized signature (R, S) + 1 byte recovery id (V).  
 
-The final step is encoding serialized signature. Based on Base64, encode serialized signature. 
+The final step is to encode the generated signature as a Base64-encoded string.
 
 ## Example 
 
 Below is the example of creating a signature in python. 
 
-Here is the transaction data. We will create a transaction signature using these data.
+Here is a sample transaction data. We will create a transaction signature using these data.
 
 ```json
 {
@@ -236,7 +235,7 @@ Serialize transaction data.
 icx_sendTransaction.from.hxbe258ceb872e08851f1f59694dac2558708ece11.stepLimit.0x12345.timestamp.0x563a6cf330136.to.cxb0776ee37f5b45bfaea8cff1d8232fbb6122ec32.value.0xde0b6b3a7640000.version.0x3
 ```
 
-Hash the serialized transaction data and create transaction signature.
+Hash the serialized transaction data and create a transaction signature.
 
 ```python
 import base64
@@ -249,7 +248,7 @@ serialized_transaction = "icx_sendTransaction.from.hxbe258ceb872e08851f1f59694da
 # result: b'\xc4\xa3\xa8\xae\xb5uH\x90\\\xfd\x9a1a\x9b\xe0\x05W\xf6\x03\x9a9\xac\xb8\xc5o\xce\x14\xcak\xae\x1f\x08'
 msg_hash = hashlib.sha3_256(serialized_transaction.encode()).digest()
 
-# prepare the private key (this private key is just used for example)
+# prepare the private key (this private key is for example purpose)
 private_key = b'\x870\x91*\xef\xedB\xac\x05\x8f\xd3\xf6\xfdvu8\x11\x04\xd49\xb3\xe1\x1f\x17\x1fTR\xd4\xf9\x19mL'
 
 # create a private key object
@@ -258,7 +257,7 @@ private_key_object = secp256k1.PrivateKey(private_key)
 # create a recoverable ECDSA signature
 recoverable_signature = private_key_object.ecdsa_sign_recoverable(msg_hash, raw=True)
 
-# convert the result from ecdsa_sign_recoverable to a tuple composed of 65 bytes and an integer denominated as recovery id.
+# convert the result from ecdsa_sign_recoverable to a tuple composed of 64 bytes and an integer denominated as recovery id.
 signature, recovery_id = private_key_object.ecdsa_recoverable_serialize(recoverable_signature)
 recoverable_sig = bytes(bytearray(signature) + recovery_id.to_bytes(1, 'big'))
 
