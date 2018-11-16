@@ -22,6 +22,7 @@ Our goal is to Hyperconnect the World, and by combining groundbreaking technolog
 # [Account Management](/docs/wallet.md)
 
 # Client SDK
+Client SDK implements ICON JSON-RPC API v3. Java, Python, and JavaScript libraries are available for your application to interact with Smart Contracts and the ICON network. SDKs and T-Bears CLI provide an ability to generate a signed transaction using given private key. If you use raw JSON-RPC APIs, you need to generate a signature for each transaction, please refer to [Generating transaction signature](/docs/transaction_signature.md) to learn how to sign a transaction. 
   - [CLI (T-Bears)](/docs/tbears_cli.md)
   - [Java SDK](https://github.com/icon-project/icon-sdk-java/blob/master/quickstart/README.md)
   - [Python SDK](https://github.com/icon-project/icon-sdk-python/blob/master/README.md)
