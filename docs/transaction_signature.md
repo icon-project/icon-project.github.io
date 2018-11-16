@@ -208,7 +208,7 @@ The final step is to encode the generated signature as a Base64-encoded string.
 
 Below is the example of creating a signature in python. 
 
-Here is a sample transaction data. We will create a transaction signature using these data.
+Here is a sample transaction request message. We will create a signature for the transaction data.
 
 ```json
 {
