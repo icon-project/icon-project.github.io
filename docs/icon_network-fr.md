@@ -38,7 +38,7 @@ Le réseau Euljiro est exclusivement ouvert pour les développeurs des échanges
 | Frais de transaction | Activé  |
 | Audit de SCORE     | Activé |
 
-Pour recevoir des ICX de test, merci de contacter votre gérant de compte.
+Pour recevoir des ICX de test, merci d'envoyer un email à `testicx@icon.foundation` avec les informations suivantes.
 
 ## Mainnet
 
@@ -72,4 +72,4 @@ Vous pouvez en choisir un prédéfini, ou définir manuellement votre noeud.
 ![](images/iconex-network.png)
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/b876874deb842cd062059f813ad5918d95d16053)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/25c1ad06172e2a58d06da35efbfab85c030d28d2)

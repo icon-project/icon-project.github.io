@@ -27,4 +27,4 @@ Ce tutoriel sera en trois parties. Dans la partie 1, vous vous familiarisez avec
 - TBD
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/b876874deb842cd062059f813ad5918d95d16053)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/25c1ad06172e2a58d06da35efbfab85c030d28d2)
