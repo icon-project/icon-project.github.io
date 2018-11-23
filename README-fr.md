@@ -22,10 +22,13 @@ Notre but est d'hyperconnecter le monde, et en combinant des technologies révol
 # [Gestion du compte](/docs/wallet-fr.md)
 
 # Client SDK
+Le client SDK implémente l'API JSON-RPC v3 d'ICON. Les librairies Java, Python et Javascript sont disponibles pour votre application afin d'intéragir avec les Smart Contracts et le réseau d'ICON. Les SDK et la CLI de T-Bears fournissent la possibilité de générer une transaction signée en utilisant une clé privée donnée. Si vous utilisez des APIs JSON-RPC en dur, vous devez générer une signature pour chaque transaction, veuillez vous référer à [Générer une signature de transaction](/docs/transaction_signature-fr.md) pour apprendre à signer une transaction.
   - [CLI (T-Bears)](/docs/tbears_cli-fr.md)
   - [Java SDK](https://github.com/icon-project/icon-sdk-java/blob/master/quickstart/README.md)
   - [Python SDK](https://github.com/icon-project/icon-sdk-python/blob/master/README.md)
+  - [Javascript SDK](https://github.com/icon-project/icon-sdk-js/blob/master/README.md)
   - [JSON-RPC API v3](https://github.com/icon-project/icon-rpc-server/blob/master/docs/icon-json-rpc-v3.md)
+  - [Générer une signature de transaction](/docs/transaction_signature-fr.md)
 
 # SCORE
   - [Guide de SCORE](https://icon-project.github.io/score-guide)
@@ -41,8 +44,9 @@ Notre but est d'hyperconnecter le monde, et en combinant des technologies révol
     - [Part 2. HelloWorld sur le testnet](/docs/quickstart_p2-fr.md)
   - Exemples de SCOREs
     - [Hello World](https://github.com/icon-project/samples/blob/master/hello_world/README.md)
-    - [Token IRC2](https://github.com/sink772/IRC2-token-standard)
+    - [IRC2 Token](https://github.com/icon-project/samples/blob/master/irc2_token)
+    - [Crowdsale](https://github.com/icon-project/samples/blob/master/crowdsale)
     - [Portefeuille Multisig](https://github.com/icon-project/multisig-wallet)
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/b876874deb842cd062059f813ad5918d95d16053)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/25c1ad06172e2a58d06da35efbfab85c030d28d2)
