@@ -19,6 +19,7 @@ We assume that you have read [this](https://github.com/icon-project/icon-service
 - [Eventlog on Token Transfer](#eventlog-on-token-transfer)
 - [Eventlog without Token Transfer](#eventlog-without-token-transfer)
 - [ICXTransfer Eventlog](#icxtransfer-eventlog)
+- [Big Number Operation](#big-number-operation)
 
 ### Warning
 - [External Function Parameter Check](#external-function-parameter-check)
@@ -184,7 +185,52 @@ ICXTransfer Eventlog is reserved for ICX transfer. Do not implement the Eventlog
 @eventlog(indexed=3)
 def ICXTransfer(self, _from: Address, _to: Address, _value: int):
 ```
+## Big Number Operation
+The result of a numeric operation must be within the range of -2<sup>128</sup> and 2<sup>128</sup>. If the result is out of range, the python interpreter can not perform the operation. To avoid errors, you must ensure that input parameters can cause errors.
+```python
+# Bad (on_install params - decimal value is 1_000_000_000_000_000_000)
+{
+	"contentType": "application/zip",
+	"params": {
+		"initialSupply": "0x2540BE400",
+		"decimals": "DE0B6B3A7640000"
+	}
+}
 
+# Good (on_install params decimal value is 18)
+{
+	"contentType": "application/zip",
+	"params": {
+		"initialSupply": "0x2540BE400",
+		"decimals": "0x12"
+	}
+}
+
+def on_install(self, initialSupply: int, decimals: int) -> None:
+    super().on_install()
+
+    total_supply = initialSupply * 10 ** decimals
+    Logger.debug(f'on_install: total_supply={total_supply}', TAG)
+
+    self._total_supply.set(total_supply)
+    self._decimals.set(decimals)
+    self._balances[self.msg.sender] = total_supply
+```
+
+```python
+# Bad
+@external
+def big_number_op(self, _value: int):
+    self._result = 10 ** _value
+
+# Good
+@external
+def big_number_op(self, _value: int):
+    # check if _value causes the big number operation error
+    if _value > 38:
+        self.revert("_value is too big to operate")
+    self._result = 10 ** _value
+```
 # Warning
 ## External Function Parameter Check
 If a SCORE function is called from EOA with wrong parameter types or without required parameters, ICON service will return an error.
