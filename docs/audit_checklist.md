@@ -188,7 +188,7 @@ def ICXTransfer(self, _from: Address, _to: Address, _value: int):
 ```
 
 ## Big Number Operation
-The result of a numeric operation must be within the range of -2<sup>128</sup> and 2<sup>128</sup>. If the result is out of range, the python interpreter can not perform the operation. To avoid errors, you must ensure that input parameters can cause errors.
+The maximum result of a numeric operation must be less than (2<sup>256</sup> - 1). If the result is bigger than (2<sup>256</sup> - 1), the python interpreter can not perform the operation. To avoid errors, you must ensure that input parameters can cause errors.
 ```python
 # Bad (on_install params - decimal value is 1_000_000_000_000_000_000)
 {
@@ -229,7 +229,7 @@ def big_number_op(self, _value: int) -> None:
 @external
 def big_number_op(self, _value: int) -> None:
     # check if _value causes the big number operation error
-    if _value > 38:
+    if _value > 77:
         self.revert("_value is too big to operate")
     self._result = 10 ** _value
 ```
