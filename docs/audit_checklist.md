@@ -20,6 +20,7 @@ We assume that you have read [this](https://github.com/icon-project/icon-service
 - [Eventlog without Token Transfer](#eventlog-without-token-transfer)
 - [ICXTransfer Eventlog](#icxtransfer-eventlog)
 - [Big Number Operation](#big-number-operation)
+- [Instance Variable](#instance-variable)
 
 ### Warning
 - [External Function Parameter Check](#external-function-parameter-check)
@@ -185,6 +186,7 @@ ICXTransfer Eventlog is reserved for ICX transfer. Do not implement the Eventlog
 @eventlog(indexed=3)
 def ICXTransfer(self, _from: Address, _to: Address, _value: int):
 ```
+
 ## Big Number Operation
 The result of a numeric operation must be within the range of -2<sup>128</sup> and 2<sup>128</sup>. If the result is out of range, the python interpreter can not perform the operation. To avoid errors, you must ensure that input parameters can cause errors.
 ```python
@@ -220,17 +222,48 @@ def on_install(self, initialSupply: int, decimals: int) -> None:
 ```python
 # Bad
 @external
-def big_number_op(self, _value: int):
+def big_number_op(self, _value: int) -> None:
     self._result = 10 ** _value
 
 # Good
 @external
-def big_number_op(self, _value: int):
+def big_number_op(self, _value: int) -> None:
     # check if _value causes the big number operation error
     if _value > 38:
         self.revert("_value is too big to operate")
     self._result = 10 ** _value
 ```
+
+## Instance Variable
+On each node, the SCORE instance can be loaded/unloaded at any time. Therefore, if you use instance variables that are not stored in StateDB in several functions, you may see different results for each node.
+
+```python
+# Bad
+def __init__(self, db: IconScoreDatabase) -> None:
+    super().__init__(db)
+
+@external
+def update_organizer(self, _organizer:Address) -> None:
+    self._organizer = _organizer
+
+@external
+def get_organizer(self) -> Address:
+    return self._organizer
+
+# Good
+def __init__(self, db: IconScoreDatabase) -> None:
+    super().__init__(db)
+    self._organizer = VarDB(self._ORGANIZER, db, value_type=Address)
+
+@external
+def update_organizer(self, _organizer:Address) -> None:
+    self._organizer = _organizer
+
+@external
+def get_organizer(self) -> Address:
+    return self._organizer
+```
+
 # Warning
 ## External Function Parameter Check
 If a SCORE function is called from EOA with wrong parameter types or without required parameters, ICON service will return an error.
