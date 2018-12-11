@@ -41,6 +41,9 @@ Euljiro network is exclusively open to the exchange developers.
 | SCORE audit     | on  |
 
 To receive test ICX, please send email to `testicx@icon.foundation` with following information.
+- Testnet node url
+- Address to receive the testnet ICX. Address should start with `hx` followed by 20 byte string.
+
 
 
 ## Mainnet
