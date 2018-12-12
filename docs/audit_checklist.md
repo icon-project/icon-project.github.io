@@ -257,7 +257,7 @@ def __init__(self, db: IconScoreDatabase) -> None:
 
 @external
 def update_organizer(self, _organizer:Address) -> None:
-    self._organizer = _organizer
+    self._organizer.set(_organizer) 
 
 @external
 def get_organizer(self) -> Address:
