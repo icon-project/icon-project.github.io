@@ -235,7 +235,7 @@ def big_number_op(self, _value: int) -> None:
 ```
 
 ## Instance Variable
-On each node, the SCORE instance can be loaded/unloaded at any time. Therefore, if you use instance variables that are not stored in StateDB in several functions, you may see different results for each node.
+On each node, the SCORE instance can be loaded/unloaded at any time. Therefore, if you use instance variables that are not stored in StateDB, you may have different result on each node.
 
 ```python
 # Bad
