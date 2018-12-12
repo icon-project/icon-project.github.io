@@ -261,7 +261,7 @@ def update_organizer(self, _organizer:Address) -> None:
 
 @external
 def get_organizer(self) -> Address:
-    return self._organizer
+    return self._organizer.get()
 ```
 
 # Warning
