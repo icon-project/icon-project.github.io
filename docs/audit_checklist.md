@@ -188,7 +188,7 @@ def ICXTransfer(self, _from: Address, _to: Address, _value: int):
 ```
 
 ## Big Number Operation
-The maximum result of a numeric operation must be less than (2<sup>256</sup> - 1). If the result is bigger than (2<sup>256</sup> - 1), the python interpreter can not perform the operation. To avoid errors, you must ensure that input parameters can cause errors.
+The maximum result of a numeric operation must be less than (2<sup>256</sup> - 1). If the result is bigger than (2<sup>256</sup> - 1), the python interpreter can not perform the operation. To avoid errors, you must understand that input parameters may cause errors, and validate if the number is within the range.
 ```python
 # Bad (on_install params - decimal value is 1_000_000_000_000_000_000)
 {
