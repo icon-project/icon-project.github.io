@@ -256,7 +256,7 @@ def __init__(self, db: IconScoreDatabase) -> None:
     self._organizer = VarDB(self._ORGANIZER, db, value_type=Address)
 
 @external
-def update_organizer(self, _organizer:Address) -> None:
+def update_organizer(self, _organizer: Address) -> None:
     self._organizer.set(_organizer) 
 
 @external
