@@ -243,7 +243,7 @@ def __init__(self, db: IconScoreDatabase) -> None:
     super().__init__(db)
 
 @external
-def update_organizer(self, _organizer:Address) -> None:
+def update_organizer(self, _organizer: Address) -> None:
     self._organizer = _organizer
 
 @external
