@@ -19,6 +19,8 @@ We assume that you have read [this](https://github.com/icon-project/icon-service
 - [Eventlog on Token Transfer](#eventlog-on-token-transfer)
 - [Eventlog without Token Transfer](#eventlog-without-token-transfer)
 - [ICXTransfer Eventlog](#icxtransfer-eventlog)
+- [Big Number Operation](#big-number-operation)
+- [Instance Variable](#instance-variable)
 
 ### Warning
 - [External Function Parameter Check](#external-function-parameter-check)
@@ -183,6 +185,83 @@ ICXTransfer Eventlog is reserved for ICX transfer. Do not implement the Eventlog
 # Bad
 @eventlog(indexed=3)
 def ICXTransfer(self, _from: Address, _to: Address, _value: int):
+```
+
+## Big Number Operation
+The maximum result of a numeric operation must be less than (2<sup>256</sup> - 1). If the result is bigger than (2<sup>256</sup> - 1), the python interpreter can not perform the operation. To avoid errors, you must understand that input parameters may cause errors, and validate if the number is within the range.
+```python
+# Bad (on_install params - decimal value is 1_000_000_000_000_000_000)
+{
+	"contentType": "application/zip",
+	"params": {
+		"initialSupply": "0x2540be400",
+		"decimals": "0xde0b6b3a7640000"
+	}
+}
+
+# Good (on_install params decimal value is 18)
+{
+	"contentType": "application/zip",
+	"params": {
+		"initialSupply": "0x2540be400",
+		"decimals": "0x12"
+	}
+}
+
+def on_install(self, initialSupply: int, decimals: int) -> None:
+    super().on_install()
+
+    total_supply = initialSupply * 10 ** decimals
+    Logger.debug(f'on_install: total_supply={total_supply}', TAG)
+
+    self._total_supply.set(total_supply)
+    self._decimals.set(decimals)
+    self._balances[self.msg.sender] = total_supply
+```
+
+```python
+# Bad
+@external
+def big_number_op(self, _value: int) -> None:
+    self._result = 10 ** _value
+
+# Good
+@external
+def big_number_op(self, _value: int) -> None:
+    # check if _value causes the big number operation error
+    if _value > 77:
+        self.revert("_value is too big to operate")
+    self._result = 10 ** _value
+```
+
+## Instance Variable
+On each node, the SCORE instance can be loaded/unloaded at any time. Therefore, if you use instance variables that are not stored in StateDB, you may have different result on each node.
+
+```python
+# Bad
+def __init__(self, db: IconScoreDatabase) -> None:
+    super().__init__(db)
+
+@external
+def update_organizer(self, _organizer: Address) -> None:
+    self._organizer = _organizer
+
+@external
+def get_organizer(self) -> Address:
+    return self._organizer
+
+# Good
+def __init__(self, db: IconScoreDatabase) -> None:
+    super().__init__(db)
+    self._organizer = VarDB(self._ORGANIZER, db, value_type=Address)
+
+@external
+def update_organizer(self, _organizer: Address) -> None:
+    self._organizer.set(_organizer) 
+
+@external
+def get_organizer(self) -> Address:
+    return self._organizer.get()
 ```
 
 # Warning
