@@ -194,7 +194,7 @@ The maximum result of a numeric operation must be less than (2<sup>256</sup> - 1
 {
 	"contentType": "application/zip",
 	"params": {
-		"initialSupply": "0x2540BE400",
+		"initialSupply": "0x2540be400",
 		"decimals": "0xde0b6b3a7640000"
 	}
 }
