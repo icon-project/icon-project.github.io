@@ -9,7 +9,7 @@ Our goal is to Hyperconnect the World, and by combining groundbreaking technolog
 # Network Overview
   - LFT
   - [Transaction Fees](/docs/step.md) - \[[download yellow paper](https://icon.foundation/resources/file/ICON_Yellowpaper_Transactionfee_EN_V1.0.pdf)\]
-  - IISS - \[download yellow paper\]
+  - IISS - \[[download yellow paper](https://icon.foundation/resources/file/ICON_Yellowpaper_ICON_Incentives_Scoring_System_EN_V1.0.pdf)\]
   - BTP
   - Governance - \[[download yellow paper](https://icon.foundation/resources/file/ICON_Yellowpaper_ICONstitution_and_Governance_EN_V1.0.pdf)\]
 
