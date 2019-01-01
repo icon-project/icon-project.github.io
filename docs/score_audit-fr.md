@@ -30,4 +30,4 @@ Pour passer un audit d'ICON, nous vous recommandons de procéder à la liste sui
 Ce processus d'audit devrait être temporaire puisque le réseau d'ICON courant n'en est encore qu'à ses balbutiements en tant que réseau public. Nous confirmons que nous n'avons pas l'intention d'avoir un contrôle sur les DApps. Notre première priorité est de maintenir le réseau d'ICON aussi stable que possible, et de minimiser tout impact négatif, s'il y en a, de nos partenaires qui se servent d'ICON.
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/25c1ad06172e2a58d06da35efbfab85c030d28d2)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/bdca96e297edfcd204b8d44aae32ecc52a27a932)

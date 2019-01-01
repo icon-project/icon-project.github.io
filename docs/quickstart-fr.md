@@ -4,7 +4,7 @@ L'audience visée de ce tutoriel est composée de développeurs qui découvrent 
 
 Ce tutoriel sera en trois parties. Dans la partie 1, vous vous familiarisez avec les outils de développement et avec l'environnement de test local. Vous écrirez un SCORE simple, et l'exécuterez sur votre PC. Dans la partie 2, vous apprendrez comment déployer un SCORE sur le testnet, et écrirez un code de client en Python pour interagir avec. La partie 3 expliquera comment installer votre propre environnement de développement sur AWS.
 
-#### Partie 1. [HelloWorld sur un environnement émulé local](quickstart_p1-fr.md)
+#### Partie 1. [HelloWorld sur un environnement émulé local](https://icon-project.github.io/docs/quickstart_p1-fr.html)
 
 - Installer T-Bears (Docker)
 - Compte de test
@@ -12,7 +12,7 @@ Ce tutoriel sera en trois parties. Dans la partie 1, vous vous familiarisez avec
 - Créer un contrat HelloWorld et le déployer
 - Modifier le contrat HelloWorld pour qu'il vous réponde
 
-#### Partie 2. [HelloWorld sur le testnet](quickstart_p2-fr.md)
+#### Partie 2. [HelloWorld sur le testnet](https://icon-project.github.io/docs/quickstart_p2-fr.html)
 
 - Configurer ICONex pour se connecter au testnet
 - Créez un compte dans ICONex
@@ -27,4 +27,4 @@ Ce tutoriel sera en trois parties. Dans la partie 1, vous vous familiarisez avec
 - TBD
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/25c1ad06172e2a58d06da35efbfab85c030d28d2)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/bdca96e297edfcd204b8d44aae32ecc52a27a932)
