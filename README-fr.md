@@ -9,7 +9,7 @@ Notre but est d'hyperconnecter le monde, et en combinant des technologies révol
 # Aperçu du réseau
   - LFT
   - [Frais de transaction](/docs/step-fr.md) - \[[Télécharger le papier jaune](https://icon.foundation/resources/file/ICON_Yellowpaper_Transactionfee_EN_V1.0.pdf)\]
-  - IISS - \[Télécharger le papier jaune\]
+  - IISS - \[[Télécharger le papier jaune](https://icon.foundation/resources/file/ICON_Yellowpaper_ICON_Incentives_Scoring_System_EN_V1.0.pdf)\]
   - BTP
   - Gouvernance - \[[Télécharger le papier jaune](https://icon.foundation/resources/file/ICON_Yellowpaper_ICONstitution_and_Governance_EN_V1.0.pdf)\]
 
@@ -49,4 +49,4 @@ Le client SDK implémente l'API JSON-RPC v3 d'ICON. Les librairies Java, Python 
     - [Portefeuille Multisig](https://github.com/icon-project/multisig-wallet)
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/25c1ad06172e2a58d06da35efbfab85c030d28d2)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/bdca96e297edfcd204b8d44aae32ecc52a27a932)

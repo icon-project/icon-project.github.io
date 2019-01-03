@@ -20,6 +20,8 @@ Nous supposerons que vous avez lu [ceci](https://github.com/icon-project/icon-se
 - [Eventlog lors d'un Transfert de Token](#eventlog-on-token-transfer)
 - [Eventlog sans Transfert de Token](#eventlog-without-token-transfer)
 - [Eventlog ICXTransfer](#icxtransfer-eventlog)
+- [Opération sur grand nombre](#big-number-operation)
+- [Variable d'instance](#instance-variable)
 
 ### Avertissement
 - [Vérification de Paramètre de Fonction Externe](#external-function-parameter-check)
@@ -186,6 +188,84 @@ L'Eventlog "ICXTransfer" est réservé pour des transferts d'ICX. N'implémentez
 # Mauvais
 @eventlog(indexed=3)
 def ICXTransfer(self, _from: Address, _to: Address, _value: int):
+```
+
+## Opération sur grand nombre
+Le résultat maximum d'une opération numérique doit être inférieure à (2<sup>256</sup> - 1). Si le résultat est supérieur à (2<sup>256</sup> - 1), l'interprêteur Python ne pourra pas effectuer l'opération. Pour éviter ces erreurs, vous devez prendre en compte que les paramètres d'entrées peuvent causer des erreurs, ainsi il faut valider si le nombre est inclus dans cette limite.
+
+```python
+# Mauvais (le paramètre "decimals" de on_install est 1_000_000_000_000_000_000)
+{
+    "contentType": "application/zip",
+    "params": {
+        "initialSupply": "0x2540be400",
+        "decimals": "0xde0b6b3a7640000"
+    }
+}
+
+# Bien (le paramètre "decimals" de on_install est 18)
+{
+    "contentType": "application/zip",
+    "params": {
+        "initialSupply": "0x2540be400",
+        "decimals": "0x12"
+    }
+}
+
+def on_install(self, initialSupply: int, decimals: int) -> None:
+    super().on_install()
+
+    total_supply = initialSupply * 10 ** decimals
+    Logger.debug(f'on_install: total_supply={total_supply}', TAG)
+
+    self._total_supply.set(total_supply)
+    self._decimals.set(decimals)
+    self._balances[self.msg.sender] = total_supply
+```
+
+```python
+# Mauvais
+@external
+def big_number_op(self, _value: int) -> None:
+    self._result = 10 ** _value
+
+# Bien
+@external
+def big_number_op(self, _value: int) -> None:
+    # Vérifier si _value peut causer une opération de nombre trop grand
+    if _value > 77:
+        self.revert("_value is too big to operate")
+    self._result = 10 ** _value
+```
+
+## Variable d'instance
+Sur chaque nœud, l'instance d'un SCORE peut être chargée/déchargée à tout moment. Ainsi, si vous utilisez des instances de variables qui ne sont pas stockées dans une StateDB, vous aurez des résultats différents sur chaque nœud.
+
+```python
+# Mauvais
+def __init__(self, db: IconScoreDatabase) -> None:
+    super().__init__(db)
+
+@external
+def update_organizer(self, _organizer: Address) -> None:
+    self._organizer = _organizer
+
+@external
+def get_organizer(self) -> Address:
+    return self._organizer
+
+# Bien
+def __init__(self, db: IconScoreDatabase) -> None:
+    super().__init__(db)
+    self._organizer = VarDB(self._ORGANIZER, db, value_type=Address)
+
+@external
+def update_organizer(self, _organizer: Address) -> None:
+    self._organizer.set(_organizer) 
+
+@external
+def get_organizer(self) -> Address:
+    return self._organizer.get()
 ```
 
 # Avertissement
@@ -369,4 +449,4 @@ def refund(self, _to:Address, _amount:int):
 
 
 ---
-[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/25c1ad06172e2a58d06da35efbfab85c030d28d2)
+[Document de référence](https://github.com/icon-project/icon-project.github.io/tree/bdca96e297edfcd204b8d44aae32ecc52a27a932)
