@@ -22,6 +22,8 @@ We assume that you have read [this](https://github.com/icon-project/icon-service
 - [Super Class](#super-class)
 - [Big Number Operation](#big-number-operation)
 - [Instance Variable](#instance-variable)
+- [Readonly Variable](#readonly-variable)
+- [Temporary Limitation](#temporary-limitation)
 
 ### Warning
 - [External Function Parameter Check](#external-function-parameter-check)
@@ -295,9 +297,18 @@ def get_organizer(self) -> Address:
     return self._organizer.get()
 ```
 
-In addition, there are two temporary limitations on use of variables in the current ICON network. 
+## Readonly Variable
+Write operations to the db variable are prohibited within the \_\_init\_\_() function.
+```python
+# Bad
+def __init__(self, db: IconScoreDatabase) -> None:
+    super().__init__(db)
+    db = IconScoreDatabase(my_address, my_context_db)    
+```
 
-First is how to use ArrayDB among the state DB managed by the ICON network. It is originally declared in the \_\_init\_\_() function as shown [SCORE Guide](https://icon-project.github.io/score-guide/writing-score.html#init). However due to a known issue in the ICON network, it must be initailized and used whenever it is accessed. 
+## Temporary Limitation
+In addition, there is temporary limitation on use of variables in the current ICON network. 
+It is how to use ArrayDB among the state DB managed by the ICON network. It is originally declared in the \_\_init\_\_() function as shown [SCORE Guide](https://icon-project.github.io/score-guide/writing-score.html#init). However due to a known issue in the ICON network, it must be initailized and used whenever it is accessed. 
 
 ``` python
 # Bad (Original Usage)
@@ -321,15 +332,6 @@ def __init__(self, db: IconScoreDatabase) -> None:
 def func(self) -> None:
     self.test_array.put(0)
 ```
-
-Secondly, write operations to the db variable are prohibited within the \_\_init\_\_() function.
-```python
-# Bad
-def __init__(self, db: IconScoreDatabase) -> None:
-    super().__init__(db)
-    db = IconScoreDatabase(my_address, my_context_db)    
-```
-
 
 # Warning
 ## External Function Parameter Check
