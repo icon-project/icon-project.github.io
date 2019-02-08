@@ -22,7 +22,7 @@ We assume that you have read [this](https://github.com/icon-project/icon-service
 - [Super Class](#super-class)
 - [Big Number Operation](#big-number-operation)
 - [Instance Variable](#instance-variable)
-- [Readonly Variable](#readonly-variable)
+- [StateDB write operation](#statedb-write-operation)
 - [Temporary Limitation](#temporary-limitation)
 
 ### Warning
@@ -297,13 +297,15 @@ def get_organizer(self) -> Address:
     return self._organizer.get()
 ```
 
-## Readonly Variable
-Write operations to the db variable are prohibited within the \_\_init\_\_() function.
+## StateDB write operation
+The StateDB write operation in the \_\_init\_\_() function is prohibited. 
+
 ```python
 # Bad
 def __init__(self, db: IconScoreDatabase) -> None:
     super().__init__(db)
-    db = IconScoreDatabase(my_address, my_context_db)    
+    self._total_supply = VarDB(self._TOTAL_SUPPLY, db, value_type=int)
+    self._total_supply.set(10000000)
 ```
 
 ## Temporary Limitation
