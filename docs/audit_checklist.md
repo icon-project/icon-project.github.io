@@ -298,7 +298,7 @@ def get_organizer(self) -> Address:
 ```
 
 ## StateDB write operation
-The StateDB write operation in the \_\_init\_\_() function is prohibited. 
+StateDB write operations inside of \_\_init\_\_() function is prohibited. Updating state DB in \_\_init\_\_() may cause unexpected behavior.
 
 ```python
 # Bad
@@ -309,11 +309,10 @@ def __init__(self, db: IconScoreDatabase) -> None:
 ```
 
 ## Temporary Limitation
-In addition, there is temporary limitation on use of variables in the current ICON network. 
-It is how to use ArrayDB among the state DB managed by the ICON network. It is originally declared in the \_\_init\_\_() function as shown [SCORE Guide](https://icon-project.github.io/score-guide/writing-score.html#init). However due to a known issue in the ICON network, it must be initailized and used whenever it is accessed. 
+Due to the known issue of ArrayDB, declairing ArrayDB as a class member variable in \_\_init\_\_() may not work as intended. Following workaround is needed. ArrayDB instance must be initailized everytime it is used.  
 
 ``` python
-# Bad (Original Usage)
+# Problemetic (Original Usage)
 def __init__(self, db: IconScoreDatabase) -> None:
     super().__init__(db)
     self.test_array = ArrayDB('test_array', db, value_type=int)  
