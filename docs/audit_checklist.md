@@ -19,15 +19,17 @@ We assume that you have read [this](https://github.com/icon-project/icon-service
 - [Eventlog on Token Transfer](#eventlog-on-token-transfer)
 - [Eventlog without Token Transfer](#eventlog-without-token-transfer)
 - [ICXTransfer Eventlog](#icxtransfer-eventlog)
+- [Super Class](#super-class)
 - [Big Number Operation](#big-number-operation)
 - [Instance Variable](#instance-variable)
+- [StateDB write operation](#statedb-write-operation)
+- [Temporary Limitation](#temporary-limitation)
 
 ### Warning
 - [External Function Parameter Check](#external-function-parameter-check)
 - [Internal Function Parameter Check](#internal-function-parameter-check)
 - [Predictable arbitrarity](#predictable-arbitrarity)
 - [Unchecked Low Level Calls](#unchecked-low-level-calls)
-- [Super Class](#super-class)
 - [Underflow/Overflow](#underflowoverflow)
 - [Vault](#vault)
 - [Reentrancy](#reentrancy)
@@ -187,6 +189,37 @@ ICXTransfer Eventlog is reserved for ICX transfer. Do not implement the Eventlog
 def ICXTransfer(self, _from: Address, _to: Address, _value: int):
 ```
 
+## Super Class
+In your SCORE main class that inherits IconScoreBase, you must call super().\_\_init\_\_() in the \_\_init\_\_() function to initialize the state DB. Likewise, super().on_install() must be called in on_install() function and super().on_update() must be called in on_update() function.
+```python
+# Bad
+class MyClass(IconScoreBase):
+    def __init__(self, db: IconScoreDatabase) -> None:
+        self._context__name = VarDB('context.name', db, str)
+        self._context__cap = VarDB('context.cap', db, int)
+
+    def on_install(self, name: str, cap: str) -> None:
+        # doSomething
+
+    def on_update(self) -> None:
+        # doSomething
+
+# Good
+class MyClass(IconScoreBase):
+    def __init__(self, db: IconScoreDatabase) -> None:
+        super().__init__(db)
+        self._context__name = VarDB('context.name', db, str)
+        self._context__cap = VarDB('context.cap', db, int)
+
+    def on_install(self, name: str, cap: str) -> None:
+        super().on_install()
+        # doSomething
+
+    def on_update(self) -> None:
+        super().on_update()
+        # doSomething
+```
+
 ## Big Number Operation
 The maximum result of a numeric operation must be less than (2<sup>256</sup> - 1). If the result is bigger than (2<sup>256</sup> - 1), the python interpreter can not perform the operation. To avoid errors, you must understand that input parameters may cause errors, and validate if the number is within the range.
 ```python
@@ -264,6 +297,43 @@ def get_organizer(self) -> Address:
     return self._organizer.get()
 ```
 
+## StateDB write operation
+StateDB write operations inside of \_\_init\_\_() function is prohibited. Updating state DB in \_\_init\_\_() may cause unexpected behavior.
+
+```python
+# Bad
+def __init__(self, db: IconScoreDatabase) -> None:
+    super().__init__(db)
+    self._total_supply = VarDB(self._TOTAL_SUPPLY, db, value_type=int)
+    self._total_supply.set(10000000)
+```
+
+## Temporary Limitation
+Due to the known issue of ArrayDB, declairing ArrayDB as a class member variable in \_\_init\_\_() may not work as intended. Following workaround is needed. ArrayDB instance must be initailized everytime it is used.  
+
+``` python
+# Problemetic (Original Usage)
+def __init__(self, db: IconScoreDatabase) -> None:
+    super().__init__(db)
+    self.test_array = ArrayDB('test_array', db, value_type=int)  
+
+def func(self) -> None:
+    self.test_array.put(0)
+
+
+# Good (Temporary)
+@property
+def test_array(self) -> ArrayDB:
+    return ArrayDB('test_array', db, value_type=int)  
+
+def __init__(self, db: IconScoreDatabase) -> None:
+    super().__init__(db)
+    # no declaration
+    
+def func(self) -> None:
+    self.test_array.put(0)
+```
+
 # Warning
 ## External Function Parameter Check
 If a SCORE function is called from EOA with wrong parameter types or without required parameters, ICON service will return an error.
@@ -312,37 +382,6 @@ if not self.icx.send(_to, amount):
 # Good
 self._refund_icx_amount[_to] += amount
 self.icx.transfer(_to, amount)
-```
-
-## Super Class
-In your SCORE main class that inherits IconScoreBase, you must call super().\_\_init\_\_() in the \_\_init\_\_() function to initialize the state DB. Likewise, super().on_install() must be called in on_install() function and super().on_update() must be called in on_update() function.
-```python
-# Bad
-class MyClass(IconScoreBase):
-    def __init__(self, db: IconScoreDatabase) -> None:
-        self._context__name = VarDB('context.name', db, str)
-        self._context__cap = VarDB('context.cap', db, int)
-
-    def on_install(self, name: str, cap: str) -> None:
-        # doSomething
-
-    def on_update(self) -> None:
-        # doSomething
-
-# Good
-class MyClass(IconScoreBase):
-    def __init__(self, db: IconScoreDatabase) -> None:
-        super().__init__(db)
-        self._context__name = VarDB('context.name', db, str)
-        self._context__cap = VarDB('context.cap', db, int)
-
-    def on_install(self, name: str, cap: str) -> None:
-        super().on_install()
-        # doSomething
-
-    def on_update(self) -> None:
-        super().on_update()
-        # doSomething
 ```
 
 ## Underflow/Overflow
