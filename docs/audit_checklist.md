@@ -290,7 +290,7 @@ def __init__(self, db: IconScoreDatabase) -> None:
 
 @external
 def update_organizer(self, _organizer: Address) -> None:
-    self._organizer.set(_organizer) 
+    self._organizer.set(_organizer)
 
 @external
 def get_organizer(self) -> Address:
@@ -309,13 +309,13 @@ def __init__(self, db: IconScoreDatabase) -> None:
 ```
 
 ## Temporary Limitation
-Due to the known issue of ArrayDB, declaring ArrayDB as a class member variable in \_\_init\_\_() may not work as intended. Following workaround is needed. ArrayDB instance must be initialized everytime it is used.  
+Due to the known issue of ArrayDB, declaring ArrayDB as a class member variable in \_\_init\_\_() may not work as intended. Following workaround is needed. ArrayDB instance must be initialized everytime it is used.
 
 ``` python
 # Problematic (Original Usage)
 def __init__(self, db: IconScoreDatabase) -> None:
     super().__init__(db)
-    self.test_array = ArrayDB('test_array', db, value_type=int)  
+    self.test_array = ArrayDB('test_array', db, value_type=int)
 
 def func(self) -> None:
     self.test_array.put(0)
@@ -324,12 +324,12 @@ def func(self) -> None:
 # Good (Temporary)
 @property
 def test_array(self) -> ArrayDB:
-    return ArrayDB('test_array', db, value_type=int)  
+    return ArrayDB('test_array', db, value_type=int)
 
 def __init__(self, db: IconScoreDatabase) -> None:
     super().__init__(db)
     # no declaration
-    
+
 def func(self) -> None:
     self.test_array.put(0)
 ```
@@ -399,7 +399,7 @@ def mint_token(self, _amount: int):
 
     self.Transfer(EOA_ZERO, self.owner, _amount, b'mint')
 
-# Good  
+# Good
 @external
 def mint_token(self, _amount: int):
     if not self.msg.sender == self.owner:
