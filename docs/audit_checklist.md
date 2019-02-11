@@ -309,10 +309,10 @@ def __init__(self, db: IconScoreDatabase) -> None:
 ```
 
 ## Temporary Limitation
-Due to the known issue of ArrayDB, declairing ArrayDB as a class member variable in \_\_init\_\_() may not work as intended. Following workaround is needed. ArrayDB instance must be initailized everytime it is used.  
+Due to the known issue of ArrayDB, declaring ArrayDB as a class member variable in \_\_init\_\_() may not work as intended. Following workaround is needed. ArrayDB instance must be initialized everytime it is used.  
 
 ``` python
-# Problemetic (Original Usage)
+# Problematic (Original Usage)
 def __init__(self, db: IconScoreDatabase) -> None:
     super().__init__(db)
     self.test_array = ArrayDB('test_array', db, value_type=int)  
